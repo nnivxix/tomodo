@@ -12,7 +12,7 @@
       <label for="time" class=" text-m-form-label">When will you do that?</label>
       <Field
         class="px-4 text-m-sub-1 bg-gray-50  border-l-transparent border-r-transparent border-t-transparent border-gray-500 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2"
-        name="time" type="date" />
+        name="time" type="time" />
         <hr class="text-dark-one">
       <ErrorMessage name="time" class="text-red-500 font-light" />
       <br>
@@ -31,7 +31,6 @@
       </field>
       <ErrorMessage name="priority" class="text-red-500 font-light" />
       <br>
-
       <div class="w-full flex justify-center fixed bottom-6 " as="button">
       <button  class=" p-5 bg-[#032836] text-center text-white rounded-lg">Add Task</button>
     </div>
@@ -40,17 +39,20 @@
 </template>
 
 <script setup lang="ts">
+
 import TitleApp from './TitleApp.vue';
 import { Field, Form, ErrorMessage } from 'vee-validate';
+import  { addTodoSubmit }  from '../helper/indexdb'
 import * as yup from 'yup';
+
 
 let schemaYup = yup.object({
   todo : yup.string().required().min(3),
   time : yup.string().required()
 }) 
 
-function submit(v:any) {
-  console.log(v) // v => set to localStorage
-  
+function submit (value: any, {resetForm}: any) {
+  addTodoSubmit(value)
+  resetForm()
 }
 </script>
