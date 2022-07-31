@@ -10,6 +10,9 @@ const store = createStore({
   mutations: {
     getAllTodo(state, n){
       state.todos.push(n)
+    },
+    doneTodo(state, n) {
+      
     }
   },
   actions: {

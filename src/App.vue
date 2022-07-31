@@ -18,13 +18,6 @@ const showModal = ref(false);
     <TitleApp />
     <TheInformation />
     <ItemTodo />
-    <ItemTodo />
-    <ItemTodo />
-    <ItemTodo />
-    <ItemTodo />
-    <ItemTodo />
-    <ItemTodo />
-    <ItemTodo />
     <vue-final-modal v-model="showModal"
       :overlay-style="{
         'backgroundColor': 'white'

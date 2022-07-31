@@ -1,34 +1,56 @@
 import { openDB } from "idb";
+import { nanoid } from "nanoid";
 import store from '../store'
 
-async function todo() {
-  const db = await openDB('Todos', 1, {
-    upgrade(db) {
-      const store = db.createObjectStore('todos', {
-        keyPath: 'id'
-      });
+const dbPromised = openDB('Todos', 1, {
+  upgrade(db) {
+    db.createObjectStore('todos', {
+      keyPath: 'id'
+    }).createIndex('id', 'id');
+  }
+})
 
-      store.createIndex('id', 'id');
-    },
-  }); 
-
-  // Add an article:
-  // await db.add('articles', {
-  //   title: 'Article 1',
-  //   date: new Date('2019-01-01'),
-  //   body: '…',
-  // });
-
-  
-  //get all todo
-  console.log(await db.getAllFromIndex('todos', 'id'));
-
-  // inser db into vuex 
-  const datas = await db.getAllFromIndex('todos', 'id');
-  datas.forEach(data => {
-    store.commit('getAllTodo', data)
-  });
-  
+export function addTodo(value: any){
+  dbPromised.then((db) => {
+    let tx = db.transaction('todos', 'readwrite');
+    let store = tx.objectStore('todos')
+    store.add({
+      id: nanoid(6),
+      todo: value.todo,
+      time: value.time,
+      priority: value.priority,
+      done: false
+    })
+  })
 }
 
-todo()
+
+// addTodo() simulate add todo
+// addTodo()
+
+export function getAllTodo(){
+  return new Promise<void>((resolve, reject) => {
+    dbPromised
+    .then(db => {
+      let tx = db.transaction('todos', 'readonly')
+      let store = tx.objectStore('todos')
+      return store.getAll()
+    })
+    .then((todo: any) => {
+      if(!todo.length){
+        reject('Tidak ada Todo, Silakan buat dahulu')
+      } else{
+        resolve(todo)
+      }
+    })
+  })
+}
+
+getAllTodo().then((data : any) => {
+  console.log(data)
+  data.forEach((d: any) => {
+      store.commit('getAllTodo', d)
+    });
+}).catch(e => {
+  console.log(e)
+})
