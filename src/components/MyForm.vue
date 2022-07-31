@@ -42,7 +42,7 @@
 
 import TitleApp from './TitleApp.vue';
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import  { addTodoSubmit }  from '../helper/indexdb'
+// import  { addTodoSubmit }  from '../helper/indexdb'
 import * as yup from 'yup';
 
 
@@ -51,8 +51,11 @@ let schemaYup = yup.object({
   time : yup.string().required()
 }) 
 
-function submit (value: any, {resetForm}: any) {
-  addTodoSubmit(value)
+function submit ({ resetForm} : any){
   resetForm()
 }
+// function submit (value: any, {resetForm}: any) {
+//   addTodoSubmit(value)
+//   resetForm()
+// }
 </script>

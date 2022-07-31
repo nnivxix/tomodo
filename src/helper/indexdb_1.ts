@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-
+import { mapMutations } from 'vuex'
 
 let db: { createObjectStore: (arg0: string, arg1: { autoIncrement: boolean; }) => any; };
 let dbReq = indexedDB.open('mytodos', 1);
@@ -26,7 +26,6 @@ export function addTodo( db: any , value: any, id: string) {
   let tx = db.transaction(['todos'], 'readwrite');
   let store = tx.objectStore('todos');
 
-  // Put the sticky note into the object store
   let todo = {
     id: id,
     todo: value.todo,
@@ -36,15 +35,54 @@ export function addTodo( db: any , value: any, id: string) {
 
   store.add(todo);
 
-  // Wait for the database transaction to complete
-  tx.oncomplete = function() { console.log('stored todo!') }
+  tx.oncomplete = function() { getAnddisplayTodos(db); }
   tx.onerror = function(event: any) {
     alert('error storing note ' + event.target.errorCode);
   }
 }
 
+let retAllTodos :any[] = []
+
+function getAnddisplayTodos(db: any) {
+  let request = db.transaction(['todos'], 'readonly')
+      .objectStore('todos')
+      .getAll();
+  // let temp = []
+  // console.log(temp)
+  request.onsuccess = ()=> {
+  const todos = request.result;
+
+  console.log('Got all the students');
+  console.table(todos)
+
+  return todos;
+  console.log(getTodo(todos));
+
+
+}
+
+request.onerror = (err)=> {
+console.error(`Error to get all students: ${err}`)
+}
+}
+
+// console.log(getAnddisplayTodos(db))
+dbReq.onsuccess = function(event: any) {
+  db = event.target.result;
+  // Once the database is ready, display the notes we already have!
+  getAnddisplayTodos(db);
+}
+
+
 export function addTodoSubmit(value:any) {
   console.log(value) // v => set to localStorage
     addTodo(db, value, nanoid(7))
 }
-export default  dbReq;
+
+console.log(getTodo(db))
+function getTodo(todos: any){
+  return todos;
+}
+
+console.log(dbReq)
+export default  {dbReq, retAllTodos};

@@ -1,7 +1,13 @@
 import { createApp } from 'vue'
-import './helper/indexdb';
+
+import './helper/database'
 import './style.css'
 import './index.css'
 import App from './App.vue'
+import store from './store'
 
-createApp(App).mount('#app')
+// getAllTodo();
+
+const app = createApp(App)
+app.use(store)
+app.mount('#app')
