@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 
 import TitleApp from './TitleApp.vue';
 import { Field, Form, ErrorMessage } from 'vee-validate';
@@ -51,7 +51,7 @@ let schemaYup = yup.object({
   time : yup.string().required()
 }) 
 
-function submit (value: any, { resetForm } : any){
+function submit (value, { resetForm }){
   addTodo(value);
   resetForm();
 }

@@ -10,7 +10,7 @@ const dbPromised = openDB('Todos', 1, {
   }
 })
 
-export function addTodo(value: any){
+export function addTodo(value){
   dbPromised.then((db) => {
     let tx = db.transaction('todos', 'readwrite');
     let store = tx.objectStore('todos')
@@ -24,33 +24,40 @@ export function addTodo(value: any){
   })
 }
 
-
+export function editTodo(id, value){
+  dbPromised.then((db) => {
+    let tx = db.transaction('todos', 'readwrite');
+    let store = tx.objectStore('todos')
+    store.put({
+      id: id,
+      todo: value.todo,
+      time: value.time,
+      priority: value.priority,
+    })
+  })
+}
 // addTodo() simulate add todo
-// addTodo()
+// addTodo(["MxJrHq", "Masak", "11.23", "basic", true])
 
 export function getAllTodo(){
-  return new Promise<void>((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     dbPromised
     .then(db => {
       let tx = db.transaction('todos', 'readonly')
       let store = tx.objectStore('todos')
       return store.getAll()
     })
-    .then((todo: any) => {
-      if(!todo.length){
-        reject('Tidak ada Todo, Silakan buat dahulu')
-      } else{
-        resolve(todo)
-      }
+    .then((todo) => {
+      resolve(todo)
     })
   })
 }
 
-getAllTodo().then((data : any) => {
-  console.log(data)
-  data.forEach((d: any) => {
-      store.commit('getAllTodo', d)
-    });
-}).catch(e => {
-  console.log(e)
-})
+// getAllTodo().then((data : any) => {
+//   console.log(data)
+//   data.forEach((d: any) => {
+//       store.commit('getAllTodo', d)
+//     });
+// }).catch(e => {
+//   console.log(e)
+// })
