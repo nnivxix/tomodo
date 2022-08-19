@@ -1,25 +1,12 @@
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia'
 
-// Create a new store instance.
-const store = createStore({
-  state() {
-    return {
-      todos: [],
-    }
-  },
-  mutations: {
-    getAllTodo(state, n){
-      state.todos.push(n)
-    },
-    doneTodo(state, n) {
-      
-    }
-  },
+export const useStore = defineStore('todo', {
+  state: () => ({
+    todos: []
+  }),
   actions: {
-    actGetAllTodos({commit}) {
-      commit('getAllTodo')
+    addTodo(n) {
+      this.todos.push(n)
     }
   }
 })
-
-export default store;

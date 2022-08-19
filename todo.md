@@ -10,7 +10,7 @@
 
 ## Todo
 
-- [ ] UI
+- [x] UI
 
 - [ ] functional view
 
@@ -28,4 +28,6 @@
 
 - [ ] try to use unit test
 
-  
+## Next Step
+
+- Perbaiki component ItemTodo yang mempunyai `props` 

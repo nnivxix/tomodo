@@ -44,7 +44,11 @@ import TitleApp from './TitleApp.vue';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 // import  { addTodoSubmit }  from '../helper/indexdb'
 import * as yup from 'yup';
-import { addTodo } from '../helper/database'
+import db from '../helper/database';
+import { nanoid } from 'nanoid';
+import { useStore } from 'pinia';
+
+const store = useStore();
 
 let schemaYup = yup.object({
   todo : yup.string().required().min(3),
@@ -52,7 +56,14 @@ let schemaYup = yup.object({
 }) 
 
 function submit (value, { resetForm }){
-  addTodo(value);
+  db.collection('todo').add({
+    id: nanoid(6),
+    todo: value.todo,
+    time: value.time,
+    priority: value.priority,
+    done: false
+  })
+  store.addTodo(value)
   resetForm();
 }
 // function submit (value: any, {resetForm}: any) {

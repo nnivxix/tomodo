@@ -7,5 +7,12 @@
     </div>
   <p class="text-right">30%</p>
   </div>
-  <p class="p-4 text-[15px]">5/6 task done, let's do great today, don't busy be productive</p>
+  <p class="p-4 text-[15px]">5/{{ todos }} task done, let's do great today, don't busy be productive</p>
 </template>
+
+<script setup>
+  defineProps({
+    todos: Number
+  })
+
+</script>
