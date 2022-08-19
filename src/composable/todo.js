@@ -1,9 +1,9 @@
 import { ref } from 'vue';
 
 
-const todo = ref([]);
-function addTodo(va){
-  todo.value.push(val)
+export const todos = ref([]);
+
+export function addTodo(val){
+  todos.value.push(val)
 }
 
-export default { todo, addTodo }

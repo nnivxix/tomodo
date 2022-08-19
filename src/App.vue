@@ -1,42 +1,31 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import TitleApp from './components/TitleApp.vue';
 import TheInformation from './components/TheInformation.vue';
 import ItemTodo from './components/ItemTodo.vue';
 import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
-import { reactive, ref, onUpdated, onActivated, onMounted } from 'vue';
+import { ref, onUpdated, onMounted } from 'vue';
 import MyForm from './components/MyForm.vue';
-import db  from "./helper/database";
-// import { useStore } from 'vuex';
+import { todos } from './composable/todo'
 
 
 const showModal = ref(false);
-const todos = ref([]);
 
-function getTask(){
-  db.collection('todo').get().then(todo => {
-    todos.value = todo
-    
-    // console.log(todo) 
-  })
-}
 
 onUpdated(() => { 
   // getTask()
+  console.log(todos.value)
+  console.log(todos.value.filter(todo => todo.done))
 })
 
 onMounted(() => {
-  getTask()
-  console.log(this)
 })
 
 </script>
 
 <template>
   <div class="px-5">
-    <TitleApp />
-    <TheInformation :todos="todos.length"/>
+    <TitleApp title="Tomodo" />
+    <TheInformation :done="todos.done" :todos="todos.length"/>
     <ItemTodo v-for="todo in todos" :key="todo.id"
       :priority="todo.priority"
       :todo="todo.todo"
