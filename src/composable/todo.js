@@ -9,4 +9,7 @@ export function addTodo(val){
     done:false
   })
 }
-
+export function deleteTodo(id) {
+  let todo = todos.value.findIndex(todo => todo.id === id);
+  todos.value.splice(todo,1);
+}
