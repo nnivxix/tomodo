@@ -31,8 +31,8 @@
       </field>
       <ErrorMessage name="priority" class="text-red-500 font-light" />
       <br>
-      <field type="hidden" name="done" value="true">
-      </field>
+      <!-- <field type="hidden" name="done" value=false>
+      </field> -->
       <div class="w-full flex justify-center fixed bottom-6 " as="button">
       <button  class=" p-5 bg-[#032836] text-center text-white rounded-lg">Add Task</button>
     </div>

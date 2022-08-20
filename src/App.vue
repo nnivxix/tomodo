@@ -10,10 +10,12 @@ import { todos } from './composable/todo'
 
 const showModal = ref(false);
 
+const doneTodo = todos.value.filter(todo => todo.done).length
 
 onUpdated(() => { 
   // getTask()
   console.log(todos.value)
+  console.log(doneTodo)
   console.log(todos.value.filter(todo => todo.done))
 })
 
@@ -25,11 +27,13 @@ onMounted(() => {
 <template>
   <div class="px-5">
     <TitleApp title="Tomodo" />
-    <TheInformation :done="todos.done" :todos="todos.length"/>
+    <TheInformation :done="doneTodo" :todos="todos.length"/>
     <ItemTodo v-for="todo in todos" :key="todo.id"
       :priority="todo.priority"
       :todo="todo.todo"
       :time="todo.time"
+      :done="todo.done"
+      @done-todo="todo.done = !todo.done"
     >
 
     </ItemTodo>
