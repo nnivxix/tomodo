@@ -5,7 +5,7 @@ import ItemTodo from './components/ItemTodo.vue';
 import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
 import { ref, onUpdated, onMounted } from 'vue';
 import MyForm from './components/MyForm.vue';
-import { todos, deleteTodo, isEditing , editTodo, getTodo } from './composable/todo'
+import { todos, deleteTodo, isEditing , editTodo, getTodo, doneTodoToggle } from './composable/todo'
 
 
 const showModal = ref(false);
@@ -34,7 +34,7 @@ onMounted(() => {
       :todo="todo.todo"
       :time="todo.time"
       :done="todo.done"
-      @done-todo="todo.done = !todo.done"
+      @done-todo="doneTodoToggle(todo.uid)"
       @delete-todo="deleteTodo(todo.uid)"
       @edit-todo="editTodo(index, showModal = true)"
     >

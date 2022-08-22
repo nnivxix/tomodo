@@ -30,13 +30,20 @@ export function getTodo(){
   })
 }
 export function deleteTodo(id) {
-  // let todo = todos.value.findIndex(todo => todo.id === id);
   let todoUid = todos.value.find(todo => todo.uid == id)
-  // console.log(todoUid.uid)
   db.collection('todos').doc({uid: id}).delete()
   todos.value.splice(todos.value.indexOf(todoUid.uid),1);
 
 }
+
+export function doneTodoToggle(id){
+  let todoUid = todos.value.find(todo => todo.uid == id)
+  db.collection('todos').doc({uid: id}).update({
+    done: !todoUid.done
+  })
+  todoUid.done = !todoUid.done
+}
+
 
 export function editTodo(id, modal) {
   console.log(isEditing.value)
