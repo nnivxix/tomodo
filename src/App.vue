@@ -26,7 +26,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="px-5">
+  <div >
+  <p class="sm:hidden md:block">I'm Sorry the App doesn't support desktop Mode</p>
+  </div>
+  <div class="px-5 md:hidden">
     <TitleApp title="Tomodo" />
     <TheInformation :done="doneTodo" :todos="todos.length"/>
     <ItemTodo v-for="(todo, index) in todos" :key="todo.id"
