@@ -35,13 +35,16 @@ export function deleteTodo(id) {
   todos.value.splice(todos.value.indexOf(todoUid.uid),1);
 
 }
-
 export function doneTodoToggle(id){
   let todoUid = todos.value.find(todo => todo.uid == id)
   db.collection('todos').doc({uid: id}).update({
     done: !todoUid.done
   })
   todoUid.done = !todoUid.done
+}
+export function todoHasDone() {
+  const result = todos.value.filter(todo => todo.done)
+  return result
 }
 
 

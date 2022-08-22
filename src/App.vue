@@ -5,19 +5,13 @@ import ItemTodo from './components/ItemTodo.vue';
 import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
 import { ref, onUpdated, onMounted } from 'vue';
 import MyForm from './components/MyForm.vue';
-import { todos, deleteTodo, isEditing , editTodo, getTodo, doneTodoToggle } from './composable/todo'
+import {
+  todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone
+  } from './composable/todo'
 
 
 const showModal = ref(false);
 
-const doneTodo = todos.value.filter(todo => todo.done).length
-
-onUpdated(() => { 
-  // getTask()
-  // console.log(todos.value)
-  // console.log(doneTodo)
-  // console.log(todos.value.filter(todo => todo.done))
-})
 
 onMounted(() => {
   getTodo()
@@ -26,12 +20,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div >
+  <!-- <div >
   <p class="sm:hidden md:block">I'm Sorry the App doesn't support desktop Mode</p>
-  </div>
-  <div class="px-5 md:hidden">
+  </div> -->
+  <div class="px-5 ">
     <TitleApp title="Tomodo" />
-    <TheInformation :done="doneTodo" :todos="todos.length"/>
+    <TheInformation :done="todoHasDone().length" :todos="todos.length"/>
     <ItemTodo v-for="(todo, index) in todos" :key="todo.id"
       :priority="todo.priority"
       :todo="todo.todo"
@@ -39,12 +33,8 @@ onMounted(() => {
       :done="todo.done"
       @done-todo="doneTodoToggle(todo.uid)"
       @delete-todo="deleteTodo(todo.uid)"
-      @edit-todo="editTodo(index, showModal = true)"
     >
     </ItemTodo>
-    <pre>
-    {{ isEditing }}
-    </pre>
     <vue-final-modal v-model="showModal"
       :overlay-style="{
         'backgroundColor': 'white'
