@@ -5,7 +5,7 @@ import ItemTodo from './components/ItemTodo.vue';
 import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
 import { ref, onUpdated, onMounted } from 'vue';
 import MyForm from './components/MyForm.vue';
-import { todos, deleteTodo } from './composable/todo'
+import { todos, deleteTodo, isEditing , editTodo, getTodo } from './composable/todo'
 
 
 const showModal = ref(false);
@@ -14,12 +14,13 @@ const doneTodo = todos.value.filter(todo => todo.done).length
 
 onUpdated(() => { 
   // getTask()
-  console.log(todos.value)
-  console.log(doneTodo)
-  console.log(todos.value.filter(todo => todo.done))
+  // console.log(todos.value)
+  // console.log(doneTodo)
+  // console.log(todos.value.filter(todo => todo.done))
 })
 
 onMounted(() => {
+  getTodo()
 })
 
 </script>
@@ -28,16 +29,19 @@ onMounted(() => {
   <div class="px-5">
     <TitleApp title="Tomodo" />
     <TheInformation :done="doneTodo" :todos="todos.length"/>
-    <ItemTodo v-for="todo in todos" :key="todo.id"
+    <ItemTodo v-for="(todo, index) in todos" :key="todo.id"
       :priority="todo.priority"
       :todo="todo.todo"
       :time="todo.time"
       :done="todo.done"
       @done-todo="todo.done = !todo.done"
-      @delete-todo="deleteTodo(index)"
+      @delete-todo="deleteTodo(todo.uid)"
+      @edit-todo="editTodo(index, showModal = true)"
     >
-
     </ItemTodo>
+    <pre>
+    {{ isEditing }}
+    </pre>
     <vue-final-modal v-model="showModal"
       :overlay-style="{
         'backgroundColor': 'white'

@@ -14,13 +14,13 @@
 
 - [ ] functional view
 
-- [ ] done todo
+- [x] done todo
 
-- [ ] functional add todo
+- [x] functional add todo
 
 - [ ] functional edit todo
 
-- [ ] functional delete todo
+- [x] functional delete todo
 
 - [ ] indexedDB
 
