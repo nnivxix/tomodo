@@ -30,9 +30,10 @@ export function getTodo(){
   })
 }
 export function deleteTodo(id) {
-  let todoUid = todos.value.find(todo => todo.uid == id)
   db.collection('todos').doc({uid: id}).delete()
-  todos.value.splice(todos.value.indexOf(todoUid.uid),1);
+  let uid = todos.value.findIndex(todo => todo.uid == id)
+  // console.log([todoUid, uid])
+  todos.value.splice(uid,1);
 
 }
 export function doneTodoToggle(id){

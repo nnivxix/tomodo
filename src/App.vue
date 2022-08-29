@@ -2,13 +2,13 @@
 import TitleApp from './components/TitleApp.vue';
 import TheInformation from './components/TheInformation.vue';
 import ItemTodo from './components/ItemTodo.vue';
-import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
-import { ref, onUpdated, onMounted } from 'vue';
+import { VueFinalModal,  } from 'vue-final-modal'
+import { ref,  onMounted } from 'vue';
 import MyForm from './components/MyForm.vue';
 import {
   todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem
   } from './composable/todo'
-import { useEventListener } from '@vueuse/core'
+
 
 
 const showModal = ref(false);

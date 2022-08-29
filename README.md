@@ -6,7 +6,7 @@
 
 1. Tailwind
 2. VIte
-3. IndexedDB / localStorage
+3. IndexedDB / ~~localStorage~~
 
 ## Todo
 
@@ -18,7 +18,7 @@
 
 - [x] functional add todo
 
-- [ ] functional edit todo
+- [x] functional edit todo
 
 - [ ] functional delete todo
 
