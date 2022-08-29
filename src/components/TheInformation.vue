@@ -1,5 +1,5 @@
 <template>
-  <h2 class="text-m-sub-1 px-4 text-dark-two">Hello, good morning Hanasa</h2>
+  <h2 class="text-m-sub-1 px-4 text-dark-two" @dblclick="alert('db clik')">Hello, {{ sunPattern }} Hanasa</h2>
   <h3 class="text-m-sub-2 px-4  text-dark-two">here your update</h3>
   <div class="mx-5">
     <div class="w-full bg-gray-300 h-2 rounded-md ">
@@ -15,9 +15,24 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue';
+  
   defineProps({
     todos: Number,
     done: Number
+  })
+
+  const sunPattern = computed(() => {
+    const hour = new Date().getHours();
+    if (hour <= 10) {
+      return 'Good Morning'
+    } else if(hour >= 16) {
+      return 'Good Evening'
+    } else if(hour >= 18) {
+      return 'Good Night'
+    } else {
+      return 'Good Afternoon'
+    }
   })
 
 </script>
