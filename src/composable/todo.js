@@ -4,7 +4,7 @@ import db from '../helper/database';
 
 
 export const todos = ref([]);
-export const todoItem = ref('');
+export const todoItem = ref({});
 export let idTodo = ref('')
 export const isEditing = ref(false);
 
@@ -51,9 +51,11 @@ export function todoHasDone() {
 export function editTodo(id, modal) {
   console.log(isEditing.value)
   isEditing.value = true
-  let todo = todos.value[id]
-  todoItem.value = todo
-  console.log([todo.uid, todo.todo])
+  let todoUid = todos.value.find(todo => todo.uid == id)
+  todoItem.value = todoUid
+
+  console.log(todoItem.value)
+
 }
 
 export function getIdTodo(id) {

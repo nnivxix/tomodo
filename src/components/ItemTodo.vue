@@ -3,7 +3,10 @@
     <h3 class="text-m-sub-1 todo-text" @click="$emit('doneTodo')"  :class="{ done: done }" >{{todo}}</h3>
       <p>{{ priority }}</p>
       <p class="text-m- text-m-p">{{ time }}</p>
-      <p lass="text-m-p"><a href="#" @click="$emit('deleteTodo')">delete</a></p>
+      <p lass="text-m-p">
+        <a href="#" @click="$emit('deleteTodo')">delete</a> | 
+        <a href="#" @click="$emit('editTodo')">edit</a>
+        </p>
   </article>
 </template>
 

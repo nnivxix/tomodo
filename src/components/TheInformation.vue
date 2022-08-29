@@ -6,8 +6,11 @@
       <div :style="{'width': `${Math.round((done / todos)* 100)}%` }"
       class="overflow-hidden bg-dark-two h-2 rounded-md px-2"></div>
     </div>
-  <p class="text-right">{{ Math.round((done / todos)* 100)}}%</p>
+  <p class="text-right" v-if="!todos">0%</p>
+  <p class="text-right" v-else>{{ Math.round((done / todos)* 100)}}%</p>
   </div>
+
+  <!-- quote information -->
   <p class="p-4 text-[15px]">{{done}}/{{ todos }} task done, let's do great today, don't busy be productive</p>
 </template>
 
