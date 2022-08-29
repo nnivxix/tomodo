@@ -6,22 +6,23 @@ import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
 import { ref, onUpdated, onMounted } from 'vue';
 import MyForm from './components/MyForm.vue';
 import {
-  todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing
+  todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem
   } from './composable/todo'
 import { useEventListener } from '@vueuse/core'
 
 
 const showModal = ref(false);
-
+function addTodoBtn(){
+  todoItem.value = ''
+  showModal.value = true
+}
+console.log(todos.value)
 function close(){
   isEditing.value = false
+  todoItem.value = {}
 }
 onMounted(() => {
   getTodo()
-})
-onUpdated(() => {
-  
-  console.log(todos.value)
 })
 
 
@@ -57,7 +58,7 @@ onUpdated(() => {
       <MyForm />
     </vue-final-modal>
     <div class="w-full flex justify-center fixed bottom-6 ">
-      <button highlight  @click="showModal = true" class=" p-5 bg-[#032836] text-center text-white rounded-lg">Add Task</button>
+      <button highlight  @click="addTodoBtn" class=" p-5 bg-[#032836] text-center text-white rounded-lg">Add Task</button>
     </div>
 
   </div>

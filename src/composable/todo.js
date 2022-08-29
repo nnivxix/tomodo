@@ -53,9 +53,38 @@ export function editTodo(id, modal) {
   isEditing.value = true
   let todoUid = todos.value.find(todo => todo.uid == id)
   todoItem.value = todoUid
+  console.log(todoItem.value.uid)
+  let getid = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
+  console.log(getid)
+}
 
-  console.log(todoItem.value)
-
+export function updateTodo(val) {
+  todos.value.map((obj) => {
+    if (obj.uid === todoItem.value.uid) {
+      console.log(obj)
+      // ??
+      todoItem.value = {
+          uid: obj.uid,
+          todo: val.todo,
+          time: val.time,
+          priority: val.priority,
+          done: obj.done
+        }
+      return {...obj, ...val}
+    }
+    console.log(todoItem.value)
+  })
+  db.collection('todos').doc({ uid: todoItem.value.uid }).update({ 
+    todo: todoItem.value.todo,
+    time: todoItem.value.time,
+    priority: todoItem.value.priority,
+  })
+  let id = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
+  console.log(id)
+  todos.value.splice(id, 0, todoItem.value)
+  // db.collection('todos').get().then(todo => {
+  //   todos.value = todo
+  // })
 }
 
 export function getIdTodo(id) {
