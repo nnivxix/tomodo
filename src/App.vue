@@ -9,14 +9,11 @@
     todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem
     } from './composable/todo'
 
-
-
   const showModal = ref(false);
   function addTodoBtn(){
     todoItem.value = ''
     showModal.value = true
   }
-  console.log(todos.value)
   function close(){
     isEditing.value = false
     todoItem.value = {}
@@ -59,7 +56,7 @@
       >
       <MyForm />
     </vue-final-modal>
-    <div class="w-full flex justify-center fixed bottom-6 ">
+    <div class="w-full flex justify-center fixed bottom-6 left-0">
       <button highlight  @click="addTodoBtn" class=" p-5 bg-[#032836] text-center text-white rounded-lg">Add Now</button>
     </div>
 
