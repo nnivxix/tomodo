@@ -20,14 +20,14 @@
 
 - [ ] functional edit todo
 
-- [x] functional delete todo
+- [ ] functional delete todo
 
 - [x] indexedDB
 
 - [ ] PWA
 
-- [ ] try to use unit test
+- [ ] unit test
 
 ## Next Step
 
-- Perbaiki component ItemTodo yang mempunyai `props` 
+- fungsi delete belum mutahir
