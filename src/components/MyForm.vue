@@ -106,5 +106,6 @@ function submit (value, {resetForm}) {
     resetForm()
     alert('add')
   }
+  window.location.reload()
 }
 </script>
