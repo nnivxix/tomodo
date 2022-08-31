@@ -20,13 +20,13 @@
 
 - [x] functional edit todo
 
-- [ ] functional delete todo
+- [x] functional delete todo
 
 - [x] indexedDB
 
 - [ ] PWA
 
-- [ ] unit test
+- [x] unit test
 
 - [ ] toast
 

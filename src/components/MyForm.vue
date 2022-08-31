@@ -66,8 +66,6 @@
         <ErrorMessage name="priority" class="text-red-500 font-light" />
         <br>
       </div>
-      <!-- <field type="hidden" name="done" value=false>
-        </field> -->
       <div class="w-full flex justify-center fixed bottom-6 left-0" as="button">
         <button type="submit" class=" p-5 bg-[#032836] text-center text-white rounded-lg">
           <span v-if="isEditing">
@@ -89,7 +87,6 @@
   import { computed } from 'vue';
   import { addTodo, isEditing, todoItem, updateTodo } from '../composable/todo'
 
-console.log(isEditing.value)
 let schemaYup = yup.object({
   todo : yup.string().required().min(3),
   time : yup.string().required()
@@ -109,6 +106,6 @@ function submit (value, {resetForm}) {
     addTodo(value);
     resetForm()
   }
-  // window.location.reload()
+  window.location.reload()
 }
 </script>

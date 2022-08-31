@@ -3,7 +3,7 @@
   import TheInformation from './components/TheInformation.vue';
   import ItemTodo from './components/ItemTodo.vue';
   import { VueFinalModal,  } from 'vue-final-modal'
-  import { ref,  onMounted, onBeforeMount } from 'vue';
+  import { ref,  onMounted } from 'vue';
   import MyForm from './components/MyForm.vue';
   import {
     todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem

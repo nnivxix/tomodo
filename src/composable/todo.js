@@ -14,7 +14,6 @@ export function addTodo(val){
     ...val,
     done:false
   }
-  console.log(todoItem.value)
   db.collection('todos').add({
     uid: todoItem.value.uid,
     todo: todoItem.value.todo,
@@ -49,20 +48,15 @@ export function todoHasDone() {
 
 
 export function editTodo(id, modal) {
-  console.log(isEditing.value)
   isEditing.value = true
   let todoUid = todos.value.find(todo => todo.uid == id)
   todoItem.value = todoUid
-  console.log(todoItem.value.uid)
   let getid = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
-  console.log(getid)
 }
 
 export function updateTodo(val) {
   todos.value.map((obj) => {
     if (obj.uid === todoItem.value.uid) {
-      console.log(obj)
-      // ??
       todoItem.value = {
           uid: obj.uid,
           todo: val.todo,
@@ -72,16 +66,13 @@ export function updateTodo(val) {
         }
       return {...obj, ...val}
     }
-    console.log(todoItem.value)
   })
-  console.log(todoItem.value)
   db.collection('todos').doc({ uid: todoItem.value.uid }).update({ 
     todo: todoItem.value.todo,
     time: todoItem.value.time,
     priority: todoItem.value.priority,
   })
   let id = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
-  console.log(id)
   todos.value.splice(id, 1, todoItem.value)
 }
 
