@@ -28,6 +28,12 @@
 
 - [ ] unit test
 
+- [ ] toast
+
+- [ ] dragable
+
 ## Next Step
 
-- fungsi delete belum mutahir
+- add name user.
+- add toast.
+- dragable

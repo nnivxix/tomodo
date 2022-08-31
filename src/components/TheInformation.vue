@@ -1,6 +1,6 @@
 <template>
-  <h2 class="text-m-sub-1 px-4 text-dark-two" @dblclick="alert('db clik')">Hello, {{ sunPattern }} Hanasa</h2>
-  <h3 class="text-m-sub-2 px-4  text-dark-two">here your update</h3>
+  <h2 class="text-m-sub-1 px-4 text-dark-two" @dblclick="alert('db clik')">Hello, {{ sunPattern }} Human.</h2>
+  <h3 class="text-m-sub-2 px-4 pb-2 text-dark-two">Here your progress.</h3>
   <div class="mx-5">
     <div class="w-full bg-gray-300 h-2 rounded-md ">
       <div :style="{'width': `${Math.round((done / todos)* 100)}%` }"

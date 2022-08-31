@@ -32,7 +32,6 @@ export function getTodo(){
 export function deleteTodo(id) {
   db.collection('todos').doc({uid: id}).delete()
   let uid = todos.value.findIndex(todo => todo.uid == id)
-  // console.log([todoUid, uid])
   todos.value.splice(uid,1);
 
 }
@@ -83,11 +82,5 @@ export function updateTodo(val) {
   let id = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
   console.log(id)
   todos.value.splice(id, 0, todoItem.value)
-  // db.collection('todos').get().then(todo => {
-  //   todos.value = todo
-  // })
 }
 
-export function getIdTodo(id) {
-  let todo = todos.value[id]
-}
