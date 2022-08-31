@@ -74,6 +74,7 @@ export function updateTodo(val) {
     }
     console.log(todoItem.value)
   })
+  console.log(todoItem.value)
   db.collection('todos').doc({ uid: todoItem.value.uid }).update({ 
     todo: todoItem.value.todo,
     time: todoItem.value.time,
@@ -81,6 +82,6 @@ export function updateTodo(val) {
   })
   let id = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
   console.log(id)
-  todos.value.splice(id, 0, todoItem.value)
+  todos.value.splice(id, 1, todoItem.value)
 }
 

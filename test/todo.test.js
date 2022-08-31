@@ -29,13 +29,13 @@ describe('testing functionality of todo', () => {
     }
     editTodo(todos.value[0].uid,true)
     updateTodo(valueTodo)
-
+    assert.equal(todos.value.length, 1)
     assert.equal(todos.value[0].todo,'todo updated')
   })
 
   it('delete todo', () => {
-    deleteTodo(todos.value[1].uid)
-    assert.equal(todos.value.length, 1)
+    deleteTodo(todos.value[0].uid)
+    assert.equal(todos.value.length, 0)
   })
   
 })

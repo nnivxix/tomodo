@@ -109,6 +109,6 @@ function submit (value, {resetForm}) {
     addTodo(value);
     resetForm()
   }
-  window.location.reload()
+  // window.location.reload()
 }
 </script>
