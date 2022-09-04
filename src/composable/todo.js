@@ -14,9 +14,12 @@ export function addTodo(val){
     ...val,
     done:false
   }
+  todoItem.value.todo.trim();
+  // console.log(todoItem.value.todo.trim())
+  // console.log(todoItem.value.todo)
   db.collection('todos').add({
     uid: todoItem.value.uid,
-    todo: todoItem.value.todo,
+    todo: todoItem.value.todo.trim(),
     time: todoItem.value.time,
     priority: todoItem.value.priority,
     done: false

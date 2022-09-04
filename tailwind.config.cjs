@@ -24,7 +24,10 @@ module.exports = {
       backgroundColor: {
         'dark-one': '#06283D',
         'dark-two': '#395b64',
-        'light-one': '#d9d9d9'
+        'light-one': '#d9d9d9',
+        'basic': '#B5D3FF',
+        'important': '#a1bbe3',
+        'urgent': '#8fa6c9',
       }
     },
   },

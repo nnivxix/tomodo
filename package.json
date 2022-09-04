@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest"
   },
@@ -24,6 +24,8 @@
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.6",
     "vite": "^3.0.0",
-    "vitest": "^0.22.1"
+    "vite-plugin-pwa": "^0.12.4",
+    "vitest": "^0.22.1",
+    "workbox-precaching": "^6.5.4"
   }
 }
