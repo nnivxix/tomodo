@@ -1,9 +1,7 @@
 
-import './helper/database'
-import './style.css'
+import { createApp } from 'vue'
 import './index.css'
 import App from './App.vue'
-import { createApp } from 'vue'
 
 const app = createApp(App)
 app.mount('#app')
