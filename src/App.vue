@@ -20,6 +20,7 @@
   }
   onMounted(() => {
     getTodo()
+    console.log(todos.value)
   })
 </script>
 

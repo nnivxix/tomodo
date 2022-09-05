@@ -10,7 +10,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "localbase": "^0.7.5",
+    "dotenv": "^16.0.2",
+    "idb": "^7.0.2",
     "nanoid": "^4.0.0",
     "vee-validate": "^4.6.2",
     "vue": "^3.2.37",

@@ -34,6 +34,7 @@
 
 ## Next Step
 
+- remove localbase package.
 - add name user.
 - add toast.
-- dragable
+- dragable.
