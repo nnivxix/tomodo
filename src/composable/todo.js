@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { ref } from 'vue';
-import { addIDB, getAllTodoIDB } from '../helper/database';
+import { addTodoIDB} from '../helper/database';
 
 
 export const todos = ref([]);
@@ -18,14 +18,11 @@ export function addTodo(val){
   // console.log(todoItem.value.todo.trim())
   console.log(todoItem.value)
   // console.log(todoIDB)
-  addIDB(todoItem.value);
+  addTodoIDB();
   todos.value.push(todoItem.value)
 }
 export function getTodo(){
-  getAllTodoIDB().then(t => {
-    todos.value = t
-    console.log(t)
-  })
+
 }
 export function deleteTodo(id) {
   // db.collection('todos').doc({uid: id}).delete()
