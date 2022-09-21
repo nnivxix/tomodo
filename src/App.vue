@@ -3,12 +3,12 @@
   import TheInformation from './components/TheInformation.vue';
   import ItemTodo from './components/ItemTodo.vue';
   import { VueFinalModal,  } from 'vue-final-modal'
-  import { ref,  onMounted } from 'vue';
+  import { ref,  onMounted, computed } from 'vue';
   import MyForm from './components/MyForm.vue';
   import {
     todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem
     } from './composable/todo'
-
+  import { initDB, getAllIDB } from './helper/database'
   const showModal = ref(false);
   function addTodoBtn(){
     todoItem.value = ''
@@ -18,8 +18,16 @@
     isEditing.value = false
     todoItem.value = {}
   }
+  // const gettodos = computed(() => {
+  //   getAllIDB().then(res => {
+  //     return res
+  //   })
+
+  //   return 'hallo'
+  // })
   onMounted(() => {
-    getTodo()
+    initDB()
+    // getAllIDB()
   })
 </script>
 
@@ -27,6 +35,9 @@
   <div class="hidden h-screen w-4/5 px-16 md:flex justify-center items-center">
     <p class="text-3xl font-semibold">I'm Sorry, the App doesn't support desktop Mode 🙏.</p>
   </div>
+  <pre>
+    {{ 'hei' }}
+  </pre>
   <div class="px-5 md:hidden ">
     <TitleApp title="Tomodo" />
     <TheInformation :done="todoHasDone().length" :todos="todos.length"/>

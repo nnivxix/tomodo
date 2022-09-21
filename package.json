@@ -10,12 +10,16 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@insertish/zangodb": "^1.0.12-nomemo",
+    "idb": "^7.0.2",
+    "jsstore": "^4.4.3",
     "localbase": "^0.7.5",
     "nanoid": "^4.0.0",
     "vee-validate": "^4.6.2",
     "vue": "^3.2.37",
     "vue-final-modal": "^3.4.4",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zangodb": "^1.0.8"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.0",

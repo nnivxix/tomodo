@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 import { ref } from 'vue';
-import db from '../helper/database';
-
+import { addTodoIDB, getAllIDB } from '../helper/database';
 
 export const todos = ref([]);
 export const todoItem = ref({});
@@ -15,33 +14,25 @@ export function addTodo(val){
     done:false
   }
   todoItem.value.todo.trim();
-  // console.log(todoItem.value.todo.trim())
-  // console.log(todoItem.value.todo)
-  db.collection('todos').add({
-    uid: todoItem.value.uid,
-    todo: todoItem.value.todo.trim(),
-    time: todoItem.value.time,
-    priority: todoItem.value.priority,
-    done: false
-  })
+  addTodoIDB(todoItem.value)
+  console.log(todoItem.value.uid)
+  console.log(todoItem.value.todo)
   todos.value.push(todoItem.value)
 }
 export function getTodo(){
-  db.collection('todos').get().then(t => {
-    todos.value = t
-  })
+  // todos.value = getAllIDB()
 }
 export function deleteTodo(id) {
-  db.collection('todos').doc({uid: id}).delete()
+  
   let uid = todos.value.findIndex(todo => todo.uid == id)
   todos.value.splice(uid,1);
 
 }
 export function doneTodoToggle(id){
   let todoUid = todos.value.find(todo => todo.uid == id)
-  db.collection('todos').doc({uid: id}).update({
-    done: !todoUid.done
-  })
+  // db.collection('todos').doc({uid: id}).update({
+  //   done: !todoUid.done
+  // })
   todoUid.done = !todoUid.done
 }
 export function todoHasDone() {
@@ -70,11 +61,11 @@ export function updateTodo(val) {
       return {...obj, ...val}
     }
   })
-  db.collection('todos').doc({ uid: todoItem.value.uid }).update({ 
-    todo: todoItem.value.todo,
-    time: todoItem.value.time,
-    priority: todoItem.value.priority,
-  })
+  // db.collection('todos').doc({ uid: todoItem.value.uid }).update({ 
+  //   todo: todoItem.value.todo,
+  //   time: todoItem.value.time,
+  //   priority: todoItem.value.priority,
+  // })
   let id = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
   todos.value.splice(id, 1, todoItem.value)
 }
