@@ -13,7 +13,6 @@ export function addTodo(val){
     done:false
   }
   todoItem.value.todo.trim();
-  AddIdb(todoItem.value)
   console.log(todoItem.value.uid)
   console.log(todoItem.value.todo)
   todos.value.push(todoItem.value)
