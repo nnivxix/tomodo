@@ -27,9 +27,6 @@
   <div class="hidden h-screen w-4/5 px-16 md:flex justify-center items-center">
     <p class="text-3xl font-semibold">I'm Sorry, the App doesn't support desktop Mode 🙏.</p>
   </div>
-  <pre>
-    {{ 'hei' }}
-  </pre>
   <div class="px-5 md:hidden ">
     <TitleApp title="Tomodo" />
     <TheInformation :done="todoHasDone().length" :todos="todos.length"/>
