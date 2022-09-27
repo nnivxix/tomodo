@@ -8,7 +8,7 @@
   import {
     todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem
     } from './composable/todo'
-  import { initDB, getAllIDB } from './helper/database'
+
   const showModal = ref(false);
   function addTodoBtn(){
     todoItem.value = ''
@@ -18,16 +18,8 @@
     isEditing.value = false
     todoItem.value = {}
   }
-  // const gettodos = computed(() => {
-  //   getAllIDB().then(res => {
-  //     return res
-  //   })
-
-  //   return 'hallo'
-  // })
   onMounted(() => {
-    initDB()
-    // getAllIDB()
+
   })
 </script>
 
