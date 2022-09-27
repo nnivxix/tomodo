@@ -22,7 +22,7 @@
 
 - [x] functional delete todo
 
-- [x] indexedDB
+- [ ] indexedDB
 
 - [ ] PWA
 
