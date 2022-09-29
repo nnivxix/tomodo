@@ -1,5 +1,9 @@
 import { nanoid } from 'nanoid';
 import { ref } from 'vue';
+<<<<<<< HEAD
+=======
+import todosIDB from '../helper/database'
+>>>>>>> idb
 
 export const todos = ref([]);
 export const todoItem = ref({});
@@ -13,19 +17,34 @@ export function addTodo(val){
     done:false
   }
   todoItem.value.todo.trim();
+  todosIDB.addTodo({
+    uid: todoItem.value.uid,
+    todo: todoItem.value.todo.trim(),
+    time:todoItem.value.time,
+    priority: todoItem.value.priority,
+    done: todoItem.value.done
+  })
   todos.value.push(todoItem.value)
 }
 export function getTodo(){
+  todosIDB.readAllTodo().then(t => {
+    todos.value = t
 
+  })
 }
 export function deleteTodo(id) {
-  
   let uid = todos.value.findIndex(todo => todo.uid == id)
+  let todo = todos.value.find(todo => todo.uid == id)
+  
+  todosIDB.deleteTodo(todo.uid)
   todos.value.splice(uid,1);
-
 }
 export function doneTodoToggle(id){
   let todoUid = todos.value.find(todo => todo.uid == id)
+  todosIDB.editTodo({
+    ...todoUid,
+    done: !todoUid.done
+  })
   todoUid.done = !todoUid.done
 }
 export function todoHasDone() {
@@ -54,8 +73,16 @@ export function updateTodo(val) {
       return {...obj, ...val}
     }
   })
-
+  todosIDB.editTodo({
+    uid: todoItem.value.uid,
+    todo: todoItem.value.todo.trim(),
+    time: todoItem.value.time,
+    priority: todoItem.value.priority,
+    done: todoItem.value.done
+  })
   let id = todos.value.findIndex(todo => todo.uid == todoItem.value.uid)
   todos.value.splice(id, 1, todoItem.value)
+
+  todoItem.value = ''
 }
 

@@ -22,7 +22,7 @@
 
 - [x] functional delete todo
 
-- [ ] indexedDB
+- [x] indexedDB
 
 - [ ] PWA
 
@@ -34,6 +34,7 @@
 
 ## Next Step
 
+- remove localbase package.
 - add name user.
 - add toast.
-- dragable
+- dragable.

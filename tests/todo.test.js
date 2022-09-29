@@ -11,6 +11,7 @@ describe('testing functionality of todo', () => {
       todo: 'Test',
       time: '13:00',
       priority: 'basic',
+      done: false
     }
     addTodo(todo)
     assert.equal(todos.value.length, 1);

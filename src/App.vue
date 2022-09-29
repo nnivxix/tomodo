@@ -2,13 +2,14 @@
   import TitleApp from './components/TitleApp.vue';
   import TheInformation from './components/TheInformation.vue';
   import ItemTodo from './components/ItemTodo.vue';
-  import { VueFinalModal  } from 'vue-final-modal'
-  import { ref, onMounted } from 'vue';
+  import { VueFinalModal } from 'vue-final-modal'
+  import { ref,  onMounted, onUpdated } from 'vue';
   import MyForm from './components/MyForm.vue';
   import {
     todos, deleteTodo, getTodo, doneTodoToggle, todoHasDone, editTodo, isEditing, todoItem
     } from './composable/todo'
 
+  
   const showModal = ref(false);
   function addTodoBtn(){
     todoItem.value = ''
@@ -18,6 +19,8 @@
     isEditing.value = false
     todoItem.value = {}
   }
+  onUpdated(() => {
+  })
   onMounted(() => {
 
   })
