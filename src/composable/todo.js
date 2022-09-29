@@ -26,7 +26,6 @@ export function addTodo(val){
 export function getTodo(){
   todosIDB.readAllTodo().then(t => {
     todos.value = t
-
   })
 }
 export function deleteTodo(id) {

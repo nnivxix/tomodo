@@ -22,7 +22,7 @@
   onUpdated(() => {
   })
   onMounted(() => {
-
+    getTodo()
   })
 </script>
 
