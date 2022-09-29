@@ -1,9 +1,6 @@
 import { nanoid } from 'nanoid';
 import { ref } from 'vue';
-<<<<<<< HEAD
-=======
 import todosIDB from '../helper/database'
->>>>>>> idb
 
 export const todos = ref([]);
 export const todoItem = ref({});
