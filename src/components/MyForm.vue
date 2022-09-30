@@ -5,7 +5,7 @@
       <!-- if isEditing -->
       <div v-if="isEditing">
         <label for="todo" class=" text-m-form-label">What you do?</label>
-        <Field :value="todoItem.todo"
+        <Field :value="todoItem.todo ? todoItem.todo : ''"
           class="text-m-sub-1 bg-gray-50 px-4 border-l-transparent border-r-transparent border-t-transparent border-gray-500 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2" name="todo" type="text" autofocus />
           <hr class="text-dark-one">
         <ErrorMessage name="todo" class="text-red-500 font-light" />

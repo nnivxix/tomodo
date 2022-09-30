@@ -39,6 +39,7 @@ export function doneTodoToggle(id){
   let todoUid = todos.value.find(todo => todo.uid == id)
   todosIDB.editTodo({
     ...todoUid,
+    todo: todoUid.todo.trim(),
     done: !todoUid.done
   })
   todoUid.done = !todoUid.done
