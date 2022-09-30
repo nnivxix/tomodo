@@ -24,7 +24,7 @@
 
 - [x] indexedDB
 
-- [ ] PWA
+- [x] PWA
 
 - [x] unit test
 

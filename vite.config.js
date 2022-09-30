@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    chunkSplitPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
       devOptions: {
@@ -22,6 +24,20 @@ export default defineConfig({
               expiration: {
                 maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          },
+          {
+            urlPattern: /\.(?:png|gif|jpg|jpeg|svg,ico)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'assets',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 30 // <== 30 days
               },
               cacheableResponse: {
                 statuses: [0, 200]
