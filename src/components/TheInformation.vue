@@ -26,10 +26,10 @@
     const hour = new Date().getHours();
     if (hour <= 10) {
       return 'Good Morning'
+    } else if(hour > 17) {
+      return 'Good Night'
     } else if(hour >= 16) {
       return 'Good Evening'
-    } else if(hour >= 18) {
-      return 'Good Night'
     } else {
       return 'Good Afternoon'
     }
