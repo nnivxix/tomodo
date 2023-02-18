@@ -89,7 +89,8 @@
 
 let schemaYup = yup.object({
   todo : yup.string().required().min(3),
-  time : yup.string().required()
+  time : yup.string().required(), 
+  priority: yup.required(),
 }) 
 const theTitle = computed(() => {
   if(isEditing.value){
