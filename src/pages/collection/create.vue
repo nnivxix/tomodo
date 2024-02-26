@@ -2,8 +2,8 @@
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { customAlphabet } from "nanoid";
-import useCollection from "../composable/useCollection";
-import dbCollection from "../helper/db-collection";
+import useCollection from "../../composable/useCollection";
+import dbCollection from "../../helper/db-collection";
 
 const router = useRouter();
 

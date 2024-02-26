@@ -5,14 +5,15 @@ const { collections } = useCollection();
 </script>
 <template>
   <main class="relative grid grid-cols-2 gap-2">
-    <div
+    <router-link
       v-for="collection in collections"
       :key="collection.id"
+      :to="`collection/${collection.id}`"
       class="hover:bg-[#032836] col-span-1 hover:text-white p-4 h-36 relative shadow-md rounded-md"
     >
       <h1 class="absolute bottom-3 left-5 text-xl">
         {{ collection.name }} ({{ collection.todos.length }})
       </h1>
-    </div>
+    </router-link>
   </main>
 </template>

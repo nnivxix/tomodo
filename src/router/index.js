@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Create from "../pages/Create.vue";
-import Home from "../pages/Home.vue";
+import Index from "../pages/index.vue";
+import Create from "../pages/collection/create.vue";
+import DetailCollection from "../pages/collection/id.vue";
 
 const routes = [
-  { path: "/", component: Home },
+  { path: "/", component: Index },
   { path: "/create", component: Create },
+  { path: "/collection/:id", component: DetailCollection },
 ];
 
 const router = createRouter({
