@@ -14,12 +14,7 @@ const dbCollections = {
     return (await dbPromise).getAll("collections");
   },
   async add(collection) {
-    const nanoid = customAlphabet("1234567890abcdef", 10);
-    const data = {
-      id: nanoid(),
-      collection_name: collection.collection_name,
-    };
-    return (await dbPromise).add("collections", data);
+    return (await dbPromise).add("collections", collection);
   },
 };
 

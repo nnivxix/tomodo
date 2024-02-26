@@ -9,9 +9,6 @@ import AddCollectionForm from "./components/AddCollectionForm.vue";
 import useCollection from "./composable/useCollection";
 const showModal = ref(false);
 const { collections } = useCollection();
-function close() {
-  console.log(close);
-}
 </script>
 
 <template>
@@ -19,32 +16,9 @@ function close() {
     <TitleApp title="Tomodo" />
 
     <main class="mb-28">
-      <pre>{{ collections }}</pre>
+      <div v-for="collection in collections" :key="collection.id">
+        <h1>{{ collection.id }} - {{ collection.name }}</h1>
+      </div>
     </main>
-    <vue-final-modal
-      v-model="showModal"
-      :overlay-style="{
-        backgroundColor: 'white',
-      }"
-      content-class="modal-content"
-      @click-outside="close"
-    >
-      <AddCollectionForm />
-    </vue-final-modal>
-    <div class="w-full flex justify-center fixed bottom-6 left-0">
-      <button
-        highlight
-        @click="addTodoBtn"
-        class="p-5 bg-[#032836] text-center text-white rounded-lg"
-      >
-        Add Todo Collection
-      </button>
-    </div>
   </div>
 </template>
-
-<style scoped>
-:v-deep .modal-content {
-  background-color: blue;
-}
-</style>

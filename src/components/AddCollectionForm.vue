@@ -1,14 +1,23 @@
 <script setup>
 import { reactive, ref } from "vue";
+import { customAlphabet } from "nanoid";
+import useCollection from "../composable/useCollection";
 import dbCollection from "../helper/db-collection";
 const form = ref({
-  id: 2,
-  collection_name: "",
+  name: "",
+  todos: [],
 });
-
+const { addCollection } = useCollection();
 function addNewCollection() {
-  console.log(form.value);
-  dbCollection.add(form.value);
+  const nanoid = customAlphabet("1234567890abcdef", 10);
+  const collection = {
+    id: nanoid(),
+    name: form.value.collection_name,
+    todos: [],
+  };
+
+  addCollection(collection);
+  dbCollection.add(collection);
 }
 </script>
 <template>
