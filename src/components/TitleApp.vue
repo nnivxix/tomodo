@@ -1,11 +1,11 @@
 <template>
-  <h1 class="text-center text-[36px]">{{ title }}</h1>
+  <RouterLink to="/" class="text-center text-[36px]">
+    <h1>{{ title }}</h1>
+  </RouterLink>
 </template>
 
 <script setup>
-
 defineProps({
-  title: String
-})
-
+  title: String,
+});
 </script>
