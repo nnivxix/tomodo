@@ -1,12 +1,17 @@
 <script setup>
 import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 import { customAlphabet } from "nanoid";
 import useCollection from "../composable/useCollection";
 import dbCollection from "../helper/db-collection";
+
+const router = useRouter();
+
 const form = ref({
   name: "",
   todos: [],
 });
+
 const { addCollection } = useCollection();
 function addNewCollection() {
   const nanoid = customAlphabet("1234567890abcdef", 10);
@@ -18,6 +23,14 @@ function addNewCollection() {
 
   addCollection(collection);
   dbCollection.add(collection);
+
+  form.value = {
+    name: "",
+    todos: [],
+  };
+  router.push({
+    path: "/",
+  });
 }
 </script>
 <template>
