@@ -15,7 +15,10 @@ const useCollection = () => {
    * @returns {{
    * id: String,
    * name: String,
-   * todos: String[]
+   * todos: {
+   * name: String,
+   * priority: String
+   * }
    * }} collection
    */
   const getDetailCollection = (id) => {
