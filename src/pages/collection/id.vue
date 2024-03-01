@@ -33,13 +33,15 @@ const addNewTodo = async () => {
 </script>
 <template>
   <div
-    class="grid grid-cols-3 gap-4 relative h-[90vh] md:h-auto"
+    class="grid grid-cols-3 gap-4 relative h-auto md:h-auto"
     v-if="!!collection"
   >
     <div class="col-span-full md:col-span-2">
       <h1 class="text-2xl">{{ collection.name }}</h1>
       <p>You have {{ collection.todos.length }} todo</p>
-      <div class="md:mb-0 mb-40">
+      <div
+        class="md:mb-0 mb-40 overflow-y-scroll md:h-[80vh] h-[65vh] scroll-bar"
+      >
         <div
           class="border rounded-md py-3 px-2"
           v-for="(todo, index) in collection.todos"
@@ -73,3 +75,29 @@ const addNewTodo = async () => {
   </div>
   <div v-else>please wait</div>
 </template>
+
+<style>
+.scroll-bar {
+  scrollbar-width: thin;
+
+  border-radius: 5px;
+  scrollbar-color: #1d2e35;
+}
+
+/* Chrome, Edge, and Safari */
+.scroll-bar::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 5px;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: #1d2e35;
+  border-radius: 5px;
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background-color: #1d2e35;
+  border-radius: 14px;
+  border: 3px solid #1d2e35;
+}
+</style>
