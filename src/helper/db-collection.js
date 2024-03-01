@@ -16,6 +16,12 @@ const dbCollections = {
   async add(collection) {
     return (await dbPromise).add("collections", collection);
   },
+  async update(collection) {
+    return (await dbPromise).put("collections", collection);
+  },
+  async show(id) {
+    return (await dbPromise).get("collections", id);
+  },
 };
 
 export default dbCollections;
