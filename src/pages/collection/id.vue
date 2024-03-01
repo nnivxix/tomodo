@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute } from "vue-router";
 import useCollection from "../../composable/useCollection";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, reactive } from "vue";
 
 const route = useRoute();
 const { getDetailCollection, addTodo } = useCollection();
@@ -16,7 +16,10 @@ const { getDetailCollection, addTodo } = useCollection();
  */
 const collection = computed(() => getDetailCollection(route.params.id));
 
-const todo = ref("");
+const todo = reactive({
+  name: "",
+  priority: "Important",
+});
 /**
  *
  * @param {number} index
@@ -27,8 +30,9 @@ const deleteTodo = (index) => {
   console.log(index);
 };
 const addNewTodo = async () => {
-  addTodo(collection.value.id, todo.value);
-  todo.value = "";
+  addTodo(collection.value.id, todo.name);
+  todo.name = "";
+  todo.priority = "";
 };
 </script>
 <template>
@@ -40,7 +44,7 @@ const addNewTodo = async () => {
       <h1 class="text-2xl">{{ collection.name }}</h1>
       <p>You have {{ collection.todos.length }} todo</p>
       <div
-        class="md:mb-0 mb-40 overflow-y-scroll md:h-[80vh] h-[65vh] scroll-bar"
+        class="md:mb-0 mb-40 overflow-y-scroll md:h-[80vh] h-[60vh] scroll-bar"
       >
         <div
           class="border rounded-md py-3 px-2"
@@ -53,7 +57,7 @@ const addNewTodo = async () => {
       </div>
     </div>
     <form
-      class="border md:h-40 border-1 col-span-full fixed md:relative bottom-0 left-0 bg-white md:col-span-1 w-full p-3"
+      class="border md:h-auto border-1 flex flex-col gap-3 col-span-full fixed md:relative bottom-0 left-0 bg-white md:col-span-1 w-full p-3"
       @submit.prevent="addNewTodo"
     >
       <div>
@@ -61,9 +65,22 @@ const addNewTodo = async () => {
         <input
           id="todo"
           type="text"
-          v-model="todo"
-          class="border w-full border-spacing-1"
+          v-model="todo.name"
+          class="border w-full border-spacing-1 rounded-md p-1"
         />
+      </div>
+      <div class="rounded-md">
+        <label for="priority">Priority</label>
+        <select
+          v-model="todo.priority"
+          class="w-full p-3 rounded-lg"
+          id="priority"
+        >
+          <option disabled value="">Please select one priority</option>
+          <option>Important</option>
+          <option>Urgent</option>
+          <option>Later</option>
+        </select>
       </div>
       <button
         type="submit"
