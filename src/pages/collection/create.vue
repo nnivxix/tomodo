@@ -9,6 +9,7 @@ const router = useRouter();
 
 const form = ref({
   name: "",
+  description: "",
   todos: [],
 });
 
@@ -17,7 +18,8 @@ function addNewCollection() {
   const nanoid = customAlphabet("1234567890abcdef", 10);
   const collection = {
     id: nanoid(),
-    name: form.value.collection_name,
+    name: form.value.name,
+    description: form.value.description,
     todos: [],
   };
 
@@ -35,19 +37,27 @@ function addNewCollection() {
 </script>
 <template>
   <div class="mx-auto max-w-2xl">
-    <h1>Collection</h1>
     <form @submit.prevent="addNewCollection">
       <label for="collection_name" class="text-m-form-label"
         >Collection Name</label
       >
       <input
-        v-model="form.collection_name"
+        v-model="form.name"
         class="text-m-sub-1 bg-gray-50 px-4 border-l-transparent border-r-transparent border-t-transparent border-gray-500 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2"
         name="collection_name"
         id="collection_name"
         placeholder="Go To Market"
         type="text"
         autofocus
+      />
+      <hr class="text-dark-one" />
+      <label for="collection_description" class="text-m-form-label"
+        >Collection Description</label
+      >
+      <textarea
+        v-model="form.description"
+        class="text-m-sub-1 bg-gray-50 px-4 border-l-transparent border-r-transparent border-t-transparent border-gray-500 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full py-2"
+        id="collection_description"
       />
       <hr class="text-dark-one" />
 

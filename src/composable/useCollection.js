@@ -15,6 +15,8 @@ const useCollection = () => {
    * @returns {{
    * id: String,
    * name: String,
+   * description: String,
+   * created_at: Date,
    * todos: {
    * name: String,
    * priority: String

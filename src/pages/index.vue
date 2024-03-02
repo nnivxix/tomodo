@@ -15,5 +15,11 @@ const { collections } = useCollection();
         {{ collection.name }} ({{ collection.todos.length }})
       </h1>
     </router-link>
+    <router-link
+      to="create"
+      class="hover:bg-[#0a1418] col-span-1 hover:text-white p-4 h-36 relative shadow-md rounded-md"
+    >
+      <h1 class="absolute bottom-3 left-5 text-xl">(+) Add New Collection</h1>
+    </router-link>
   </main>
 </template>

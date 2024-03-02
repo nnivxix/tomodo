@@ -1,25 +1,20 @@
 <script setup>
 import { useRoute } from "vue-router";
-import useCollection from "../../composable/useCollection";
+import { nanoid } from "nanoid";
 import { computed, onMounted, ref, reactive } from "vue";
+import useCollection from "../../composable/useCollection";
 
 const route = useRoute();
 const { getDetailCollection, addTodo } = useCollection();
 
-/**
- * Collection
- * @returns {import('vue').ComputedRef<{
- * id: String,
- * name: String,
- * todos: String[]
- * }>}
- */
 const collection = computed(() => getDetailCollection(route.params.id));
 
 const todo = ref({
+  id: `todo-${nanoid(7)}`,
   name: "",
   priority: "Important",
   isDone: false,
+  created_at: new Date(),
 });
 
 /**
@@ -47,6 +42,7 @@ const addNewTodo = async () => {
   >
     <div class="col-span-full md:col-span-2">
       <h1 class="text-2xl">{{ collection.name }}</h1>
+      <p class="text-lg">{{ collection.description }}</p>
       <p>You have {{ collection.todos.length }} todo</p>
       <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
         <div
