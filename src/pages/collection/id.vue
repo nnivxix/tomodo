@@ -1,51 +1,31 @@
 <script setup>
 import { useRoute } from "vue-router";
-import { nanoid } from "nanoid";
-import { computed, onMounted, ref, reactive, toRaw } from "vue";
+import { computed, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
+import useFormTodo from "../../composable/useFormTodo";
 
 const route = useRoute();
 const { getDetailCollection, addTodo, markTodo, editTodo, deleteTodo } =
   useCollection();
+const { formTodo, isEditing, resetForm } = useFormTodo();
 
 const collection = computed(() => getDetailCollection(route.params.id));
 
-const isEditing = ref(false);
-const todo = ref({
-  id: `todo-${nanoid(7)}`,
-  name: "",
-  priority: "Important",
-  isDone: false,
-  created_at: new Date(),
-});
-
-const resetForm = () => {
-  todo.value = {
-    id: `todo-${nanoid(7)}`,
-    name: "",
-    priority: "Important",
-    isDone: false,
-  };
-  isEditing.value = false;
-};
-
 const submitTodo = () => {
   if (isEditing.value) {
-    editTodo(collection.value.id, todo.value);
+    editTodo(collection.value.id, formTodo.value);
     resetForm();
     return;
   }
-  addTodo(collection.value.id, todo.value);
+  addTodo(collection.value.id, formTodo.value);
   resetForm();
   return;
 };
-
 const selectTodo = (index) => {
   isEditing.value = true;
   const selectedTodo = collection.value.todos.at(index);
-  todo.value = toRaw(selectedTodo);
+  formTodo.value = toRaw(selectedTodo);
 };
-
 const handleMarkTodo = (collectionId, index) => {
   if (isEditing.value) resetForm();
   markTodo(collectionId, index);
@@ -88,14 +68,14 @@ const handleMarkTodo = (collectionId, index) => {
         <input
           id="todo"
           type="text"
-          v-model="todo.name"
+          v-model="formTodo.name"
           class="border w-full border-spacing-1 rounded-md p-1"
         />
       </div>
       <div class="rounded-md">
         <label for="priority">Priority</label>
         <select
-          v-model="todo.priority"
+          v-model="formTodo.priority"
           class="w-full p-3 rounded-lg"
           id="priority"
         >
