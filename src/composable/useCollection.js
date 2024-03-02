@@ -19,8 +19,10 @@ const useCollection = () => {
    * created_at: Date,
    * todos: {
    * name: String,
-   * priority: String
-   * }
+   * priority: String,
+   * isDone: Boolean,
+   * created_at: Date,
+   * }[]
    * }} collection
    */
   const getDetailCollection = (id) => {
@@ -40,6 +42,18 @@ const useCollection = () => {
     dbCollection.update(rawCollection);
   };
 
+  const markTodo = (collectionId, index) => {
+    const collection = getDetailCollection(collectionId);
+    const todo = collection.todos.at(index);
+
+    todo.isDone = !todo.isDone;
+    collection.todos.splice(index, 1, todo);
+
+    const rawCollection = toRaw(collection);
+
+    dbCollection.update(rawCollection);
+  };
+
   onMounted(() => getCollections());
 
   return {
@@ -48,6 +62,7 @@ const useCollection = () => {
     getCollections,
     getDetailCollection,
     addTodo,
+    markTodo,
   };
 };
 

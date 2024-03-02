@@ -5,7 +5,7 @@ import { computed, onMounted, ref, reactive } from "vue";
 import useCollection from "../../composable/useCollection";
 
 const route = useRoute();
-const { getDetailCollection, addTodo } = useCollection();
+const { getDetailCollection, addTodo, markTodo } = useCollection();
 
 const collection = computed(() => getDetailCollection(route.params.id));
 
@@ -46,10 +46,13 @@ const addNewTodo = async () => {
       <p>You have {{ collection.todos.length }} todo</p>
       <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
         <div
-          class="border rounded-md py-3 px-2"
           v-for="(todo, index) in collection.todos"
           :key="index"
-          @click="deleteTodo(index)"
+          @click="markTodo(collection.id, index)"
+          class="border rounded-md py-3 px-2"
+          :class="{
+            'line-through': todo.isDone,
+          }"
         >
           {{ index + 1 }} - {{ todo }}
         </div>
