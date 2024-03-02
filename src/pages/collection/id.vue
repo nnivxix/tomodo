@@ -1,14 +1,15 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { nanoid } from "nanoid";
-import { computed, onMounted, ref, reactive } from "vue";
+import { computed, onMounted, ref, reactive, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
 
 const route = useRoute();
-const { getDetailCollection, addTodo, markTodo } = useCollection();
+const { getDetailCollection, addTodo, markTodo, editTodo } = useCollection();
 
 const collection = computed(() => getDetailCollection(route.params.id));
 
+const isEditing = ref(false);
 const todo = ref({
   id: `todo-${nanoid(7)}`,
   name: "",
@@ -17,6 +18,15 @@ const todo = ref({
   created_at: new Date(),
 });
 
+const resetForm = () => {
+  todo.value = {
+    id: `todo-${nanoid(7)}`,
+    name: "",
+    priority: "Important",
+    isDone: false,
+  };
+  isEditing.value = false;
+};
 /**
  *
  * @param {number} index
@@ -26,13 +36,26 @@ const deleteTodo = (index) => {
   collection.value.todos.splice(index, 1);
   console.log(index);
 };
-const addNewTodo = async () => {
+const submitTodo = () => {
+  if (isEditing.value) {
+    editTodo(collection.value.id, todo.value);
+    resetForm();
+    return;
+  }
   addTodo(collection.value.id, todo.value);
-  todo.value = {
-    name: "",
-    priority: "Important",
-    isDone: false,
-  };
+  resetForm();
+  return;
+};
+
+const selectTodo = (index) => {
+  isEditing.value = true;
+  const selectedTodo = collection.value.todos.at(index);
+  todo.value = toRaw(selectedTodo);
+};
+
+const handleMarkTodo = (collectionId, index) => {
+  if (isEditing.value) resetForm();
+  markTodo(collectionId, index);
 };
 </script>
 <template>
@@ -48,19 +71,21 @@ const addNewTodo = async () => {
         <div
           v-for="(todo, index) in collection.todos"
           :key="index"
-          @click="markTodo(collection.id, index)"
           class="border rounded-md py-3 px-2"
           :class="{
             'line-through': todo.isDone,
           }"
         >
-          {{ index + 1 }} - {{ todo }}
+          <p @click="handleMarkTodo(collection.id, index)">
+            {{ index + 1 }} - {{ todo }}
+          </p>
+          <button @click="selectTodo(index)">edit</button>
         </div>
       </div>
     </div>
     <form
       class="border md:h-auto border-1 flex flex-col gap-3 col-span-full bottom-0 left-0 bg-white md:col-span-1 w-full p-3"
-      @submit.prevent="addNewTodo"
+      @submit.prevent="submitTodo"
     >
       <div>
         <label for="todo">Todo</label>
@@ -88,7 +113,7 @@ const addNewTodo = async () => {
         type="submit"
         class="p-2 mt-2 bg-[#032836] text-center text-white rounded-lg"
       >
-        Add Todo
+        {{ isEditing ? "Update Todo" : "Add Todo" }}
       </button>
     </form>
   </div>
