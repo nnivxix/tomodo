@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from "vue-router";
-import { computed, toRaw } from "vue";
+import { computed, ref, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
 import useFormTodo from "../../composable/useFormTodo";
 import TodoItem from "../../components/TodoItem.vue";
@@ -15,24 +15,30 @@ const collection = computed(() => getDetailCollection(route.params.id));
 const doneTodos = computed(() =>
   collection.value.todos.filter((todo) => todo.isDone === true)
 );
+const selectedTodo = ref({});
 
 const submitTodo = () => {
   if (isEditing.value) {
     editTodo(collection.value.id, formTodo.value);
     resetForm();
+    selectedTodo.value = {};
     return;
   }
   addTodo(collection.value.id, formTodo.value);
   resetForm();
+  selectedTodo.value = {};
   return;
 };
 const selectTodo = (index) => {
   isEditing.value = true;
-  const selectedTodo = collection.value.todos.at(index);
-  formTodo.value = toRaw(selectedTodo);
+  selectedTodo.value = collection.value.todos.at(index);
+
+  formTodo.value = toRaw(selectedTodo.value);
 };
+
 const handleMarkTodo = (collectionId, index) => {
   if (isEditing.value) resetForm();
+  selectedTodo.value = {};
   markTodo(collectionId, index);
 };
 </script>
@@ -53,7 +59,8 @@ const handleMarkTodo = (collectionId, index) => {
           :key="index"
           :todo="todo"
           :index="index"
-          :collection="collection"
+          :collectionId="collection.id"
+          :isSelected="selectedTodo.id === todo.id"
           @handleMarkTodo="handleMarkTodo(collection.id, index)"
           @selectTodo="selectTodo(index)"
           @deleteTodo="deleteTodo(collection.id, index)"

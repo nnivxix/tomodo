@@ -25,9 +25,9 @@ const { formTodo, isEditing } = useFormTodo();
         id="priority"
       >
         <option disabled value="">Please select one priority</option>
-        <option>Important</option>
-        <option>Urgent</option>
-        <option>Later</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
       </select>
     </div>
     <button
