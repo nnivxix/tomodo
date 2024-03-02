@@ -22,6 +22,9 @@ const dbCollections = {
   async delete(id) {
     return (await dbPromise).delete("collections", id);
   },
+  async show(id) {
+    return (await dbPromise).get("collections", id);
+  },
 };
 
 export default dbCollections;

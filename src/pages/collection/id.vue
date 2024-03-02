@@ -72,12 +72,20 @@ const handleDeleteCollection = (id) => {
       <p class="font-semibold">
         You have {{ collection.todos.length }} / {{ doneTodos.length }} todos
       </p>
-      <button
-        class="bg-red-600 text-white p-3 rounded-md my-2"
-        @click="handleDeleteCollection(collection.id)"
-      >
-        Delete Collection
-      </button>
+      <div class="flex gap-3">
+        <button
+          class="bg-red-600 text-white p-3 rounded-md my-2"
+          @click="handleDeleteCollection(collection.id)"
+        >
+          Delete Collection
+        </button>
+        <button
+          @click="router.push(`/collection/${collection.id}/edit`)"
+          class="bg-gray-600 text-white p-3 rounded-md my-2"
+        >
+          Edit Collection
+        </button>
+      </div>
 
       <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
         <TodoItem

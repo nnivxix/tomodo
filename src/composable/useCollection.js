@@ -36,6 +36,16 @@ const useCollection = () => {
     collections.value.splice(index, 1);
     dbCollection.delete(id);
   };
+  const updateCollection = (collection) => {
+    const index = collections.value.findIndex(
+      (coll) => coll.id === collection.id
+    );
+
+    collections.value.splice(index, 1, collection);
+    const rawCollection = toRaw(collection);
+
+    dbCollection.update(rawCollection);
+  };
   /**
    * Add new todo to collection
    * @param {string} collectionId - id of collection
@@ -110,6 +120,7 @@ const useCollection = () => {
     getCollections,
     getDetailCollection,
     deleteColllection,
+    updateCollection,
     addTodo,
     markTodo,
     editTodo,

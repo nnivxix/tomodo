@@ -8,7 +8,7 @@ defineProps({
 </script>
 <template>
   <div
-    class="border rounded-md py-3 my-2 px-2"
+    class="border rounded-md py-3 my-2 px-2 cursor-pointer"
     :class="{
       'line-through': todo.isDone,
       'bg-gray-100': isSelected,

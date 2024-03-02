@@ -7,6 +7,11 @@ const routes = [
   { path: "/", component: Index },
   { path: "/create", component: Create },
   { path: "/collection/:id", component: DetailCollection },
+  {
+    path: "/collection/:id/edit",
+    component: Create,
+    name: "edit-collection",
+  },
 ];
 
 const router = createRouter({
