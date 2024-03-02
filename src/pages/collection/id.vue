@@ -3,6 +3,7 @@ import { useRoute } from "vue-router";
 import { computed, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
 import useFormTodo from "../../composable/useFormTodo";
+import TodoItem from "../../components/TodoItem.vue";
 
 const route = useRoute();
 const { getDetailCollection, addTodo, markTodo, editTodo, deleteTodo } =
@@ -41,22 +42,16 @@ const handleMarkTodo = (collectionId, index) => {
       <p class="text-lg">{{ collection.description }}</p>
       <p>You have {{ collection.todos.length }} todo</p>
       <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
-        <div
+        <TodoItem
           v-for="(todo, index) in collection.todos"
           :key="index"
-          class="border rounded-md py-3 px-2"
-          :class="{
-            'line-through': todo.isDone,
-          }"
-        >
-          <p @click="handleMarkTodo(collection.id, index)">
-            {{ index + 1 }} - {{ todo }}
-          </p>
-          <div>
-            <button @click="selectTodo(index)" class="mr-2">edit</button>
-            <button @click="deleteTodo(collection.id, index)">delete</button>
-          </div>
-        </div>
+          :todo="todo"
+          :index="index"
+          :collection="collection"
+          @handleMarkTodo="handleMarkTodo(collection.id, index)"
+          @selectTodo="selectTodo(index)"
+          @deleteTodo="deleteTodo(collection.id, index)"
+        />
       </div>
     </div>
     <form
