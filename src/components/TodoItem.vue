@@ -2,7 +2,7 @@
 defineProps({
   todo: Object,
   index: Number,
-  collection: Object,
+  collectionId: String,
 });
 </script>
 <template>

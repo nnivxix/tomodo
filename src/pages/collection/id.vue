@@ -4,6 +4,7 @@ import { computed, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
 import useFormTodo from "../../composable/useFormTodo";
 import TodoItem from "../../components/TodoItem.vue";
+import FormTodo from "../../components/FormTodo.vue";
 
 const route = useRoute();
 const { getDetailCollection, addTodo, markTodo, editTodo, deleteTodo } =
@@ -11,6 +12,9 @@ const { getDetailCollection, addTodo, markTodo, editTodo, deleteTodo } =
 const { formTodo, isEditing, resetForm } = useFormTodo();
 
 const collection = computed(() => getDetailCollection(route.params.id));
+const doneTodos = computed(() =>
+  collection.value.todos.filter((todo) => todo.isDone === true)
+);
 
 const submitTodo = () => {
   if (isEditing.value) {
@@ -40,7 +44,9 @@ const handleMarkTodo = (collectionId, index) => {
     <div class="col-span-full md:col-span-2">
       <h1 class="text-2xl">{{ collection.name }}</h1>
       <p class="text-lg">{{ collection.description }}</p>
-      <p>You have {{ collection.todos.length }} todo</p>
+      <p class="font-semibold">
+        You have {{ collection.todos.length }} / {{ doneTodos.length }} todos
+      </p>
       <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
         <TodoItem
           v-for="(todo, index) in collection.todos"
@@ -54,39 +60,7 @@ const handleMarkTodo = (collectionId, index) => {
         />
       </div>
     </div>
-    <form
-      class="border md:h-auto border-1 flex flex-col gap-3 col-span-full bottom-0 left-0 bg-white md:col-span-1 w-full p-3"
-      @submit.prevent="submitTodo"
-    >
-      <div>
-        <label for="todo">Todo</label>
-        <input
-          id="todo"
-          type="text"
-          v-model="formTodo.name"
-          class="border w-full border-spacing-1 rounded-md p-1"
-        />
-      </div>
-      <div class="rounded-md">
-        <label for="priority">Priority</label>
-        <select
-          v-model="formTodo.priority"
-          class="w-full p-3 rounded-lg"
-          id="priority"
-        >
-          <option disabled value="">Please select one priority</option>
-          <option>Important</option>
-          <option>Urgent</option>
-          <option>Later</option>
-        </select>
-      </div>
-      <button
-        type="submit"
-        class="p-2 mt-2 bg-[#032836] text-center text-white rounded-lg"
-      >
-        {{ isEditing ? "Update Todo" : "Add Todo" }}
-      </button>
-    </form>
+    <FormTodo @submitTodo="submitTodo" />
   </div>
   <div v-else>please wait</div>
 </template>
