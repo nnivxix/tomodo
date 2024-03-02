@@ -1,5 +1,5 @@
 <script setup>
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { computed, ref, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
 import useFormTodo from "../../composable/useFormTodo";
@@ -7,8 +7,15 @@ import TodoItem from "../../components/TodoItem.vue";
 import FormTodo from "../../components/FormTodo.vue";
 
 const route = useRoute();
-const { getDetailCollection, addTodo, markTodo, editTodo, deleteTodo } =
-  useCollection();
+const router = useRouter();
+const {
+  getDetailCollection,
+  deleteColllection,
+  addTodo,
+  markTodo,
+  editTodo,
+  deleteTodo,
+} = useCollection();
 const { formTodo, isEditing, resetForm } = useFormTodo();
 
 const collection = computed(() => getDetailCollection(route.params.id));
@@ -41,6 +48,18 @@ const handleMarkTodo = (collectionId, index) => {
   selectedTodo.value = {};
   markTodo(collectionId, index);
 };
+const handleDeleteCollection = (id) => {
+  /**TODO
+   * Change to vue modal
+   */
+  const question = confirm("Are you sure delete this collection?");
+  if (question) {
+    deleteColllection(id);
+    router.push("/");
+    return;
+  }
+  return;
+};
 </script>
 <template>
   <div
@@ -53,6 +72,13 @@ const handleMarkTodo = (collectionId, index) => {
       <p class="font-semibold">
         You have {{ collection.todos.length }} / {{ doneTodos.length }} todos
       </p>
+      <button
+        class="bg-red-600 text-white p-3 rounded-md my-2"
+        @click="handleDeleteCollection(collection.id)"
+      >
+        Delete Collection
+      </button>
+
       <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
         <TodoItem
           v-for="(todo, index) in collection.todos"

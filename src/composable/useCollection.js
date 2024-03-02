@@ -28,6 +28,14 @@ const useCollection = () => {
   const getDetailCollection = (id) => {
     return collections.value.find((collection) => collection.id == id);
   };
+  const deleteColllection = (id) => {
+    const index = collections.value.findIndex(
+      (collection) => collection.id === id
+    );
+
+    collections.value.splice(index, 1);
+    dbCollection.delete(id);
+  };
   /**
    * Add new todo to collection
    * @param {string} collectionId - id of collection
@@ -101,6 +109,7 @@ const useCollection = () => {
     addCollection,
     getCollections,
     getDetailCollection,
+    deleteColllection,
     addTodo,
     markTodo,
     editTodo,
