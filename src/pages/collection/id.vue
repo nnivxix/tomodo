@@ -5,7 +5,8 @@ import { computed, onMounted, ref, reactive, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
 
 const route = useRoute();
-const { getDetailCollection, addTodo, markTodo, editTodo } = useCollection();
+const { getDetailCollection, addTodo, markTodo, editTodo, deleteTodo } =
+  useCollection();
 
 const collection = computed(() => getDetailCollection(route.params.id));
 
@@ -27,15 +28,7 @@ const resetForm = () => {
   };
   isEditing.value = false;
 };
-/**
- *
- * @param {number} index
- * @description still wip
- */
-const deleteTodo = (index) => {
-  collection.value.todos.splice(index, 1);
-  console.log(index);
-};
+
 const submitTodo = () => {
   if (isEditing.value) {
     editTodo(collection.value.id, todo.value);
@@ -79,7 +72,10 @@ const handleMarkTodo = (collectionId, index) => {
           <p @click="handleMarkTodo(collection.id, index)">
             {{ index + 1 }} - {{ todo }}
           </p>
-          <button @click="selectTodo(index)">edit</button>
+          <div>
+            <button @click="selectTodo(index)" class="mr-2">edit</button>
+            <button @click="deleteTodo(collection.id, index)">delete</button>
+          </div>
         </div>
       </div>
     </div>

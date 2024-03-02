@@ -80,6 +80,19 @@ const useCollection = () => {
 
     dbCollection.update(rawCollection);
   };
+  /**
+   *
+   * @param {string} collectionId
+   * @param {number} index
+   * @description still wip
+   */
+  const deleteTodo = (collectionId, index) => {
+    const collection = getDetailCollection(collectionId);
+    collection.todos.splice(index, 1);
+
+    const rawCollection = toRaw(collection);
+    dbCollection.update(rawCollection);
+  };
 
   onMounted(() => getCollections());
 
@@ -91,6 +104,7 @@ const useCollection = () => {
     addTodo,
     markTodo,
     editTodo,
+    deleteTodo,
   };
 };
 

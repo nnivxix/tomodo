@@ -19,8 +19,8 @@ const dbCollections = {
   async update(collection) {
     return (await dbPromise).put("collections", collection);
   },
-  async show(id) {
-    return (await dbPromise).get("collections", id);
+  async delete(id) {
+    return (await dbPromise).delete("collections", id);
   },
 };
 
