@@ -2,6 +2,7 @@ import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 import useCollection from "../src/composables/useCollection";
 import useTodo from "../src/composables/useTodo";
+
 describe("testing functionality of todo", () => {
   beforeEach(() => {
     const { addCollection } = useCollection();
