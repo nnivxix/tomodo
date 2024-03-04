@@ -23,4 +23,3 @@ const { collections } = useCollection();
     </router-link>
   </main>
 </template>
-../composables/useCollection

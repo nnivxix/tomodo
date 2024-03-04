@@ -21,4 +21,3 @@ onMounted(() => {
     <FormCollection :form="form" @handleSubmit="handleSubmit" />
   </div>
 </template>
-../../composables/useFormCollection

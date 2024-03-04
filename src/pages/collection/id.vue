@@ -13,7 +13,7 @@ const route = useRoute();
 const router = useRouter();
 const { deleteColllection, collection, descriptionCollection } =
   useCollection();
-const { addTodo, markTodo, editTodo, deleteTodo, doneTodos } = useTodo();
+const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm } = useFormTodo();
 
 const selectedTodo = ref({});
@@ -77,11 +77,12 @@ onMounted(async () => {
         <div v-else class="text-gray-500">no description</div>
       </div>
       <ProgressBar
-        :totalTodos="collection.todos.length"
+        :totalTodos="todos.length"
         :totalDoneTodos="doneTodos.length"
       />
       <p class="font-semibold">
-        You have {{ collection.todos?.length }} / {{ doneTodos?.length }} todos
+        You have {{ todos?.length }} / {{ doneTodos?.length }}
+        {{ todos.length > 1 ? "todos" : "todo" }}
       </p>
       <div class="flex gap-3">
         <button
@@ -102,7 +103,7 @@ onMounted(async () => {
         class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar border p-3 rounded-md"
       >
         <TodoItem
-          v-for="(todo, index) in collection.todos"
+          v-for="(todo, index) in todos"
           :key="index"
           :todo="todo"
           :isSelected="selectedTodo.id === todo.id"
