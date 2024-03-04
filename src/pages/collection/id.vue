@@ -7,6 +7,7 @@ import useFormTodo from "../../composable/useFormTodo";
 import TodoItem from "../../components/TodoItem.vue";
 import FormTodo from "../../components/FormTodo.vue";
 import dbCollections from "../../helper/db-collection";
+import ProgressBar from "../../components/ProgressBar.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -75,6 +76,10 @@ onMounted(async () => {
         ></div>
         <div v-else class="text-gray-500">no description</div>
       </div>
+      <ProgressBar
+        :totalTodos="collection.todos.length"
+        :totalDoneTodos="doneTodos.length"
+      />
       <p class="font-semibold">
         You have {{ collection.todos?.length }} / {{ doneTodos?.length }} todos
       </p>
