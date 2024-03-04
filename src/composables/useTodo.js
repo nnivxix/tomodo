@@ -1,6 +1,6 @@
 import dbCollection from "@/repositories/db-collection";
 import { toRaw, computed } from "vue";
-import useCollection from "./useCollection";
+import useCollection from "@/composables/useCollection";
 
 const { collection, getDetailCollection } = useCollection();
 
