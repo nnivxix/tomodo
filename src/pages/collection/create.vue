@@ -1,11 +1,14 @@
 <script setup>
+import { useRouter } from "vue-router";
 import FormCollection from "../../components/FormCollection.vue";
 import useFormCollection from "../../composable/useFormCollection";
 
+const router = useRouter();
 const { addNewCollection, form } = useFormCollection();
 
 function handleSubmit() {
   addNewCollection();
+  router.push("/");
 }
 </script>
 <template>
