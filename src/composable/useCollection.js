@@ -1,4 +1,4 @@
-import { ref, reactive, toRaw, onMounted, onUpdated, computed } from "vue";
+import { ref, toRaw, onMounted } from "vue";
 import dbCollection from "../helper/db-collection";
 
 const collections = ref([]);
@@ -111,8 +111,6 @@ const useCollection = () => {
     const rawCollection = toRaw(collection);
     dbCollection.update(rawCollection);
   };
-
-  onMounted(() => getCollections());
 
   return {
     collections,

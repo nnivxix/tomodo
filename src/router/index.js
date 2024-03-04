@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Index from "../pages/index.vue";
 import Create from "../pages/collection/create.vue";
+import Edit from "../pages/collection/edit.vue";
 import DetailCollection from "../pages/collection/id.vue";
 
 const routes = [
@@ -9,7 +10,7 @@ const routes = [
   { path: "/collection/:id", component: DetailCollection },
   {
     path: "/collection/:id/edit",
-    component: Create,
+    component: Edit,
     name: "edit-collection",
   },
 ];

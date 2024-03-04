@@ -1,8 +1,11 @@
 <script setup>
 import TitleApp from "./components/TitleApp.vue";
-import { useRoute } from "vue-router";
+import { onMounted } from "vue";
+import useCollection from "./composable/useCollection";
 
-const route = useRoute();
+const { getCollections } = useCollection();
+
+onMounted(async () => await getCollections());
 </script>
 
 <template>
