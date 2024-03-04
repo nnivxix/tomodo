@@ -2,6 +2,7 @@
 import useFormCollection from "../composable/useFormCollection";
 const props = defineProps({
   form: Object,
+  isEdit: Boolean,
 });
 </script>
 
@@ -31,9 +32,7 @@ const props = defineProps({
     <hr class="text-dark-one" />
 
     <button class="p-5 my-4 bg-[#032836] text-center text-white rounded-lg">
-      Add New Collection
+      {{ isEdit ? "Update Collection" : "Add New Collection" }}
     </button>
   </form>
 </template>
-
-<style lang="scss" scoped></style>

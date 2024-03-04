@@ -1,8 +1,6 @@
 <script setup>
 defineProps({
   todo: Object,
-  index: Number,
-  collectionId: String,
   isSelected: Boolean,
 });
 </script>
@@ -15,7 +13,7 @@ defineProps({
     }"
   >
     <div
-      @click="$emit('handleMarkTodo', collectionId, index)"
+      @click="$emit('handleMarkTodo')"
       class="border-r-2"
       :class="{
         'border-red-300': todo.priority === 'high',
@@ -28,10 +26,8 @@ defineProps({
       </p>
     </div>
     <div>
-      <button @click="$emit('selectTodo', index)" class="mr-2">edit</button>
-      <button @click="$emit('deleteTodo', collectionId, index)">delete</button>
+      <button @click="$emit('selectTodo')" class="mr-2">edit</button>
+      <button @click="$emit('deleteTodo')">delete</button>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

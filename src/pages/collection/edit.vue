@@ -34,6 +34,6 @@ onMounted(async () => {
 </script>
 <template>
   <div class="mx-auto max-w-2xl">
-    <FormCollection :form="form" @handleSubmit="handleSubmit" />
+    <FormCollection :form="form" @handleSubmit="handleSubmit" :isEdit="true" />
   </div>
 </template>
