@@ -1,5 +1,5 @@
 import { ref, toRaw, computed } from "vue";
-import dbCollection from "../helper/db-collection";
+import dbCollection from "../repositories/db-collection";
 
 const collections = ref([]);
 const collection = ref({

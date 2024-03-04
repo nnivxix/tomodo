@@ -1,4 +1,4 @@
-import dbCollection from "../helper/db-collection";
+import dbCollection from "../repositories/db-collection";
 import { toRaw, computed } from "vue";
 import useCollection from "./useCollection";
 

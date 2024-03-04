@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 import FormCollection from "../../components/FormCollection.vue";
-import useFormCollection from "../../composable/useFormCollection";
+import useFormCollection from "../../composables/useFormCollection";
 
 const router = useRouter();
 const { addNewCollection, form, resetForm } = useFormCollection();
@@ -21,3 +21,4 @@ onMounted(() => {
     <FormCollection :form="form" @handleSubmit="handleSubmit" />
   </div>
 </template>
+../../composables/useFormCollection

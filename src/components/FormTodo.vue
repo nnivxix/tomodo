@@ -1,5 +1,5 @@
 <script setup>
-import useFormTodo from "../composable/useFormTodo";
+import useFormTodo from "../composables/useFormTodo";
 
 const { formTodo, isEditing } = useFormTodo();
 </script>
@@ -38,5 +38,3 @@ const { formTodo, isEditing } = useFormTodo();
     </button>
   </form>
 </template>
-
-<style lang="scss" scoped></style>

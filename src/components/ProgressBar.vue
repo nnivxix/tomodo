@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="mx-5">
+  <div>
     <div class="w-full bg-gray-300 h-2 rounded-md">
       <div
         :style="{
