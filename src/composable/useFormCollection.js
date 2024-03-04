@@ -5,11 +5,16 @@ import dbCollection from "../helper/db-collection";
 
 const { addCollection, updateCollection } = useCollection();
 
-const collection = ref({});
+const collection = ref({
+  name: "",
+  description: "",
+  todos: [],
+});
+
 const form = ref({
-  name: collection.value.name ?? "",
-  description: collection.value.description ?? "",
-  todos: collection.value.todos ?? [],
+  name: collection.value.name,
+  description: collection.value.description,
+  todos: collection.value.todos,
 });
 
 const useFormCollection = () => {
