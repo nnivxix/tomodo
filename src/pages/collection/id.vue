@@ -14,6 +14,9 @@ const { addTodo, markTodo, editTodo, deleteTodo } = useTodo();
 const { formTodo, isEditing, resetForm } = useFormTodo();
 
 const collection = computed(() => getDetailCollection(route.params.id));
+const descriptionCollection = computed(() => {
+  return collection.value.description.replace(/(?:\r\n|\r|\n)/g, "<br>");
+});
 const doneTodos = computed(() =>
   collection.value.todos.filter((todo) => todo.isDone === true)
 );
@@ -62,8 +65,16 @@ const handleDeleteCollection = (id) => {
     v-if="!!collection"
   >
     <div class="col-span-full md:col-span-2">
-      <h1 class="text-2xl">{{ collection.name }}</h1>
-      <p class="text-lg">{{ collection.description }}</p>
+      <div class="border p-3 rounded-md mb-3">
+        <h1 class="text-2xl py-1">{{ collection.name }}</h1>
+        <hr />
+        <div
+          v-if="!!collection.description"
+          class="text-lg"
+          v-html="descriptionCollection"
+        ></div>
+        <div v-else class="text-gray-500">no description</div>
+      </div>
       <p class="font-semibold">
         You have {{ collection.todos.length }} / {{ doneTodos.length }} todos
       </p>
@@ -82,7 +93,9 @@ const handleDeleteCollection = (id) => {
         </button>
       </div>
 
-      <div class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar">
+      <div
+        class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar border p-3 rounded-md"
+      >
         <TodoItem
           v-for="(todo, index) in collection.todos"
           :key="index"
