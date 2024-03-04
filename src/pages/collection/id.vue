@@ -2,20 +2,15 @@
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref, toRaw } from "vue";
 import useCollection from "../../composable/useCollection";
+import useTodo from "../../composable/useTodo";
 import useFormTodo from "../../composable/useFormTodo";
 import TodoItem from "../../components/TodoItem.vue";
 import FormTodo from "../../components/FormTodo.vue";
 
 const route = useRoute();
 const router = useRouter();
-const {
-  getDetailCollection,
-  deleteColllection,
-  addTodo,
-  markTodo,
-  editTodo,
-  deleteTodo,
-} = useCollection();
+const { getDetailCollection, deleteColllection } = useCollection();
+const { addTodo, markTodo, editTodo, deleteTodo } = useTodo();
 const { formTodo, isEditing, resetForm } = useFormTodo();
 
 const collection = computed(() => getDetailCollection(route.params.id));
