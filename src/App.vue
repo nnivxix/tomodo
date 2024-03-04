@@ -1,7 +1,7 @@
 <script setup>
-import TitleApp from "./components/TitleApp.vue";
 import { onMounted } from "vue";
-import useCollection from "./composables/useCollection";
+import TitleApp from "@/components/TitleApp.vue";
+import useCollection from "@/composables/useCollection";
 
 const { getCollections } = useCollection();
 

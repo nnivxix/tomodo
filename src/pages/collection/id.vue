@@ -1,13 +1,13 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { computed, ref, toRaw, onMounted } from "vue";
-import useCollection from "../../composables/useCollection";
-import useTodo from "../../composables/useTodo";
-import useFormTodo from "../../composables/useFormTodo";
-import TodoItem from "../../components/TodoItem.vue";
-import FormTodo from "../../components/FormTodo.vue";
-import dbCollections from "../../repositories/db-collection";
-import ProgressBar from "../../components/ProgressBar.vue";
+import useCollection from "@/composables/useCollection";
+import useTodo from "@/composables/useTodo";
+import useFormTodo from "@/composables/useFormTodo";
+import TodoItem from "@/components/TodoItem.vue";
+import FormTodo from "@/components/FormTodo.vue";
+import dbCollections from "@/repositories/db-collection";
+import ProgressBar from "@/components/ProgressBar.vue";
 
 const route = useRoute();
 const router = useRouter();

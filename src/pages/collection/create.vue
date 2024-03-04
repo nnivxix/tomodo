@@ -1,8 +1,8 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
-import FormCollection from "../../components/FormCollection.vue";
-import useFormCollection from "../../composables/useFormCollection";
+import FormCollection from "@/components/FormCollection.vue";
+import useFormCollection from "@/composables/useFormCollection";
 
 const router = useRouter();
 const { addNewCollection, form, resetForm } = useFormCollection();
