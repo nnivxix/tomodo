@@ -1,5 +1,5 @@
 <script setup>
-import useFormTodo from "../composables/useFormTodo";
+import useFormTodo from "@/composables/useFormTodo";
 
 const { formTodo, isEditing } = useFormTodo();
 </script>

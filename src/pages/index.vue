@@ -1,5 +1,5 @@
 <script setup>
-import useCollection from "../composables/useCollection";
+import useCollection from "@/composables/useCollection";
 
 const { collections } = useCollection();
 </script>
@@ -23,4 +23,3 @@ const { collections } = useCollection();
     </router-link>
   </main>
 </template>
-../composables/useCollection

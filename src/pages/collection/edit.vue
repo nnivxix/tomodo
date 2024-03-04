@@ -1,9 +1,9 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
-import FormCollection from "../../components/FormCollection.vue";
-import useFormCollection from "../../composables/useFormCollection";
-import dbCollection from "../../repositories/db-collection";
+import FormCollection from "@/components/FormCollection.vue";
+import useFormCollection from "@/composables/useFormCollection";
+import dbCollection from "@/repositories/db-collection";
 
 const router = useRouter();
 const route = useRoute();

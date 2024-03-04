@@ -1,10 +1,11 @@
-import dbCollection from "../repositories/db-collection";
+import dbCollection from "@/repositories/db-collection";
 import { toRaw, computed } from "vue";
-import useCollection from "./useCollection";
+import useCollection from "@/composables/useCollection";
 
 const { collection, getDetailCollection } = useCollection();
 
 const useTodo = () => {
+  const todos = computed(() => collection.value.todos);
   const doneTodos = computed(() =>
     collection.value.todos?.filter((todo) => todo.isDone === true)
   );
@@ -84,6 +85,7 @@ const useTodo = () => {
   };
 
   return {
+    todos,
     doneTodos,
     addTodo,
     markTodo,

@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { customAlphabet } from "nanoid";
-import useCollection from "./useCollection";
-import dbCollection from "../repositories/db-collection";
+import useCollection from "@/composables/useCollection";
+import dbCollection from "@/repositories/db-collection";
 
 const { addCollection, updateCollection } = useCollection();
 

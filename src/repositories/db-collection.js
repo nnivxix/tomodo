@@ -1,5 +1,4 @@
 import { openDB } from "idb";
-import { customAlphabet } from "nanoid";
 
 const dbPromise = openDB("collection-db", 1, {
   upgrade(database) {
