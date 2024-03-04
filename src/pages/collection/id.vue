@@ -1,35 +1,30 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, ref, toRaw } from "vue";
+import { computed, ref, toRaw, onMounted } from "vue";
 import useCollection from "../../composable/useCollection";
 import useTodo from "../../composable/useTodo";
 import useFormTodo from "../../composable/useFormTodo";
 import TodoItem from "../../components/TodoItem.vue";
 import FormTodo from "../../components/FormTodo.vue";
+import dbCollections from "../../helper/db-collection";
 
 const route = useRoute();
 const router = useRouter();
-const { getDetailCollection, deleteColllection } = useCollection();
-const { addTodo, markTodo, editTodo, deleteTodo } = useTodo();
+const { deleteColllection, collection, descriptionCollection } =
+  useCollection();
+const { addTodo, markTodo, editTodo, deleteTodo, doneTodos } = useTodo();
 const { formTodo, isEditing, resetForm } = useFormTodo();
 
-const collection = computed(() => getDetailCollection(route.params.id));
-const descriptionCollection = computed(() => {
-  return collection.value.description.replace(/(?:\r\n|\r|\n)/g, "<br>");
-});
-const doneTodos = computed(() =>
-  collection.value.todos.filter((todo) => todo.isDone === true)
-);
 const selectedTodo = ref({});
 
 const submitTodo = () => {
   if (isEditing.value) {
-    editTodo(collection.value.id, formTodo.value);
+    editTodo(formTodo.value);
     resetForm();
     selectedTodo.value = {};
     return;
   }
-  addTodo(collection.value.id, formTodo.value);
+  addTodo(formTodo.value);
   resetForm();
   selectedTodo.value = {};
   return;
@@ -41,10 +36,10 @@ const selectTodo = (index) => {
   formTodo.value = toRaw(selectedTodo.value);
 };
 
-const handleMarkTodo = (collectionId, index) => {
+const handleMarkTodo = (index) => {
   if (isEditing.value) resetForm();
   selectedTodo.value = {};
-  markTodo(collectionId, index);
+  markTodo(index);
 };
 const handleDeleteCollection = (id) => {
   /**TODO
@@ -58,6 +53,11 @@ const handleDeleteCollection = (id) => {
   }
   return;
 };
+
+onMounted(async () => {
+  collection.value = await dbCollections.show(route.params.id);
+  resetForm();
+});
 </script>
 <template>
   <div
@@ -76,7 +76,7 @@ const handleDeleteCollection = (id) => {
         <div v-else class="text-gray-500">no description</div>
       </div>
       <p class="font-semibold">
-        You have {{ collection.todos.length }} / {{ doneTodos.length }} todos
+        You have {{ collection.todos?.length }} / {{ doneTodos?.length }} todos
       </p>
       <div class="flex gap-3">
         <button
@@ -100,18 +100,17 @@ const handleDeleteCollection = (id) => {
           v-for="(todo, index) in collection.todos"
           :key="index"
           :todo="todo"
-          :index="index"
-          :collectionId="collection.id"
           :isSelected="selectedTodo.id === todo.id"
-          @handleMarkTodo="handleMarkTodo(collection.id, index)"
+          @handleMarkTodo="handleMarkTodo(index)"
           @selectTodo="selectTodo(index)"
-          @deleteTodo="deleteTodo(collection.id, index)"
+          @deleteTodo="deleteTodo(index)"
         />
       </div>
     </div>
     <FormTodo @submitTodo="submitTodo" />
   </div>
-  <div v-else>please wait</div>
+  <!-- TODO: make it stylish -->
+  <div v-else>Collection is Not Found</div>
 </template>
 
 <style>

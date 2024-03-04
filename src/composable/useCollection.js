@@ -1,9 +1,19 @@
-import { ref, toRaw, onMounted } from "vue";
+import { ref, toRaw, computed } from "vue";
 import dbCollection from "../helper/db-collection";
 
 const collections = ref([]);
-
+const collection = ref({
+  id: "",
+  name: "",
+  description: "",
+  created_at: "",
+  todos: [],
+});
 const useCollection = () => {
+  const descriptionCollection = computed(() => {
+    return collection.value?.description.replace(/(?:\r\n|\r|\n)/g, "<br>");
+  });
+
   const addCollection = (collection) => {
     collections.value.push(collection);
   };
@@ -114,6 +124,8 @@ const useCollection = () => {
 
   return {
     collections,
+    collection,
+    descriptionCollection,
     addCollection,
     getCollections,
     getDetailCollection,

@@ -16,7 +16,7 @@ defineProps({
       @click="$emit('handleMarkTodo')"
       class="border-r-2"
       :class="{
-        'border-red-300': todo.priority === 'high',
+        'border-red-400': todo.priority === 'high',
         'border-orange-300': todo.priority === 'medium',
         'border-green-300': todo.priority === 'low',
       }"
