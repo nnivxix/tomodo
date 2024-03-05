@@ -40,7 +40,7 @@ const useFormCollection = () => {
     };
 
     addCollection(collection);
-    dbCollection.add(collection);
+    // dbCollection.add(collection);
 
     resetForm();
   }

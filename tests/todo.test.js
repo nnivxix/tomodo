@@ -2,12 +2,13 @@ import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
 import useCollection from "../src/composables/useCollection";
 import useTodo from "../src/composables/useTodo";
+import dbCollections from "../src/repositories/db-collection";
 
 describe("testing functionality of todo", () => {
   beforeEach(() => {
     const { addCollection } = useCollection();
     addCollection({
-      id: "test-1234",
+      id: "test-1234x",
       name: "test",
       description: "",
       created_at: new Date(),
@@ -18,6 +19,9 @@ describe("testing functionality of todo", () => {
   afterEach(() => {
     const { collections } = useCollection();
     collections.value = [];
+    collections.value.forEach((collection) =>
+      dbCollections.delete(collection.id)
+    );
   });
 
   it("it should be empty todo", function () {
