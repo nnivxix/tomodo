@@ -11,36 +11,7 @@ Create todo right now, let's do great today, don't busy be productive.
 
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-1. Vite + Vue
-2. Tailwind
-
 ## Features
 
 1. IndexedDB
 2. PWA
-
-## Todo
-
-- [x] UI
-
-- [x] functional view
-
-- [x] done todo
-
-- [x] functional add todo
-
-- [x] functional edit todo
-
-- [x] functional delete todo
-
-- [x] indexedDB
-
-- [x] PWA
-
-- [x] unit test
-
-## Next Step
-
-- add name user.
-- add toast.
-- dragable.
