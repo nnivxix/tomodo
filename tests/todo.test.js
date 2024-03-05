@@ -1,46 +1,112 @@
-import { assert, describe, expect, it } from "vitest";
-import {
-  todos,
-  updateTodo,
-  editTodo,
-  deleteTodo,
-  addTodo,
-} from "../src/composables/todo";
+import { describe, expect, it, beforeEach, afterEach } from "vitest";
+
+import useCollection from "../src/composables/useCollection";
+import useTodo from "../src/composables/useTodo";
+import dbCollections from "../src/repositories/db-collection";
 
 describe("testing functionality of todo", () => {
-  it("you don't have todo", () => {
-    assert.equal(todos.value.length, 0);
+  beforeEach(() => {
+    const { addCollection } = useCollection();
+    addCollection({
+      id: "test-1234x",
+      name: "test",
+      description: "",
+      created_at: new Date(),
+      todos: [],
+    });
   });
 
-  it("add todo", () => {
-    const todo = {
-      todo: "Test",
-      time: "13:00",
-      priority: "basic",
-      done: false,
-    };
-    addTodo(todo);
-    assert.equal(todos.value.length, 1);
+  afterEach(() => {
+    const { collections, deleteColllection } = useCollection();
+    collections.value.forEach((collection) => deleteColllection(collection.id));
+    // collections.value = [];
   });
 
-  it("todo has done", () => {
-    todos.value[0].done = true;
-    expect(todos.value[0].done).toBeTruthy();
+  it("it should be empty todo", function () {
+    const { collections } = useCollection();
+
+    const firstCollection = collections.value[0];
+
+    expect(firstCollection.todos.length).to.equal(0);
   });
 
-  it("update todo", () => {
-    const valueTodo = {
-      todo: "todo updated",
-      time: "14:00",
-      priority: "important",
-    };
-    editTodo(todos.value[0].uid, true);
-    updateTodo(valueTodo);
-    assert.equal(todos.value[0].todo, "todo updated");
+  it("it should be have one todo", function () {
+    const { collections, collection } = useCollection();
+    const { addTodo } = useTodo();
+    // const firstCollection = collections.value[0];
+    collection.value = collections.value[0];
+
+    addTodo({
+      id: "todo-123",
+      name: "Todo First",
+      description: "Todo description",
+      priority: "low",
+      created_at: new Date(),
+    });
+
+    expect(collection.value.todos.length).toEqual(1);
+    expect(collection.value.todos[0].name).to.equal("Todo First");
   });
 
-  it("delete todo", () => {
-    deleteTodo(todos.value[0].uid);
-    assert.equal(todos.value.length, 0);
+  it("it should be have one todo done ", function () {
+    const { collections, collection } = useCollection();
+    const { addTodo, markTodo } = useTodo();
+
+    collection.value = collections.value[0];
+
+    addTodo({
+      id: "todo-123",
+      name: "Todo First",
+      description: "Todo description",
+      priority: "low",
+      created_at: new Date(),
+    });
+    // get first[index] todo
+    markTodo(0);
+
+    expect(collection.value.todos[0].isDone).toBeTruthy();
+  });
+
+  it("it should be have one todo updated.", function () {
+    const { collections, collection } = useCollection();
+    const { addTodo, editTodo } = useTodo();
+
+    collection.value = collections.value[0];
+
+    addTodo({
+      id: "todo-123",
+      name: "Todo First",
+      description: "Todo description",
+      priority: "low",
+      created_at: new Date(),
+    });
+    editTodo({
+      id: "todo-123",
+      name: "Todo First Edited",
+      description: "Todo description",
+      priority: "low",
+      created_at: new Date(),
+    });
+
+    expect(collection.value.todos[0].name).toEqual("Todo First Edited");
+  });
+
+  it("it should be have one todo deleted.", function () {
+    const { collections, collection } = useCollection();
+    const { addTodo, deleteTodo } = useTodo();
+
+    collection.value = collections.value[0];
+
+    addTodo({
+      id: "todo-123",
+      name: "Todo First",
+      description: "Todo description",
+      priority: "low",
+      created_at: new Date(),
+    });
+
+    deleteTodo(0);
+
+    expect(collection.value.todos.length).toEqual(0);
   });
 });

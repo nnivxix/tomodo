@@ -22,8 +22,8 @@ const useTodo = () => {
   const addTodo = (todo) => {
     const { todos } = getDetailCollection(collection.value.id);
 
-    collection.value.todos.push(todo);
     todos.push(todo);
+    collection.value.todos = todos;
 
     const rawCollection = toRaw(collection.value);
 
