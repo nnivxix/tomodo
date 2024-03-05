@@ -17,11 +17,9 @@ describe("testing functionality of todo", () => {
   });
 
   afterEach(() => {
-    const { collections } = useCollection();
-    collections.value = [];
-    collections.value.forEach((collection) =>
-      dbCollections.delete(collection.id)
-    );
+    const { collections, deleteColllection } = useCollection();
+    collections.value.forEach((collection) => deleteColllection(collection.id));
+    // collections.value = [];
   });
 
   it("it should be empty todo", function () {
