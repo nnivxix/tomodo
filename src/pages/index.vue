@@ -12,7 +12,7 @@ const sortedCollections = computed(() =>
 <template>
   <main class="relative grid grid-cols-2 gap-2">
     <router-link
-      v-for="collection in sortedCollections"
+      v-for="collection in collections"
       :key="collection.id"
       :to="`collection/${collection.id}`"
       class="hover:bg-[#032836] transform transition-all ease-in col-span-1 hover:text-white p-4 h-36 relative shadow-md rounded-md"
