@@ -1,13 +1,7 @@
 <script setup>
-import { computed } from "vue";
 import useCollection from "@/composables/useCollection";
 
 const { collections } = useCollection();
-const sortedCollections = computed(() =>
-  collections.value.sort(
-    (a, b) => new Date(a.created_at) - new Date(b.created_at)
-  )
-);
 </script>
 <template>
   <main class="relative grid grid-cols-2 gap-2">
