@@ -1,6 +1,8 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { onMounted } from "vue";
+import { onMounted, toRaw } from "vue";
+import { Form } from "vee-validate";
+import * as yup from "yup";
 import FormCollection from "@/components/FormCollection.vue";
 import useFormCollection from "@/composables/useFormCollection";
 import dbCollection from "@/repositories/db-collection";
@@ -8,13 +10,20 @@ import dbCollection from "@/repositories/db-collection";
 const router = useRouter();
 const route = useRoute();
 const { editCurrentCollection, form, collection } = useFormCollection();
-
+const schema = yup.object({
+  name: yup.string().required(),
+  description: yup.string(),
+});
 const isEdit = route.fullPath.includes("edit");
 
-function handleSubmit() {
+const onSubmit = (values) => {
+  form.value = {
+    ...values,
+    todos: toRaw(collection.value.todos),
+  };
   editCurrentCollection();
   router.push(`/collection/${collection.value.id}`);
-}
+};
 
 onMounted(async () => {
   if (isEdit) {
@@ -34,6 +43,13 @@ onMounted(async () => {
 </script>
 <template>
   <div class="mx-auto max-w-2xl">
-    <FormCollection :form="form" @handleSubmit="handleSubmit" :isEdit="true" />
+    <Form
+      @submit="onSubmit"
+      :validation-schema="schema"
+      class="flex flex-col gap-4"
+      :initial-values="form"
+    >
+      <FormCollection :form="form" :isEdit="true" />
+    </Form>
   </div>
 </template>
