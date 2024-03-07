@@ -1,6 +1,9 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, ref, toRaw, onMounted } from "vue";
+import { ref, toRaw, onMounted } from "vue";
+import { Form, useForm } from "vee-validate";
+import * as yup from "yup";
+
 import useCollection from "@/composables/useCollection";
 import useTodo from "@/composables/useTodo";
 import useFormTodo from "@/composables/useFormTodo";
@@ -15,25 +18,48 @@ const { deleteColllection, collection, descriptionCollection } =
   useCollection();
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm } = useFormTodo();
+const formTodoValidate = useForm({
+  initialValues: {
+    name: formTodo.value.name,
+    priority: formTodo.value.priority,
+  },
+  validationSchema: {},
+});
 
 const selectedTodo = ref({});
+const schema = yup.object({
+  name: yup.string().required(),
+  priority: yup.string().required(),
+});
 
-const submitTodo = () => {
-  if (isEditing.value) {
-    editTodo(formTodo.value);
-    resetForm();
-    selectedTodo.value = {};
-    return;
-  }
-  addTodo(formTodo.value);
+const submitUpdateTodo = (values) => {
+  editTodo(values);
   resetForm();
   selectedTodo.value = {};
+  console.log("edit");
+};
+const submitAddTodo = (values) => {
+  addTodo(values);
+  resetForm();
+  selectedTodo.value = {};
+  console.log("add");
+};
+const submitTodo = (values) => {
+  console.log(values);
+  formTodoValidate.resetForm();
+  return;
+  if (isEditing.value) {
+    submitUpdateTodo(values);
+    return;
+  }
+  submitAddTodo(values);
   return;
 };
 const selectTodo = (index) => {
   isEditing.value = true;
   selectedTodo.value = collection.value.todos.at(index);
 
+  // console.log(...toRaw(formTodo.value));
   formTodo.value = toRaw(selectedTodo.value);
 };
 
@@ -57,7 +83,7 @@ const handleDeleteCollection = (id) => {
 
 onMounted(async () => {
   collection.value = await dbCollections.show(route.params.id);
-  resetForm();
+  // resetForm();
 });
 </script>
 <template>
@@ -113,7 +139,13 @@ onMounted(async () => {
         />
       </div>
     </div>
-    <FormTodo @submitTodo="submitTodo" />
+    <Form
+      @submit="submitTodo"
+      :initial-values="formTodo"
+      :validation-schema="schema"
+    >
+      <FormTodo />
+    </Form>
   </div>
   <!-- TODO: make it stylish -->
   <div v-else>Collection is Not Found</div>

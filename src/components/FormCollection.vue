@@ -12,8 +12,6 @@ const props = defineProps({
   form: Object,
   isEdit: Boolean,
 });
-
-const emit = defineEmits(["handleSubmit"]);
 </script>
 
 <template>
