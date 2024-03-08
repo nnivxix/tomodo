@@ -21,9 +21,7 @@ defineProps({
         'border-green-300': todo.priority === 'low',
       }"
     >
-      <p class="text-xl">
-        {{ todo.name }}
-      </p>
+      <p class="text-xl">{{ todo.name }}</p>
     </div>
     <div>
       <button @click="$emit('selectTodo')" class="mr-2">edit</button>

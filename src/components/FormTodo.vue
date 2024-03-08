@@ -14,7 +14,6 @@ const { formTodo, isEditing } = useFormTodo();
         v-bind="field"
         class="border w-full border-spacing-1 rounded-md p-1"
       />
-      {{ field }}
       <ErrorMessage name="name" class="text-red-600" />
     </Field>
   </div>

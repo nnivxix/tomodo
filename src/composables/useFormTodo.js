@@ -5,7 +5,7 @@ const isEditing = ref(false);
 const formTodo = ref({
   id: `todo-${nanoid(7)}`,
   name: "",
-  priority: "Important",
+  priority: "high",
   isDone: false,
   created_at: new Date(),
 });
@@ -18,8 +18,6 @@ const useFormTodo = () => {
       priority: "high",
       isDone: false,
     };
-    console.log("reset");
-    console.log(formTodo.value);
     isEditing.value = false;
   };
   return {

@@ -17,14 +17,11 @@ const router = useRouter();
 const { deleteColllection, collection, descriptionCollection } =
   useCollection();
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
-const { formTodo, isEditing, resetForm } = useFormTodo();
-const formTodoValidate = useForm({
-  initialValues: {
-    name: formTodo.value.name,
-    priority: formTodo.value.priority,
-  },
-  validationSchema: {},
-});
+const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
+
+const vFormTodo = useForm();
+
+console.log(vFormTodo);
 
 const selectedTodo = ref({});
 const schema = yup.object({
@@ -34,37 +31,46 @@ const schema = yup.object({
 
 const submitUpdateTodo = (values) => {
   editTodo(values);
-  resetForm();
+  resetFormTodo();
   selectedTodo.value = {};
-  console.log("edit");
 };
 const submitAddTodo = (values) => {
   addTodo(values);
-  resetForm();
+  resetFormTodo();
   selectedTodo.value = {};
-  console.log("add");
 };
-const submitTodo = (values) => {
-  console.log(values);
-  formTodoValidate.resetForm();
-  return;
+const submitTodo = (values, { resetForm }) => {
+  const todo = {
+    ...values,
+    id: selectedTodo.value.id ?? formTodo.value.id,
+    isDone: selectedTodo.value.isDone ?? formTodo.value.isDone,
+    created_at: selectedTodo.value.created_at ?? new Date(),
+  };
+
+  resetForm();
+
   if (isEditing.value) {
-    submitUpdateTodo(values);
+    submitUpdateTodo(todo);
     return;
   }
-  submitAddTodo(values);
+  submitAddTodo(todo);
   return;
 };
 const selectTodo = (index) => {
-  isEditing.value = true;
-  selectedTodo.value = collection.value.todos.at(index);
+  console.log(formTodo);
 
-  // console.log(...toRaw(formTodo.value));
-  formTodo.value = toRaw(selectedTodo.value);
+  isEditing.value = true;
+  const todo = toRaw(collection.value.todos.at(index));
+  console.log(todo);
+
+  selectedTodo.value = todo;
+  formTodo.value = todo;
+
+  console.log(formTodo);
 };
 
 const handleMarkTodo = (index) => {
-  if (isEditing.value) resetForm();
+  if (isEditing.value) resetFormTodo();
   selectedTodo.value = {};
   markTodo(index);
 };
@@ -83,7 +89,7 @@ const handleDeleteCollection = (id) => {
 
 onMounted(async () => {
   collection.value = await dbCollections.show(route.params.id);
-  // resetForm();
+  resetFormTodo();
 });
 </script>
 <template>
