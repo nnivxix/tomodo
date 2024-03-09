@@ -17,6 +17,7 @@ const useFormTodo = () => {
       name: "",
       priority: "high",
       isDone: false,
+      created_at: new Date(),
     };
     isEditing.value = false;
   };
