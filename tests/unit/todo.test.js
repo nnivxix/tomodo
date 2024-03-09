@@ -1,8 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
-import useCollection from "../src/composables/useCollection";
-import useTodo from "../src/composables/useTodo";
-import dbCollections from "../src/repositories/db-collection";
+import useCollection from "@/composables/useCollection";
+import useTodo from "@/composables/useTodo";
 
 describe("testing functionality of todo", () => {
   beforeEach(() => {

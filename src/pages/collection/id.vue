@@ -1,6 +1,9 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { computed, ref, toRaw, onMounted } from "vue";
+import { ref, toRaw, onMounted } from "vue";
+import { Form, useForm } from "vee-validate";
+import * as yup from "yup";
+
 import useCollection from "@/composables/useCollection";
 import useTodo from "@/composables/useTodo";
 import useFormTodo from "@/composables/useFormTodo";
@@ -14,33 +17,79 @@ const router = useRouter();
 const { deleteColllection, collection, descriptionCollection } =
   useCollection();
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
-const { formTodo, isEditing, resetForm } = useFormTodo();
+const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
+
+const vFormTodo = useForm({
+  validationSchema: {
+    name: yup.string().required().min(3).label("todo name"),
+    priority: yup.string().required().label("priority"),
+  },
+});
 
 const selectedTodo = ref({});
+const resetVForm = async () => {
+  vFormTodo.setValues({
+    id: formTodo.value.id,
+    name: formTodo.value.name,
+    priority: formTodo.value.priority,
+    isDone: false,
+    created_at: new Date(),
+  });
+};
+const submitUpdateTodo = (values) => {
+  editTodo(values);
+  resetFormTodo();
+  selectedTodo.value = {};
+};
+const submitAddTodo = (values) => {
+  addTodo(values);
+  resetFormTodo();
+  selectedTodo.value = {};
+};
+const submitTodo = async () => {
+  const todo = {
+    ...toRaw(vFormTodo.values),
+  };
 
-const submitTodo = () => {
+  const { validate } = vFormTodo;
+  const { valid } = await validate();
+  if (!valid) return;
+
   if (isEditing.value) {
-    editTodo(formTodo.value);
-    resetForm();
-    selectedTodo.value = {};
+    submitUpdateTodo(todo);
+    resetVForm();
+
     return;
   }
-  addTodo(formTodo.value);
-  resetForm();
-  selectedTodo.value = {};
+  submitAddTodo(todo);
+  resetVForm();
+
   return;
 };
 const selectTodo = (index) => {
   isEditing.value = true;
-  selectedTodo.value = collection.value.todos.at(index);
 
-  formTodo.value = toRaw(selectedTodo.value);
+  const todo = toRaw(collection.value.todos.at(index));
+  vFormTodo.setErrors({});
+  vFormTodo.setValues({
+    id: todo.id,
+    name: todo.name,
+    priority: todo.priority,
+    isDone: todo.isDone,
+    created_at: todo.created_at,
+  });
+  selectedTodo.value = todo;
+  formTodo.value = todo;
 };
 
 const handleMarkTodo = (index) => {
-  if (isEditing.value) resetForm();
+  if (isEditing.value) {
+    resetFormTodo();
+    resetVForm();
+  }
   selectedTodo.value = {};
   markTodo(index);
+  vFormTodo.setErrors({});
 };
 const handleDeleteCollection = (id) => {
   /**TODO
@@ -57,7 +106,10 @@ const handleDeleteCollection = (id) => {
 
 onMounted(async () => {
   collection.value = await dbCollections.show(route.params.id);
-  resetForm();
+  resetFormTodo();
+  vFormTodo.setValues({
+    ...formTodo.value,
+  });
 });
 </script>
 <template>
@@ -100,7 +152,7 @@ onMounted(async () => {
       </div>
 
       <div
-        class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar border p-3 rounded-md"
+        class="md:mb-0 overflow-y-scroll md:h-[70vh] h-[42vh] scroll-bar border p-3 rounded-md"
       >
         <TodoItem
           v-for="(todo, index) in todos"

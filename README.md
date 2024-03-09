@@ -15,3 +15,15 @@ Create todo right now, let's do great today, don't busy be productive.
 
 1. IndexedDB
 2. PWA
+
+## Test
+
+```bash
+ ✓ tests/unit/collection.test.js (4)
+ ✓ tests/unit/todo.test.js (5)
+
+ Test Files  2 passed (2)
+      Tests  9 passed (9)
+   Start at  09:31:41
+   Duration  418ms
+```
