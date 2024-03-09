@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, afterEach } from "vitest";
 
-import useCollection from "../src/composables/useCollection";
+import useCollection from "@/composables/useCollection";
 
 describe("test functionality of collection", function () {
   afterEach(() => {
