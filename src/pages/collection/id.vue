@@ -21,7 +21,7 @@ const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
 
 const vFormTodo = useForm({
   validationSchema: {
-    name: yup.string().required().label("name"),
+    name: yup.string().required().min(3).label("todo name"),
     priority: yup.string().required().label("priority"),
   },
 });
@@ -50,16 +50,10 @@ const submitTodo = async () => {
   const todo = {
     ...toRaw(vFormTodo.values),
   };
+
   const { validate } = vFormTodo;
-
-  const { valid, errors } = await validate();
-
-  if (!valid) {
-    console.log(errors);
-    return;
-  }
-
-  resetVForm();
+  const { valid } = await validate();
+  if (!valid) return;
 
   if (isEditing.value) {
     submitUpdateTodo(todo);
@@ -158,7 +152,7 @@ onMounted(async () => {
       </div>
 
       <div
-        class="md:mb-0 overflow-y-scroll md:h-[80vh] h-[55vh] scroll-bar border p-3 rounded-md"
+        class="md:mb-0 overflow-y-scroll md:h-[70vh] h-[42vh] scroll-bar border p-3 rounded-md"
       >
         <TodoItem
           v-for="(todo, index) in todos"
@@ -171,9 +165,7 @@ onMounted(async () => {
         />
       </div>
     </div>
-    <form @submit.prevent="submitTodo">
-      <FormTodo />
-    </form>
+    <FormTodo @submitTodo="submitTodo" />
   </div>
   <!-- TODO: make it stylish -->
   <div v-else>Collection is Not Found</div>
