@@ -1,12 +1,12 @@
 <script setup>
 import ExampleJson from "@/components/ExampleJson.vue";
 import { Field, useForm, ErrorMessage } from "vee-validate";
-import { ref, toRaw } from "vue";
+import { ref, toRaw, watch } from "vue";
 
 const formImport = useForm();
 
 const isAttached = ref(false);
-const collection = ref({});
+const collection = ref(null);
 
 function handleDrop(event) {
   event.preventDefault();
@@ -53,6 +53,25 @@ async function onSubmit() {
     });
   }
 }
+const validateCollection = (collection) => {
+  if (
+    collection.hasOwnProperty("id") &&
+    collection.hasOwnProperty("name") &&
+    collection.hasOwnProperty("description") &&
+    collection.hasOwnProperty("todos") &&
+    Array.isArray(collection.todos)
+  ) {
+    return true;
+  }
+  false;
+};
+watch(formImport.values, async (form) => {
+  if (!!form.file) {
+    const data = await parserJson(toRaw(form.file));
+    if (validateCollection(data)) collection.value = data;
+    return;
+  }
+});
 </script>
 
 <template>
@@ -61,10 +80,12 @@ async function onSubmit() {
     <form @submit.prevent="onSubmit" class="grid gap-3">
       <Field name="file" v-slot="{ handleChange }">
         <div
-          v-if="!!formImport.values.file"
+          v-if="!!collection"
           class="hover:bg-[#032836] transform transition-all ease-in col-span-1 hover:text-white p-4 h-36 relative shadow-md rounded-md"
         >
-          <h1 class="absolute bottom-3 left-5 text-xl">test (1)</h1>
+          <h1 class="absolute bottom-3 left-5 text-xl">
+            {{ collection.name }} - ({{ collection.todos?.length }})
+          </h1>
         </div>
         <label for="file" v-else>
           <div
