@@ -1,9 +1,12 @@
 <script setup>
-import ExampleJson from "@/components/ExampleJson.vue";
 import { Field, useForm, ErrorMessage } from "vee-validate";
 import { ref, toRaw, watch } from "vue";
+import { useRouter } from "vue-router";
+import ExampleJson from "@/components/ExampleJson.vue";
+import useCollection from "@/composables/useCollection";
 
 const formImport = useForm();
+const router = useRouter();
 
 const isAttached = ref(false);
 const collection = ref(null);
@@ -45,7 +48,9 @@ function parserJson(file) {
 async function onSubmit() {
   try {
     const data = await parserJson(toRaw(formImport.values.file));
-    console.log(data);
+
+    useCollection().addCollection(data);
+    router.push("/");
   } catch (error) {
     console.error("Error parsing JSON file:", error);
     formImport.setErrors({
@@ -63,12 +68,19 @@ const validateCollection = (collection) => {
   ) {
     return true;
   }
-  false;
+  return false;
 };
 watch(formImport.values, async (form) => {
   if (!!form.file) {
     const data = await parserJson(toRaw(form.file));
-    if (validateCollection(data)) collection.value = data;
+    if (validateCollection(data)) {
+      collection.value = data;
+      return;
+    }
+    formImport.setErrors({
+      file: "Properties on json file is not valid",
+    });
+    formImport.setFieldValue("file", null);
     return;
   }
 });
