@@ -11,6 +11,7 @@ import TodoItem from "@/components/TodoItem.vue";
 import FormTodo from "@/components/FormTodo.vue";
 import dbCollections from "@/repositories/db-collection";
 import ProgressBar from "@/components/ProgressBar.vue";
+import exportCollection from "@/utils/export-collection";
 
 const route = useRoute();
 const router = useRouter();
@@ -90,24 +91,7 @@ const handleMarkTodo = (index) => {
   markTodo(index);
   vFormTodo.setErrors({});
 };
-const handleExportCollection = () => {
-  const dataCollection = toRaw(collection.value);
-  const json = JSON.stringify(dataCollection);
-  const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `collection-${collection.value.id}`;
-
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
-  URL.revokeObjectURL(url);
-
-  return;
-};
 const handleDeleteCollection = (id) => {
   const question = confirm("Are you sure delete this collection?");
   if (question) {
@@ -167,7 +151,7 @@ onMounted(async () => {
         <button
           id="export-collection"
           class="bg-orange-600 text-white p-3 rounded-md my-2"
-          @click="handleExportCollection"
+          @click="exportCollection(collection)"
         >
           Export Collection
         </button>

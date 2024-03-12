@@ -4,6 +4,8 @@ import { ref, toRaw, watch } from "vue";
 import { useRouter } from "vue-router";
 import ExampleJson from "@/components/ExampleJson.vue";
 import useCollection from "@/composables/useCollection";
+import jsonParser from "@/utils/json-parser";
+import validateCollection from "@/utils/validate-collection";
 
 const formImport = useForm();
 const router = useRouter();
@@ -30,24 +32,9 @@ function handleDrop(event) {
   });
 }
 
-function parserJson(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = function () {
-      try {
-        const data = JSON.parse(reader.result);
-        resolve(data);
-      } catch (error) {
-        reject(error);
-      }
-    };
-  });
-}
-
 async function onSubmit() {
   try {
-    const data = await parserJson(toRaw(formImport.values.file));
+    const data = await jsonParser(toRaw(formImport.values.file));
 
     useCollection().addCollection(data);
     router.push("/");
@@ -58,21 +45,10 @@ async function onSubmit() {
     });
   }
 }
-const validateCollection = (collection) => {
-  if (
-    collection.hasOwnProperty("id") &&
-    collection.hasOwnProperty("name") &&
-    collection.hasOwnProperty("description") &&
-    collection.hasOwnProperty("todos") &&
-    Array.isArray(collection.todos)
-  ) {
-    return true;
-  }
-  return false;
-};
+
 watch(formImport.values, async (form) => {
   if (!!form.file) {
-    const data = await parserJson(toRaw(form.file));
+    const data = await jsonParser(toRaw(form.file));
     if (validateCollection(data)) {
       collection.value = data;
       return;
