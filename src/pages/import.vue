@@ -46,6 +46,11 @@ async function onSubmit() {
   }
 }
 
+function onClear() {
+  collection.value = null;
+  formImport.resetForm();
+}
+
 watch(formImport.values, async (form) => {
   if (!!form.file) {
     const data = await jsonParser(toRaw(form.file));
@@ -94,15 +99,26 @@ watch(formImport.values, async (form) => {
         <ErrorMessage name="file" class="text-red-500" />
       </Field>
       <div>
-        <button class="p-3 mt-2 bg-[#032836] text-center text-white rounded-lg">
+        <button
+          type="submit"
+          class="p-3 mr-2 mt-2 bg-[#032836] text-center text-white rounded-lg"
+        >
           Import Collection
+        </button>
+        <button
+          v-if="!!collection"
+          type="button"
+          @click="onClear"
+          class="p-3 mt-2 bg-red-500 text-center text-white rounded-lg"
+        >
+          Clear
         </button>
       </div>
     </form>
 
     <div class="mt-4">
-      <h1>The json file must be structured like this.</h1>
-      <ExampleJson />
+      <h1 v-if="!!!collection">The json file must be structured like this.</h1>
+      <ExampleJson v-bind:json="collection" />
     </div>
   </div>
 </template>
