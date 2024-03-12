@@ -97,7 +97,7 @@ export default defineConfig({
             label: "import collection",
           },
           {
-            src: "screenshots/wide-3.jpg",
+            src: "screenshots/wide-4.jpg",
             sizes: "768x432",
             form_factor: "wide",
             label: "form update collection",
@@ -118,13 +118,13 @@ export default defineConfig({
             src: "screenshots/narrow-3.jpg",
             sizes: "375x667",
             form_factor: "narrow",
-            label: "import collection",
+            label: "update collection",
           },
           {
-            src: "screenshots/narrow-3.jpg",
+            src: "screenshots/narrow-4.jpg",
             sizes: "375x667",
             form_factor: "narrow",
-            label: "update collection",
+            label: "import collection",
           },
         ],
         shortcuts: [
