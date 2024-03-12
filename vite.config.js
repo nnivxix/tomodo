@@ -74,8 +74,59 @@ export default defineConfig({
         name: "Tomodo",
         short_name: "Tomodo",
         start_url: "/",
-        description: "Kelarin semuanya",
+        description:
+          "Tomodo is application to do list for make human productive. Create todo right now, let's do great today, don't busy be productive.",
         theme_color: "#ffffff",
+        screenshots: [
+          {
+            src: "screenshots/wide-1.jpg",
+            sizes: "768x432",
+            form_factor: "wide",
+            label: "home",
+          },
+          {
+            src: "screenshots/wide-2.jpg",
+            sizes: "768x432",
+            form_factor: "wide",
+            label: "detail collection",
+          },
+          {
+            src: "screenshots/wide-3.jpg",
+            sizes: "768x432",
+            form_factor: "wide",
+            label: "import collection",
+          },
+          {
+            src: "screenshots/wide-4.jpg",
+            sizes: "768x432",
+            form_factor: "wide",
+            label: "form update collection",
+          },
+          {
+            src: "screenshots/narrow-1.jpg",
+            sizes: "375x667",
+            form_factor: "narrow",
+            label: "home",
+          },
+          {
+            src: "screenshots/narrow-2.jpg",
+            sizes: "375x667",
+            form_factor: "narrow",
+            label: "detail collection",
+          },
+          {
+            src: "screenshots/narrow-3.jpg",
+            sizes: "375x667",
+            form_factor: "narrow",
+            label: "update collection",
+          },
+          {
+            src: "screenshots/narrow-4.jpg",
+            sizes: "375x667",
+            form_factor: "narrow",
+            label: "import collection",
+          },
+        ],
         shortcuts: [
           {
             name: "Import Collection",
