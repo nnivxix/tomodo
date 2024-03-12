@@ -9,9 +9,12 @@ import validateCollection from "@/utils/validate-collection";
 
 const formImport = useForm();
 const router = useRouter();
+const { addCollection, getDetailCollection, deleteColllection } =
+  useCollection();
 
 const isAttached = ref(false);
 const collection = ref(null);
+const isCollectionExist = ref(false);
 
 function handleDrop(event) {
   event.preventDefault();
@@ -35,8 +38,12 @@ function handleDrop(event) {
 async function onSubmit() {
   try {
     const data = await jsonParser(toRaw(formImport.values.file));
+    const collection = getDetailCollection(data.id);
+    if (!!collection) {
+      deleteColllection(data.id);
+    }
 
-    useCollection().addCollection(data);
+    addCollection(data);
     router.push("/");
   } catch (error) {
     console.error("Error parsing JSON file:", error);
@@ -48,6 +55,7 @@ async function onSubmit() {
 
 function onClear() {
   collection.value = null;
+  isCollectionExist.value = false;
   formImport.resetForm();
 }
 
@@ -56,6 +64,8 @@ watch(formImport.values, async (form) => {
     const data = await jsonParser(toRaw(form.file));
     if (validateCollection(data)) {
       collection.value = data;
+      const findCollection = getDetailCollection(data.id);
+      if (data.id === findCollection?.id) isCollectionExist.value = true;
       return;
     }
     formImport.setErrors({
@@ -117,7 +127,16 @@ watch(formImport.values, async (form) => {
     </form>
 
     <div class="mt-4">
-      <h1 v-if="!!!collection">The json file must be structured like this.</h1>
+      <div v-if="!!!collection" class="py-3">
+        <p>
+          If the <strong>id</strong> of file is same with existing collection,
+          the collection will be overwrited.
+        </p>
+        <p>The json file must be structured like this.</p>
+      </div>
+      <h1 v-if="isCollectionExist" class="py-3">
+        The imported collection is already exist.
+      </h1>
       <ExampleJson v-bind:json="collection" />
     </div>
   </div>
