@@ -15,7 +15,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       devOptions: {
-        enabled: false,
+        enabled: true,
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,vue}"],
@@ -76,6 +76,20 @@ export default defineConfig({
         start_url: "/",
         description: "Kelarin semuanya",
         theme_color: "#ffffff",
+        shortcuts: [
+          {
+            name: "Import Collection",
+            short_name: "Import",
+            description: "Import the collection",
+            url: "/import",
+            icons: [
+              {
+                src: "icons/pwa-import.png",
+                sizes: "32x32",
+              },
+            ],
+          },
+        ],
         icons: [
           {
             src: "icons/android-chrome-192x192.png",
