@@ -84,8 +84,8 @@ export default defineConfig({
             url: "/import",
             icons: [
               {
-                src: "icons/pwa-import.png",
-                sizes: "32x32",
+                src: "icons/pwa-import-white.png",
+                sizes: "192x192",
               },
             ],
           },
