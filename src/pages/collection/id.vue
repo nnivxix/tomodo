@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, toRaw, onMounted } from "vue";
-import { Form, useForm } from "vee-validate";
+import { useForm } from "vee-validate";
 import * as yup from "yup";
 
 import useCollection from "@/composables/useCollection";
@@ -18,7 +18,6 @@ const { deleteColllection, collection, descriptionCollection } =
   useCollection();
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
-
 const vFormTodo = useForm({
   validationSchema: {
     name: yup.string().required().min(3).label("todo name"),
@@ -91,10 +90,25 @@ const handleMarkTodo = (index) => {
   markTodo(index);
   vFormTodo.setErrors({});
 };
+const handleExportCollection = () => {
+  const dataCollection = toRaw(collection.value);
+  const json = JSON.stringify(dataCollection);
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `collection-${collection.value.id}`;
+
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  URL.revokeObjectURL(url);
+
+  return;
+};
 const handleDeleteCollection = (id) => {
-  /**TODO
-   * Change to vue modal
-   */
   const question = confirm("Are you sure delete this collection?");
   if (question) {
     deleteColllection(id);
@@ -136,7 +150,7 @@ onMounted(async () => {
         You have {{ todos?.length }} / {{ doneTodos?.length }}
         {{ todos.length > 1 ? "todos" : "todo" }}
       </p>
-      <div class="flex gap-3">
+      <div class="flex gap-3 flex-wrap">
         <button
           class="bg-red-600 text-white p-3 rounded-md my-2"
           @click="handleDeleteCollection(collection.id)"
@@ -146,8 +160,16 @@ onMounted(async () => {
         <button
           @click="router.push(`/collection/${collection.id}/edit`)"
           class="bg-gray-600 text-white p-3 rounded-md my-2"
+          type="button"
         >
           Edit Collection
+        </button>
+        <button
+          id="export-collection"
+          class="bg-orange-600 text-white p-3 rounded-md my-2"
+          @click="handleExportCollection"
+        >
+          Export Collection
         </button>
       </div>
 
