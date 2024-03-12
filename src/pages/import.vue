@@ -79,7 +79,7 @@ watch(formImport.values, async (form) => {
           <div
             @drop.prevent="handleDrop"
             @dragover.prevent
-            class="border border-gray-600 border-dashed w-full py-9 px-5 mt-3"
+            class="border border-gray-600 border-dashed w-full py-9 px-5 mt-3 rounded-md"
           >
             <input
               id="file"

@@ -134,23 +134,23 @@ onMounted(async () => {
         You have {{ todos?.length }} / {{ doneTodos?.length }}
         {{ todos.length > 1 ? "todos" : "todo" }}
       </p>
-      <div class="flex gap-3 flex-wrap">
+      <div class="flex gap-3 flex-wrap my-5">
         <button
-          class="bg-red-600 text-white p-3 rounded-md my-2"
+          class="bg-red-600 text-white p-3 rounded-md"
           @click="handleDeleteCollection(collection.id)"
         >
           Delete Collection
         </button>
         <button
           @click="router.push(`/collection/${collection.id}/edit`)"
-          class="bg-gray-600 text-white p-3 rounded-md my-2"
+          class="bg-gray-600 text-white p-3 rounded-md"
           type="button"
         >
           Edit Collection
         </button>
         <button
           id="export-collection"
-          class="bg-orange-600 text-white p-3 rounded-md my-2"
+          class="bg-orange-600 text-white p-3 rounded-md"
           @click="exportCollection(collection)"
         >
           Export Collection
