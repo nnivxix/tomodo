@@ -33,5 +33,13 @@ onMounted(() => {
     >
       <FormCollection :form="form" />
     </Form>
+    <div>
+      <p>
+        Already have a Tomodo json file?
+        <RouterLink to="/import" class="underline text-blue-700"
+          >now you can import it</RouterLink
+        >
+      </p>
+    </div>
   </div>
 </template>

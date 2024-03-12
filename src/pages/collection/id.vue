@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, toRaw, onMounted } from "vue";
-import { Form, useForm } from "vee-validate";
+import { useForm } from "vee-validate";
 import * as yup from "yup";
 
 import useCollection from "@/composables/useCollection";
@@ -11,6 +11,7 @@ import TodoItem from "@/components/TodoItem.vue";
 import FormTodo from "@/components/FormTodo.vue";
 import dbCollections from "@/repositories/db-collection";
 import ProgressBar from "@/components/ProgressBar.vue";
+import exportCollection from "@/utils/export-collection";
 
 const route = useRoute();
 const router = useRouter();
@@ -18,7 +19,6 @@ const { deleteColllection, collection, descriptionCollection } =
   useCollection();
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
-
 const vFormTodo = useForm({
   validationSchema: {
     name: yup.string().required().min(3).label("todo name"),
@@ -91,10 +91,8 @@ const handleMarkTodo = (index) => {
   markTodo(index);
   vFormTodo.setErrors({});
 };
+
 const handleDeleteCollection = (id) => {
-  /**TODO
-   * Change to vue modal
-   */
   const question = confirm("Are you sure delete this collection?");
   if (question) {
     deleteColllection(id);
@@ -136,18 +134,26 @@ onMounted(async () => {
         You have {{ todos?.length }} / {{ doneTodos?.length }}
         {{ todos.length > 1 ? "todos" : "todo" }}
       </p>
-      <div class="flex gap-3">
+      <div class="flex gap-3 flex-wrap my-5">
         <button
-          class="bg-red-600 text-white p-3 rounded-md my-2"
+          class="bg-red-600 text-white p-3 rounded-md"
           @click="handleDeleteCollection(collection.id)"
         >
           Delete Collection
         </button>
         <button
           @click="router.push(`/collection/${collection.id}/edit`)"
-          class="bg-gray-600 text-white p-3 rounded-md my-2"
+          class="bg-gray-600 text-white p-3 rounded-md"
+          type="button"
         >
           Edit Collection
+        </button>
+        <button
+          id="export-collection"
+          class="bg-orange-600 text-white p-3 rounded-md"
+          @click="exportCollection(collection)"
+        >
+          Export Collection
         </button>
       </div>
 

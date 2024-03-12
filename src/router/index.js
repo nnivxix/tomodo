@@ -3,6 +3,7 @@ import Index from "../pages/index.vue";
 import Create from "../pages/collection/create.vue";
 import Edit from "../pages/collection/edit.vue";
 import DetailCollection from "../pages/collection/id.vue";
+import ImportCollection from "@/pages/import.vue";
 
 const routes = [
   { path: "/", component: Index },
@@ -12,6 +13,11 @@ const routes = [
     path: "/collection/:id/edit",
     component: Edit,
     name: "edit-collection",
+  },
+  {
+    path: "/import",
+    component: ImportCollection,
+    name: "import-collection",
   },
 ];
 

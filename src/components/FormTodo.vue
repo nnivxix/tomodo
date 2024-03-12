@@ -17,7 +17,7 @@ defineEmits(["submitTodo"]);
           id="name"
           type="text"
           v-bind="field"
-          class="border w-full border-spacing-1 rounded-md p-1"
+          class="border w-full border-spacing-1 rounded-md p-1 border-gray-400"
         />
         <ErrorMessage name="name" class="text-red-600" />
       </Field>
@@ -28,7 +28,7 @@ defineEmits(["submitTodo"]);
         <select
           v-bind="field"
           :value="field.value"
-          class="w-full p-3 rounded-lg"
+          class="w-full p-3 rounded-lg border border-gray-400"
           id="priority"
         >
           <option disabled value="">Please select one priority</option>
