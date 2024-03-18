@@ -21,8 +21,9 @@ const onSubmit = (values) => {
     ...values,
     todos: toRaw(collection.value.todos),
   };
-  editCurrentCollection();
-  router.push(`/collection/${collection.value.id}`);
+  const updatedCollection = editCurrentCollection();
+
+  router.push(`/collection/${updatedCollection.id}`);
 };
 
 onMounted(async () => {

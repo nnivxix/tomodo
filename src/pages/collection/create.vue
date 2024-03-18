@@ -16,8 +16,9 @@ const schema = yup.object({
 const onSubmit = (values) => {
   form.value = values;
   form.value.todos = [];
-  addNewCollection();
-  router.push("/");
+
+  const collection = addNewCollection();
+  router.push(`/collection/${collection.id}`);
 };
 
 onMounted(() => {

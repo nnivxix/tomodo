@@ -57,6 +57,7 @@ const useCollection = () => {
     const rawCollection = toRaw(collection);
 
     dbCollection.update(rawCollection);
+    return rawCollection;
   };
 
   return {
