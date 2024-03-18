@@ -28,7 +28,8 @@ const useFormCollection = () => {
 
   function editCurrentCollection() {
     form.value.id = collection.value.id;
-    updateCollection(form.value);
+    const updatedCollection = updateCollection(form.value);
+    return updatedCollection;
   }
   function addNewCollection() {
     const nanoid = customAlphabet("1234567890abcdef", 10);
@@ -40,9 +41,8 @@ const useFormCollection = () => {
     };
 
     addCollection(collection);
-    // dbCollection.add(collection);
-
     resetForm();
+    return collection;
   }
 
   return {
