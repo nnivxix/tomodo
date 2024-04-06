@@ -3,7 +3,6 @@ import { useRouter } from "vue-router";
 import { onMounted } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
-import FormCollection from "@/components/FormCollection.vue";
 import useFormCollection from "@/composables/useFormCollection";
 
 const router = useRouter();

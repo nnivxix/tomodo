@@ -2,7 +2,6 @@
 import { Field, useForm, ErrorMessage } from "vee-validate";
 import { ref, toRaw, watch } from "vue";
 import { useRouter } from "vue-router";
-import ExampleJson from "@/components/ExampleJson.vue";
 import useCollection from "@/composables/useCollection";
 import jsonParser from "@/utils/json-parser";
 import validateCollection from "@/utils/validate-collection";
