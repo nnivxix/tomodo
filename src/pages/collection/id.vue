@@ -7,10 +7,7 @@ import * as yup from "yup";
 import useCollection from "@/composables/useCollection";
 import useTodo from "@/composables/useTodo";
 import useFormTodo from "@/composables/useFormTodo";
-import TodoItem from "@/components/TodoItem.vue";
-import FormTodo from "@/components/FormTodo.vue";
 import dbCollections from "@/repositories/db-collection";
-import ProgressBar from "@/components/ProgressBar.vue";
 import exportCollection from "@/utils/export-collection";
 
 const route = useRoute();

@@ -3,7 +3,6 @@ import { useRoute, useRouter } from "vue-router";
 import { onMounted, toRaw } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
-import FormCollection from "@/components/FormCollection.vue";
 import useFormCollection from "@/composables/useFormCollection";
 import dbCollection from "@/repositories/db-collection";
 
