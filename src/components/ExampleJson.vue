@@ -1,5 +1,6 @@
 <script setup>
 defineProps({
+  /** @type {import('@/composables/useCollection').Collection} */
   json: Object,
 });
 </script>

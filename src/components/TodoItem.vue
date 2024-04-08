@@ -1,5 +1,11 @@
 <script setup>
-defineProps({
+/**
+ * @type {{
+ * todo: import('@/composables/useTodo').Todo,
+ * isSelected: boolean
+ *  }}
+ */
+const { todo, isSelected } = defineProps({
   todo: Object,
   isSelected: Boolean,
 });

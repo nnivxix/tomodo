@@ -1,13 +1,13 @@
 <script setup>
-import { Form, Field, ErrorMessage } from "vee-validate";
-import * as yup from "yup";
-import { toRaw } from "vue";
-import { useRouter } from "vue-router";
-import useFormCollection from "@/composables/useFormCollection";
+import { Field, ErrorMessage } from "vee-validate";
 
-const router = useRouter();
-const { addNewCollection, editCurrentCollection } = useFormCollection();
+/**
+ * @typedef {import('@/composables/useFormCollection').FormCollection} Form
+ * @typedef {Boolean} IsEdit
+ * @typedef {{form: Form, isEdit:IsEdit}} PropsForm
+ */
 
+/** @type {PropsForm} */
 const props = defineProps({
   form: Object,
   isEdit: Boolean,
