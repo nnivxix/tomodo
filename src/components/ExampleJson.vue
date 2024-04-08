@@ -1,5 +1,5 @@
 <script setup>
-/** @type {{json: import('@/composables/useCollection').Collection}} */
+/** @type {import('@/types').ExampleJsonProp} */
 const { json } = defineProps({
   json: Object,
 });

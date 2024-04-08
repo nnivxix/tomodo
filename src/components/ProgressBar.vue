@@ -1,22 +1,13 @@
 <script setup>
 import { computed } from "vue";
 
-/**
- * @type {
- * {
- * totalDoneTodos: Number,
- * totalTodos: Number
- * }
- * }
- */
-const props = defineProps({
+/** @type { import('@/types').ProgressBarProp }  */
+const { totalDoneTodos, totalTodos } = defineProps({
   totalDoneTodos: Number,
   totalTodos: Number,
 });
 
-/**
- *  @returns {import('vue').ComputedRef<number>}
- */
+/**  @returns {import('vue').ComputedRef<number>} */
 const percentage = computed(() => {
   const countTodos = Math.round(
     (props.totalDoneTodos / props.totalTodos) * 100

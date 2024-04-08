@@ -1,6 +1,6 @@
 import { openDB } from "idb";
 /**
- * @typedef {import('@/composables/useCollection').Collection} Collection
+ * @typedef {import('@/types').Collection} Collection
  */
 const dbPromise = openDB("collection-db", 1, {
   upgrade(database) {

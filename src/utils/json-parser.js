@@ -1,6 +1,6 @@
 /**
  * @param {File} file
- * @returns
+ * @returns {Promise<import('@/types').Collection>}
  */
 function jsonParser(file) {
   return new Promise((resolve, reject) => {

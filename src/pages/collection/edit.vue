@@ -15,7 +15,7 @@ const schema = yup.object({
 });
 const isEdit = route.fullPath.includes("edit");
 
-/** @param {import('@/composables/useCollection').Collection} values */
+/** @param {import('@/types').Collection} values */
 const onSubmit = (values) => {
   form.value = {
     ...values,

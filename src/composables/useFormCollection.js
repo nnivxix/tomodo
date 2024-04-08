@@ -4,22 +4,17 @@ import useCollection from "@/composables/useCollection";
 
 const { addCollection, updateCollection } = useCollection();
 /**
- * @typedef {Object} FormCollection
- * @property {?string} id
- * @property {string} name
- * @property {string} description
- * @property {import('@/composables/useFormTodo').Todo[]} todos
+ * @typedef {import('@/types').FormCollection} FormCollection
+ * @typedef {import('vue').Ref<FormCollection>} FormCollectionRef
  */
 
-/**
- * @type {import('vue').Ref<FormCollection>}
- */
 const collection = ref({
   name: "",
   description: "",
   todos: [],
 });
 
+/** @type {FormCollectionRef} */
 const form = ref({
   name: collection.value.name,
   description: collection.value.description,
@@ -42,9 +37,8 @@ const useFormCollection = () => {
   }
   function addNewCollection() {
     const nanoid = customAlphabet("1234567890abcdef", 10);
-    /**
-     * @type {FormCollection}
-     */
+
+    /** @type {FormCollection} */
     const collection = {
       id: nanoid(),
       name: form.value.name,

@@ -1,10 +1,9 @@
 <script setup>
 /**
- * @type {{
- * todo: import('@/composables/useTodo').Todo,
- * isSelected: boolean
- *  }}
+ * @typedef {import('@/types').TodoItemProp} TodoItemProp
  */
+
+/** @type {TodoItemProp} */
 const { todo, isSelected } = defineProps({
   todo: Object,
   isSelected: Boolean,

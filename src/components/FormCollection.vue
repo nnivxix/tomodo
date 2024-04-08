@@ -1,14 +1,8 @@
 <script setup>
 import { Field, ErrorMessage } from "vee-validate";
 
-/**
- * @typedef {import('@/composables/useFormCollection').FormCollection} Form
- * @typedef {Boolean} IsEdit
- * @typedef {{form: Form, isEdit:IsEdit}} PropsForm
- */
-
-/** @type {PropsForm} */
-const props = defineProps({
+/** @type {import('@/types').FormCollectionProp} */
+const { form, isEdit } = defineProps({
   form: Object,
   isEdit: Boolean,
 });

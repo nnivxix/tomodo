@@ -1,6 +1,6 @@
 /**
  *
- * @param {import('@/composables/useCollection').Collection} collection
+ * @param {import('@/types').Collection} collection
  * @returns
  */
 const exportCollection = (collection) => {

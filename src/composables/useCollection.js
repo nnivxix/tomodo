@@ -1,17 +1,12 @@
 import { ref, toRaw, computed } from "vue";
 import dbCollection from "@/repositories/db-collection";
 /**
- * @typedef {Object} Collection
- * @property {string} id
- * @property {string} name
- * @property {string} description
- * @property {string | Date} created_at
- * @property {import('@/composables/useFormTodo').FormTodo[]} todos
+ * @typedef {import('@/types').Collection} Collection
+ * @typedef {import('vue').Ref<Collection>} CollectionRef
+ * @typedef {import('vue').Ref<Collection[]>} CollectionsRef
  */
 
-/**
- * @type {import('vue').Ref<Collection>}
- */
+/** @type {CollectionRef} */
 const collection = ref({
   id: "",
   name: "",
@@ -19,9 +14,8 @@ const collection = ref({
   created_at: "",
   todos: [],
 });
-/**
- * @type {import('vue').Ref<Collection[]>}
- */
+
+/** @type {CollectionsRef} */
 const collections = ref([]);
 
 const useCollection = () => {
@@ -29,9 +23,7 @@ const useCollection = () => {
     return collection.value?.description.replace(/(?:\r\n|\r|\n)/g, "<br>");
   });
 
-  /**
-   * @param {Collection} collection
-   */
+  /** @param {Collection} collection */
   const addCollection = (collection) => {
     collections.value.push(collection);
 
@@ -42,7 +34,6 @@ const useCollection = () => {
   };
 
   /**
-   *
    * @param {string} id
    * @returns {Collection}
    */
@@ -50,9 +41,7 @@ const useCollection = () => {
     return collections.value.find((collection) => collection.id == id);
   };
 
-  /**
-   * @param {string} id
-   */
+  /** @param {string} id */
   const deleteColllection = (id) => {
     const index = collections.value.findIndex(
       (collection) => collection.id === id
@@ -63,7 +52,6 @@ const useCollection = () => {
   };
 
   /**
-   *
    * @param {Collection} collection
    * @returns {Collection}
    */

@@ -23,6 +23,11 @@ const vFormTodo = useForm({
   },
 });
 
+/**
+ * @typedef {import('@/types').Todo} Todo
+ */
+
+/** @type {import('vue').Ref<Todo>} */
 const selectedTodo = ref({});
 const resetVForm = async () => {
   vFormTodo.setValues({
@@ -34,14 +39,14 @@ const resetVForm = async () => {
   });
 };
 
-/** @param {import('@/composables/useTodo').Todo} values */
+/** @param {Todo} values */
 const submitUpdateTodo = (values) => {
   editTodo(values);
   resetFormTodo();
   selectedTodo.value = {};
 };
 
-/** @param {import('@/composables/useTodo').Todo} values */
+/** @param {import('@/types').Todo} values */
 const submitAddTodo = (values) => {
   addTodo(values);
   resetFormTodo();

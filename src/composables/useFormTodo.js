@@ -2,12 +2,13 @@ import { nanoid } from "nanoid";
 import { ref } from "vue";
 
 /**
- * @typedef {import('@/composables/useTodo').Todo} FormTodo
+ *  @typedef {import('@/types').Todo} Todo
+ *  @typedef {import('vue').Ref<Todo>} FormTodo
  */
+
 const isEditing = ref(false);
-/**
- * @type {import('vue').Ref<FormTodo>}
- */
+
+/** @type {FormTodo} */
 const formTodo = ref({
   id: `todo-${nanoid(7)}`,
   name: "",
