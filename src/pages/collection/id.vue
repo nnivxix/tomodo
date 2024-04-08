@@ -33,16 +33,21 @@ const resetVForm = async () => {
     created_at: new Date(),
   });
 };
+
+/** @param {import('@/composables/useTodo').Todo} values */
 const submitUpdateTodo = (values) => {
   editTodo(values);
   resetFormTodo();
   selectedTodo.value = {};
 };
+
+/** @param {import('@/composables/useTodo').Todo} values */
 const submitAddTodo = (values) => {
   addTodo(values);
   resetFormTodo();
   selectedTodo.value = {};
 };
+
 const submitTodo = async () => {
   const todo = {
     ...toRaw(vFormTodo.values),
@@ -63,6 +68,8 @@ const submitTodo = async () => {
 
   return;
 };
+
+/** @param {number} index */
 const selectTodo = (index) => {
   isEditing.value = true;
 
@@ -79,6 +86,7 @@ const selectTodo = (index) => {
   formTodo.value = todo;
 };
 
+/** @param {number} index */
 const handleMarkTodo = (index) => {
   if (isEditing.value) {
     resetFormTodo();
@@ -89,6 +97,7 @@ const handleMarkTodo = (index) => {
   vFormTodo.setErrors({});
 };
 
+/** @param {string} id */
 const handleDeleteCollection = (id) => {
   const question = confirm("Are you sure delete this collection?");
   if (question) {
