@@ -1,6 +1,6 @@
 <script setup>
-defineProps({
-  /** @type {import('@/composables/useCollection').Collection} */
+/** @type {{json: import('@/composables/useCollection').Collection}} */
+const { json } = defineProps({
   json: Object,
 });
 </script>
