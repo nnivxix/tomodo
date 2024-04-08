@@ -15,8 +15,13 @@ const isAttached = ref(false);
 const collection = ref(null);
 const isCollectionExist = ref(false);
 
+/**
+ *
+ * @param {DragEvent} event
+ */
 function handleDrop(event) {
   event.preventDefault();
+
   const droppedFiles = event.dataTransfer?.files;
 
   if (droppedFiles[0].type.includes("json")) {

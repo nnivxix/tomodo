@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {import('@/composables/useCollection').Collection} collection
+ * @returns {boolean}
+ */
 const validateCollection = (collection) => {
   if (
     collection.hasOwnProperty("id") &&

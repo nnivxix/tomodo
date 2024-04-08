@@ -1,3 +1,7 @@
+/**
+ * @param {File} file
+ * @returns
+ */
 function jsonParser(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
