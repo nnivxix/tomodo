@@ -2,6 +2,8 @@ import dbCollection from "@/repositories/db-collection";
 import { toRaw, computed } from "vue";
 import useCollection from "@/composables/useCollection";
 
+/** @typedef {import('@/types')} Todo */
+
 const { collection, getDetailCollection } = useCollection();
 
 const useTodo = () => {
@@ -9,16 +11,8 @@ const useTodo = () => {
   const doneTodos = computed(() =>
     collection.value.todos?.filter((todo) => todo.isDone === true)
   );
-  /**
-   * Add new todo to collection
-   * @param {{
-   * id: string,
-   * name: string,
-   * priority: string,
-   * isDone: boolean,
-   * created_at: Date,
-   * }} todo
-   */
+
+  /** @param {Todo} todo */
   const addTodo = (todo) => {
     const { todos } = getDetailCollection(collection.value.id);
 
@@ -30,10 +24,7 @@ const useTodo = () => {
     dbCollection.update(rawCollection);
   };
 
-  /**
-   * mark todo as done or not
-   * @param {number} index
-   */
+  /** @param {number} index */
   const markTodo = (index) => {
     const todo = collection.value.todos.at(index);
 
@@ -45,16 +36,7 @@ const useTodo = () => {
     dbCollection.update(rawCollection);
   };
 
-  /**
-   * Edit todo in collection
-   * @param {{
-   * id: string,
-   * name: string,
-   * priority: string,
-   * isDone: boolean,
-   * created_at: Date,
-   * }} newTodo
-   */
+  /** @param {Todo} newTodo */
   const editTodo = (newTodo) => {
     const { todos } = getDetailCollection(collection.value.id);
     const index = collection.value.todos.findIndex(
@@ -68,11 +50,8 @@ const useTodo = () => {
 
     dbCollection.update(rawCollection);
   };
-  /**
-   *
-   * @param {number} index
-   * @description still wip
-   */
+
+  /** @param {number} index */
   const deleteTodo = (index) => {
     const { todos } = getDetailCollection(collection.value.id);
 

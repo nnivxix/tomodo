@@ -12,6 +12,7 @@ const schema = yup.object({
   description: yup.string(),
 });
 
+/** @param {import('@/types').Collection} values */
 const onSubmit = (values) => {
   form.value = values;
   form.value.todos = [];

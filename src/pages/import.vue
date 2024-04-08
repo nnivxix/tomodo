@@ -11,12 +11,17 @@ const router = useRouter();
 const { addCollection, getDetailCollection, deleteColllection } =
   useCollection();
 
-const isAttached = ref(false);
+/** @type {import('@/composables/useCollection').CollectionRef} */
 const collection = ref(null);
+const isAttached = ref(false);
 const isCollectionExist = ref(false);
 
+/**
+ * @param {DragEvent} event
+ */
 function handleDrop(event) {
   event.preventDefault();
+
   const droppedFiles = event.dataTransfer?.files;
 
   if (droppedFiles[0].type.includes("json")) {

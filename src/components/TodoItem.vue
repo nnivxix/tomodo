@@ -1,5 +1,10 @@
 <script setup>
-defineProps({
+/**
+ * @typedef {import('@/types').TodoItemProp} TodoItemProp
+ */
+
+/** @type {TodoItemProp} */
+const { todo, isSelected } = defineProps({
   todo: Object,
   isSelected: Boolean,
 });

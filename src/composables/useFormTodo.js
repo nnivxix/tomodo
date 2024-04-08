@@ -1,7 +1,14 @@
 import { nanoid } from "nanoid";
 import { ref } from "vue";
 
+/**
+ *  @typedef {import('@/types').Todo} Todo
+ *  @typedef {import('vue').Ref<Todo>} FormTodo
+ */
+
 const isEditing = ref(false);
+
+/** @type {FormTodo} */
 const formTodo = ref({
   id: `todo-${nanoid(7)}`,
   name: "",

@@ -1,5 +1,6 @@
 <script setup>
-defineProps({
+/** @type {import('@/types').ExampleJsonProp} */
+const { json } = defineProps({
   json: Object,
 });
 </script>

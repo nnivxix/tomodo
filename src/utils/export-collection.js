@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {import('@/types').Collection} collection
+ * @returns
+ */
 const exportCollection = (collection) => {
   const json = JSON.stringify(collection);
   const blob = new Blob([json], { type: "application/json" });
