@@ -1,10 +1,19 @@
 import { ref } from "vue";
 import { customAlphabet } from "nanoid";
 import useCollection from "@/composables/useCollection";
-import dbCollection from "@/repositories/db-collection";
 
 const { addCollection, updateCollection } = useCollection();
+/**
+ * @typedef {Object} FormCollection
+ * @property {?string} id
+ * @property {string} name
+ * @property {string} description
+ * @property {import('@/composables/useFormTodo').Todo[]} todos
+ */
 
+/**
+ * @type {import('vue').Ref<FormCollection>}
+ */
 const collection = ref({
   name: "",
   description: "",
@@ -33,6 +42,9 @@ const useFormCollection = () => {
   }
   function addNewCollection() {
     const nanoid = customAlphabet("1234567890abcdef", 10);
+    /**
+     * @type {FormCollection}
+     */
     const collection = {
       id: nanoid(),
       name: form.value.name,

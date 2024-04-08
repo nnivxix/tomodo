@@ -1,7 +1,17 @@
 import { ref, toRaw, computed } from "vue";
 import dbCollection from "@/repositories/db-collection";
+/**
+ * @typedef {Object} Collection
+ * @property {string} id
+ * @property {string} name
+ * @property {string} description
+ * @property {string | Date} created_at
+ * @property {import('@/composables/useFormTodo').FormTodo[]} todos
+ */
 
-const collections = ref([]);
+/**
+ * @type {import('vue').Ref<Collection>}
+ */
 const collection = ref({
   id: "",
   name: "",
@@ -9,11 +19,19 @@ const collection = ref({
   created_at: "",
   todos: [],
 });
+/**
+ * @type {import('vue').Ref<Collection[]>}
+ */
+const collections = ref([]);
+
 const useCollection = () => {
   const descriptionCollection = computed(() => {
     return collection.value?.description.replace(/(?:\r\n|\r|\n)/g, "<br>");
   });
 
+  /**
+   * @param {Collection} collection
+   */
   const addCollection = (collection) => {
     collections.value.push(collection);
 
@@ -22,24 +40,19 @@ const useCollection = () => {
   const getCollections = async () => {
     collections.value = await dbCollection.index();
   };
+
   /**
-   * Detail Collection
-   * @returns {{
-   * id: String,
-   * name: String,
-   * description: String,
-   * created_at: Date,
-   * todos: {
-   * name: String,
-   * priority: String,
-   * isDone: Boolean,
-   * created_at: Date,
-   * }[]
-   * }} collection
+   *
+   * @param {string} id
+   * @returns {Collection}
    */
   const getDetailCollection = (id) => {
     return collections.value.find((collection) => collection.id == id);
   };
+
+  /**
+   * @param {string} id
+   */
   const deleteColllection = (id) => {
     const index = collections.value.findIndex(
       (collection) => collection.id === id
@@ -48,6 +61,12 @@ const useCollection = () => {
     collections.value.splice(index, 1);
     dbCollection.delete(id);
   };
+
+  /**
+   *
+   * @param {Collection} collection
+   * @returns {Collection}
+   */
   const updateCollection = (collection) => {
     const index = collections.value.findIndex(
       (coll) => coll.id === collection.id

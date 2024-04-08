@@ -1,6 +1,14 @@
 import dbCollection from "@/repositories/db-collection";
 import { toRaw, computed } from "vue";
 import useCollection from "@/composables/useCollection";
+/**
+ * @typedef {Object} Todo
+ * @property {string} id
+ * @property {string} name
+ * @property {string} priority
+ * @property {string} isDone
+ * @property {Date} created_at
+ */
 
 const { collection, getDetailCollection } = useCollection();
 
@@ -11,13 +19,7 @@ const useTodo = () => {
   );
   /**
    * Add new todo to collection
-   * @param {{
-   * id: string,
-   * name: string,
-   * priority: string,
-   * isDone: boolean,
-   * created_at: Date,
-   * }} todo
+   * @param {Todo} todo
    */
   const addTodo = (todo) => {
     const { todos } = getDetailCollection(collection.value.id);
@@ -47,13 +49,7 @@ const useTodo = () => {
 
   /**
    * Edit todo in collection
-   * @param {{
-   * id: string,
-   * name: string,
-   * priority: string,
-   * isDone: boolean,
-   * created_at: Date,
-   * }} newTodo
+   * @param {Todo} newTodo
    */
   const editTodo = (newTodo) => {
     const { todos } = getDetailCollection(collection.value.id);
@@ -71,7 +67,6 @@ const useTodo = () => {
   /**
    *
    * @param {number} index
-   * @description still wip
    */
   const deleteTodo = (index) => {
     const { todos } = getDetailCollection(collection.value.id);
