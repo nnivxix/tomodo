@@ -9,9 +9,7 @@ const { totalDoneTodos, totalTodos } = defineProps({
 
 /**  @returns {import('vue').ComputedRef<number>} */
 const percentage = computed(() => {
-  const countTodos = Math.round(
-    (props.totalDoneTodos / props.totalTodos) * 100
-  );
+  const countTodos = Math.round((totalDoneTodos / totalTodos) * 100);
   return isNaN(countTodos) ? 0 : countTodos;
 });
 </script>
