@@ -123,20 +123,18 @@ onMounted(async () => {
 </script>
 <template>
   <div
-    class="grid grid-cols-3 gap-4 relative h-auto md:h-auto"
+    class="grid grid-cols-5 gap-4 relative h-auto md:h-auto"
     v-if="!!collection"
   >
-    <div class="col-span-full md:col-span-2">
-      <div class="border p-3 rounded-md mb-3">
-        <h1 class="text-2xl py-1">{{ collection.name }}</h1>
-        <hr />
-        <div
-          v-if="!!collection.description"
-          class="text-lg"
-          v-html="descriptionCollection"
-        ></div>
-        <div v-else class="text-gray-500">no description</div>
-      </div>
+    <div class="border col-span-full md:col-span-3 p-3 rounded-md mb-3">
+      <h1 class="text-2xl py-1">{{ collection.name }}</h1>
+      <hr />
+      <p
+        v-if="!!collection.description"
+        class="text-lg pb-3"
+        v-html="descriptionCollection"
+      ></p>
+      <p v-else class="text-gray-500 pb-3">no description</p>
       <ProgressBar
         :totalTodos="todos.length"
         :totalDoneTodos="doneTodos.length"
@@ -145,44 +143,49 @@ onMounted(async () => {
         You have {{ todos?.length }} / {{ doneTodos?.length }}
         {{ todos.length > 1 ? "todos" : "todo" }}
       </p>
-      <div class="flex gap-3 flex-wrap my-5">
-        <button
-          class="bg-red-600 text-white p-3 rounded-md"
-          @click="handleDeleteCollection(collection.id)"
-        >
-          Delete Collection
-        </button>
-        <button
-          @click="router.push(`/collection/${collection.id}/edit`)"
-          class="bg-gray-600 text-white p-3 rounded-md"
-          type="button"
-        >
-          Edit Collection
-        </button>
-        <button
-          id="export-collection"
-          class="bg-orange-600 text-white p-3 rounded-md"
-          @click="exportCollection(collection)"
-        >
-          Export Collection
-        </button>
-      </div>
-
-      <div
-        class="md:mb-0 overflow-y-scroll md:h-[70vh] h-[42vh] scroll-bar border p-3 rounded-md"
-      >
-        <TodoItem
-          v-for="(todo, index) in todos"
-          :key="index"
-          :todo="todo"
-          :isSelected="selectedTodo.id === todo.id"
-          @handleMarkTodo="handleMarkTodo(index)"
-          @selectTodo="selectTodo(index)"
-          @deleteTodo="deleteTodo(index)"
-        />
-      </div>
     </div>
-    <FormTodo @submitTodo="submitTodo" />
+    <!-- Actions -->
+    <div class="flex gap-3 col-span-full md:col-span-3 flex-wrap my-5">
+      <button
+        class="bg-red-600 text-white p-3 rounded-md"
+        @click="handleDeleteCollection(collection.id)"
+      >
+        Delete Collection
+      </button>
+      <button
+        @click="router.push(`/collection/${collection.id}/edit`)"
+        class="bg-gray-600 text-white p-3 rounded-md"
+        type="button"
+      >
+        Edit Collection
+      </button>
+      <button
+        id="export-collection"
+        class="bg-orange-600 text-white p-3 rounded-md"
+        @click="exportCollection(collection)"
+      >
+        Export Collection
+      </button>
+    </div>
+
+    <!-- List -->
+    <div
+      class="md:mb-0 order-last col-span-full md:col-span-3 overflow-y-scroll md:h-[70vh] h-[42vh] scroll-bar border p-3 rounded-md"
+    >
+      <TodoItem
+        v-for="(todo, index) in todos"
+        :key="index"
+        :todo="todo"
+        :isSelected="selectedTodo.id === todo.id"
+        @handleMarkTodo="handleMarkTodo(index)"
+        @selectTodo="selectTodo(index)"
+        @deleteTodo="deleteTodo(index)"
+      />
+    </div>
+    <FormTodo
+      class="col-span-full md:col-start-4 md:row-start-1 md:row-end-4"
+      @submitTodo="submitTodo"
+    />
   </div>
   <!-- TODO: make it stylish -->
   <div v-else>Collection is Not Found</div>

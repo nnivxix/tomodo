@@ -8,7 +8,7 @@ defineEmits(["submitTodo"]);
 <template>
   <form
     @submit.prevent="$emit('submitTodo')"
-    class="col-span-full md:col-span-1 py-2 md:my-0 border rounded-md p-3"
+    class="py-2 md:my-0 border rounded-md p-3"
   >
     <div class="flex flex-col gap-2">
       <Field name="name" v-slot="{ field }">
