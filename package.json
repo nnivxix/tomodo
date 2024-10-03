@@ -10,6 +10,8 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@highlightjs/vue-plugin": "^2.1.0",
+    "highlight.js": "^11.10.0",
     "idb": "^8.0.0",
     "nanoid": "^5.0.6",
     "vee-validate": "^4.6.2",

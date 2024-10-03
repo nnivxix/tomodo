@@ -1,12 +1,40 @@
 <script setup>
-import { Field, useForm, ErrorMessage } from "vee-validate";
-import { ref, toRaw, watch } from "vue";
+import { Field, useForm, ErrorMessage, Form } from "vee-validate";
+import { ref, toRaw } from "vue";
 import { useRouter } from "vue-router";
 import useCollection from "@/composables/useCollection";
 import jsonParser from "@/utils/json-parser";
 import validateCollection from "@/utils/validate-collection";
+import * as yup from "yup";
 
-const formImport = useForm();
+const schema = yup.object({
+  file: yup
+    .mixed()
+    .required()
+    .test({
+      name: "is-valid-json",
+      test: async (value, ctx) => {
+        const data = await jsonParser(toRaw(value));
+        if (validateCollection(data)) {
+          collection.value = data;
+          const findCollection = getDetailCollection(data.id);
+          if (data.id === findCollection?.id) {
+            isCollectionExist.value = true;
+          }
+          return true;
+        }
+        return ctx.createError({
+          message: "Properties in json file is not valid",
+        });
+      },
+    }),
+});
+
+const formImport = useForm({
+  initialValues: {
+    file: null,
+  },
+});
 const router = useRouter();
 const { addCollection, getDetailCollection, deleteColllection } =
   useCollection();
@@ -24,8 +52,8 @@ function handleDrop(event) {
 
   const droppedFiles = event.dataTransfer?.files;
 
-  if (droppedFiles[0].type.includes("json")) {
-    const file = droppedFiles[0];
+  if (droppedFiles?.at(0).type.includes("json")) {
+    const file = droppedFiles?.at(0);
 
     isAttached.value = true;
     formImport.setValues({
@@ -34,14 +62,13 @@ function handleDrop(event) {
     formImport.setErrors({});
     return;
   }
-  formImport.setErrors({
-    file: "File not json",
-  });
+
+  formImport.setFieldError(file, "File not json");
 }
 
-async function onSubmit() {
+async function onSubmit(values) {
   try {
-    const data = await jsonParser(toRaw(formImport.values.file));
+    const data = await jsonParser(toRaw(values.file));
     const collection = getDetailCollection(data.id);
     if (!!collection) {
       deleteColllection(data.id);
@@ -61,31 +88,20 @@ function onClear() {
   collection.value = null;
   isCollectionExist.value = false;
   formImport.resetForm();
+  formImport.setErrors({});
 }
-
-watch(formImport.values, async (form) => {
-  if (!!form.file) {
-    const data = await jsonParser(toRaw(form.file));
-    if (validateCollection(data)) {
-      collection.value = data;
-      const findCollection = getDetailCollection(data.id);
-      if (data.id === findCollection?.id) isCollectionExist.value = true;
-      return;
-    }
-    formImport.setErrors({
-      file: "Properties on json file is not valid",
-    });
-    formImport.setFieldValue("file", null);
-    return;
-  }
-});
 </script>
 
 <template>
   <div>
     <h1 class="text-2xl">Import Collection</h1>
-    <form @submit.prevent="onSubmit" class="grid gap-3">
-      <Field name="file" v-slot="{ handleChange }">
+    <Form @submit="onSubmit" :validationSchema="schema" class="grid gap-3">
+      <Field
+        name="file"
+        v-model="formImport.values.file"
+        type="file"
+        v-slot="{ handleChange, handleBlur }"
+      >
         <div
           v-if="!!collection"
           class="hover:bg-[#032836] transform transition-all ease-in col-span-1 hover:text-white p-4 h-36 relative shadow-md rounded-md"
@@ -94,7 +110,7 @@ watch(formImport.values, async (form) => {
             {{ collection.name }} - ({{ collection.todos?.length }})
           </h1>
         </div>
-        <label for="file" v-else>
+        <label for="file" class="cursor-pointer" v-else>
           <div
             @drop.prevent="handleDrop"
             @dragover.prevent
@@ -106,6 +122,7 @@ watch(formImport.values, async (form) => {
               type="file"
               class="sr-only"
               @change="handleChange"
+              @blur="handleBlur"
             />
             <span class="text-center block"> Upload json file </span>
           </div>
@@ -128,7 +145,7 @@ watch(formImport.values, async (form) => {
           Clear
         </button>
       </div>
-    </form>
+    </Form>
 
     <div class="mt-4">
       <div v-if="!!!collection" class="py-3">
@@ -138,9 +155,9 @@ watch(formImport.values, async (form) => {
         </p>
         <p>The json file must be structured like this.</p>
       </div>
-      <h1 v-if="isCollectionExist" class="py-3">
+      <p v-if="isCollectionExist" class="py-3 text-red-500">
         The imported collection is already exist.
-      </h1>
+      </p>
       <ExampleJson v-bind:json="collection" />
     </div>
   </div>

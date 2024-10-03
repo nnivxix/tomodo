@@ -9,7 +9,7 @@ const { collection, getDetailCollection } = useCollection();
 const useTodo = () => {
   const todos = computed(() => collection.value.todos);
   const doneTodos = computed(() =>
-    collection.value.todos?.filter((todo) => todo.isDone === true)
+    collection.value.todos?.filter((todo) => todo.is_done === true)
   );
 
   /** @param {Todo} todo */
@@ -28,7 +28,7 @@ const useTodo = () => {
   const markTodo = (index) => {
     const todo = collection.value.todos.at(index);
 
-    todo.isDone = !todo.isDone;
+    todo.is_done = !todo.is_done;
     collection.value.todos.splice(index, 1, todo);
 
     const rawCollection = toRaw(collection.value);

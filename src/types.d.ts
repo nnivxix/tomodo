@@ -12,7 +12,7 @@ export interface Todo {
   id: string;
   name: string;
   priority: string;
-  isDone: boolean;
+  is_done: boolean;
   created_at: Date;
 }
 
