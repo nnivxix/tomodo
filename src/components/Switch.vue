@@ -1,10 +1,6 @@
 <script setup>
 import { ref, watch, defineProps, defineEmits } from "vue";
 
-// defineOptions({
-//   inheritAttrs: false,
-// });
-
 const props = defineProps({
   modelValue: {
     type: Boolean,
