@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, onUpdated } from "vue";
 import { ref } from "vue";
+import Switch from "./Switch.vue";
 /** @type {import('@/types').ExampleJsonProp} */
 const { json } = defineProps({
   json: Object,
@@ -19,10 +20,9 @@ const showJson = ref(true);
 <template>
   <div>
     <template v-if="json">
-      <div>
-        <button @click="() => (showJson = !showJson)">
-          show json format {{ showJson }}
-        </button>
+      <div class="flex gap-3 items-center py-3">
+        <Switch v-model:modelValue="showJson" id="show_json" />
+        <label for="show_json"> Show json format </label>
       </div>
       <pre
         v-if="showJson"

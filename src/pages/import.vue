@@ -138,7 +138,7 @@ watch(formImport.values, async (form) => {
         </p>
         <p>The json file must be structured like this.</p>
       </div>
-      <h1 v-if="isCollectionExist" class="py-3">
+      <h1 v-if="isCollectionExist" class="py-3 text-red-500">
         The imported collection is already exist.
       </h1>
       <ExampleJson v-bind:json="collection" />
