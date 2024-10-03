@@ -16,14 +16,27 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 20.x]
+        node-version: [ 20.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v4
+
+    # Setup Node.js version
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
-    - run: pnpm test
+
+    # Install pnpm
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    # Install dependencies using pnpm
+    - name: Install dependencies
+      run: pnpm install
+
+    # Run tests using pnpm
+    - name: Run tests
+      run: pnpm test
