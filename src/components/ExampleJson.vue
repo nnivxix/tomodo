@@ -19,7 +19,7 @@ onUpdated(() => {
       class="border border-gray-500 border-dashed p-3 rounded-md whitespace-pre-wrap"
     >
       <code class="language-json">
-        {{ json }}
+{{ json }}
         </code>
         </pre>
   </template>
@@ -28,12 +28,12 @@ onUpdated(() => {
       class="border border-gray-500 border-dashed p-3 rounded-md whitespace-pre-wrap"
     >
       <code class="language-json">
-        {
-          "id": "",
-          "name": "",
-          "description": "",
-          "todos": []
-        }
+{
+  "id": "",
+  "name": "",
+  "description": "",
+  "todos": []
+}
       </code>
         </pre>
   </template>
