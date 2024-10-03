@@ -94,7 +94,7 @@ watch(formImport.values, async (form) => {
             {{ collection.name }} - ({{ collection.todos?.length }})
           </h1>
         </div>
-        <label for="file" v-else>
+        <label for="file" class="cursor-pointer" v-else>
           <div
             @drop.prevent="handleDrop"
             @dragover.prevent

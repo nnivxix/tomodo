@@ -4,9 +4,10 @@
  */
 
 /** @type {TodoItemProp} */
-const { todo, isSelected } = defineProps({
+const { todo, isSelected, preview } = defineProps({
   todo: Object,
   isSelected: Boolean,
+  preview: Boolean,
 });
 </script>
 <template>
@@ -28,7 +29,7 @@ const { todo, isSelected } = defineProps({
     >
       <p class="text-xl">{{ todo.name }}</p>
     </div>
-    <div>
+    <div v-if="!preview">
       <button @click="$emit('selectTodo')" class="mr-2">edit</button>
       <button @click="$emit('deleteTodo')">delete</button>
     </div>
