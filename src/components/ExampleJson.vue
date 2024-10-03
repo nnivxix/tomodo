@@ -1,21 +1,20 @@
 <script setup>
-import { onMounted, onUpdated } from "vue";
 import { ref } from "vue";
 import Switch from "./Switch.vue";
+
 /** @type {import('@/types').ExampleJsonProp} */
 const { json } = defineProps({
   json: Object,
 });
 
-onMounted(() => {
-  hljs.highlightAll();
-});
-
-onUpdated(() => {
-  hljs.highlightAll();
-});
-
 const showJson = ref(true);
+const example = `
+{
+  "id": "",
+  "name": "",
+  "description": "",
+  "todos": []
+}`;
 </script>
 <template>
   <div>
@@ -24,14 +23,12 @@ const showJson = ref(true);
         <Switch v-model:modelValue="showJson" id="show_json" />
         <label for="show_json"> Show json format </label>
       </div>
-      <pre
+      <highlightjs
+        :code="JSON.stringify(json, null, 2)"
         v-if="showJson"
         class="border border-gray-500 border-dashed p-3 rounded-md whitespace-pre-wrap"
       >
-        <code class="language-json">
-  {{ json }}
-          </code>
-          </pre>
+      </highlightjs>
       <div v-else>
         <TodoItem
           v-for="(todo, index) in json.todos"
@@ -42,18 +39,12 @@ const showJson = ref(true);
       </div>
     </template>
     <template v-else>
-      <pre
+      <highlightjs
+        :code="example"
+        lang="json"
         class="border border-gray-500 border-dashed p-3 rounded-md whitespace-pre-wrap"
       >
-        <code class="language-json">
-  {
-    "id": "",
-    "name": "",
-    "description": "",
-    "todos": []
-  }
-        </code>
-          </pre>
+      </highlightjs>
     </template>
   </div>
 </template>
