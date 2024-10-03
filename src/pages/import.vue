@@ -52,8 +52,8 @@ function handleDrop(event) {
 
   const droppedFiles = event.dataTransfer?.files;
 
-  if (droppedFiles[0].type.includes("json")) {
-    const file = droppedFiles[0];
+  if (droppedFiles?.at(0).type.includes("json")) {
+    const file = droppedFiles?.at(0);
 
     isAttached.value = true;
     formImport.setValues({

@@ -47,7 +47,7 @@ describe("test functionality of collection", function () {
       todos: [],
     });
 
-    expect(collections.value[0].name).toBe("test edit");
+    expect(collections.valueat(0).name).toBe("test edit");
   });
 
   it("should be can delete collection", function () {

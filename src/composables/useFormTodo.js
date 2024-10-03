@@ -13,7 +13,7 @@ const formTodo = ref({
   id: `todo-${nanoid(7)}`,
   name: "",
   priority: "high",
-  isDone: false,
+  is_done: false,
   created_at: new Date(),
 });
 
@@ -23,7 +23,7 @@ const useFormTodo = () => {
       id: `todo-${nanoid(7)}`,
       name: "",
       priority: "high",
-      isDone: false,
+      is_done: false,
       created_at: new Date(),
     };
     isEditing.value = false;

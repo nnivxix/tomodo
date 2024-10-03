@@ -14,7 +14,7 @@ const { todo, isSelected, preview } = defineProps({
   <div
     class="border rounded-md py-3 my-2 px-2 cursor-pointer hover:bg-gray-100 transition-colors ease-in duration-150"
     :class="{
-      'line-through': todo.isDone,
+      'line-through': todo.is_done,
       'bg-gray-100': isSelected,
     }"
   >
