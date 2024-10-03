@@ -32,7 +32,7 @@ describe("testing functionality of todo", () => {
   it("it should be have one todo", function () {
     const { collections, collection } = useCollection();
     const { addTodo } = useTodo();
-    // const firstCollection = collections.valueat(0);
+    // const firstCollection = collections.value.at(0);
     collection.value = collections.value.at(0);
 
     addTodo({
