@@ -4,16 +4,17 @@
  */
 
 /** @type {TodoItemProp} */
-const { todo, isSelected } = defineProps({
+const { todo, isSelected, preview } = defineProps({
   todo: Object,
   isSelected: Boolean,
+  preview: Boolean,
 });
 </script>
 <template>
   <div
-    class="border rounded-md py-3 my-2 px-2 cursor-pointer"
+    class="border rounded-md py-3 my-2 px-2 cursor-pointer hover:bg-gray-100 transition-colors ease-in duration-150"
     :class="{
-      'line-through': todo.isDone,
+      'line-through': todo.is_done,
       'bg-gray-100': isSelected,
     }"
   >
@@ -28,7 +29,7 @@ const { todo, isSelected } = defineProps({
     >
       <p class="text-xl">{{ todo.name }}</p>
     </div>
-    <div>
+    <div v-if="!preview">
       <button @click="$emit('selectTodo')" class="mr-2">edit</button>
       <button @click="$emit('deleteTodo')">delete</button>
     </div>

@@ -24,7 +24,7 @@ describe("testing functionality of todo", () => {
   it("it should be empty todo", function () {
     const { collections } = useCollection();
 
-    const firstCollection = collections.value[0];
+    const firstCollection = collections.value.at(0);
 
     expect(firstCollection.todos.length).to.equal(0);
   });
@@ -32,8 +32,8 @@ describe("testing functionality of todo", () => {
   it("it should be have one todo", function () {
     const { collections, collection } = useCollection();
     const { addTodo } = useTodo();
-    // const firstCollection = collections.value[0];
-    collection.value = collections.value[0];
+    // const firstCollection = collections.value.at(0);
+    collection.value = collections.value.at(0);
 
     addTodo({
       id: "todo-123",
@@ -44,14 +44,14 @@ describe("testing functionality of todo", () => {
     });
 
     expect(collection.value.todos.length).toEqual(1);
-    expect(collection.value.todos[0].name).to.equal("Todo First");
+    expect(collection.value.todos.at(0).name).to.equal("Todo First");
   });
 
   it("it should be have one todo done ", function () {
     const { collections, collection } = useCollection();
     const { addTodo, markTodo } = useTodo();
 
-    collection.value = collections.value[0];
+    collection.value = collections.value.at(0);
 
     addTodo({
       id: "todo-123",
@@ -63,14 +63,14 @@ describe("testing functionality of todo", () => {
     // get first[index] todo
     markTodo(0);
 
-    expect(collection.value.todos[0].isDone).toBeTruthy();
+    expect(collection.value.todos.at(0).is_done).toBeTruthy();
   });
 
   it("it should be have one todo updated.", function () {
     const { collections, collection } = useCollection();
     const { addTodo, editTodo } = useTodo();
 
-    collection.value = collections.value[0];
+    collection.value = collections.value.at(0);
 
     addTodo({
       id: "todo-123",
@@ -87,14 +87,14 @@ describe("testing functionality of todo", () => {
       created_at: new Date(),
     });
 
-    expect(collection.value.todos[0].name).toEqual("Todo First Edited");
+    expect(collection.value.todos.at(0).name).toEqual("Todo First Edited");
   });
 
   it("it should be have one todo deleted.", function () {
     const { collections, collection } = useCollection();
     const { addTodo, deleteTodo } = useTodo();
 
-    collection.value = collections.value[0];
+    collection.value = collections.value.at(0);
 
     addTodo({
       id: "todo-123",

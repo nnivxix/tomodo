@@ -25,4 +25,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Run Test
+<<<<<<< HEAD
         run: pnpm test
+=======
+        run: pnpm test
+>>>>>>> 68115cbd4e641702d544029a12dec066d2ad91be
