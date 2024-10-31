@@ -30,12 +30,17 @@ const example = `
       >
       </highlightjs>
       <div v-else>
-        <TodoItem
-          v-for="(todo, index) in json.todos"
-          :key="index"
-          :todo="todo"
-          :preview="true"
-        />
+        <template v-if="json.todos.length">
+          <TodoItem
+            v-for="(todo, index) in json.todos"
+            :key="index"
+            :todo="todo"
+            :preview="true"
+          />
+        </template>
+        <template v-else>
+          <p>No Todos</p>
+        </template>
       </div>
     </template>
     <template v-else>
