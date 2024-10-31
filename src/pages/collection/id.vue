@@ -12,8 +12,7 @@ import exportCollection from "@/utils/export-collection";
 
 const route = useRoute();
 const router = useRouter();
-const { deleteColllection, collection, descriptionCollection } =
-  useCollection();
+const { deleteColllection, collection } = useCollection();
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
 const vFormTodo = useForm({
@@ -131,9 +130,10 @@ onMounted(async () => {
       <hr />
       <p
         v-if="!!collection.description"
-        class="text-lg pb-3"
-        v-html="descriptionCollection"
-      ></p>
+        class="text-lg pb-3 whitespace-pre-line"
+      >
+        {{ collection.description }}
+      </p>
       <p v-else class="text-gray-500 pb-3">no description</p>
       <ProgressBar
         :totalTodos="todos.length"

@@ -19,10 +19,6 @@ const collection = ref({
 const collections = ref([]);
 
 const useCollection = () => {
-  const descriptionCollection = computed(() => {
-    return collection.value?.description.replace(/(?:\r\n|\r|\n)/g, "<br>");
-  });
-
   /** @param {Collection} collection */
   const addCollection = (collection) => {
     collections.value.push(collection);
@@ -70,7 +66,6 @@ const useCollection = () => {
   return {
     collections,
     collection,
-    descriptionCollection,
     addCollection,
     getCollections,
     getDetailCollection,
