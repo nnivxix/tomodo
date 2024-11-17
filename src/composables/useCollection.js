@@ -1,5 +1,6 @@
 import { ref, toRaw, computed } from "vue";
 import dbCollection from "@/repositories/db-collection";
+import model from "@/repositories/adapter";
 /**
  * @typedef {import('@/types').Collection} Collection
  * @typedef {import('vue').Ref<Collection>} CollectionRef
@@ -15,8 +16,15 @@ const collection = ref({
   todos: [],
 });
 
+/**
+ * Work on
+ * 1. Memory
+ * 2. DB
+ */
+
 /** @type {CollectionsRef} */
 const collections = ref([]);
+const store = await model();
 
 const useCollection = () => {
   /** @param {Collection} collection */
@@ -26,7 +34,7 @@ const useCollection = () => {
     dbCollection.add(collection);
   };
   const getCollections = async () => {
-    collections.value = await dbCollection.index();
+    collections.value = await store.all();
   };
 
   /**
@@ -51,15 +59,16 @@ const useCollection = () => {
    * @param {Collection} collection
    * @returns {Collection}
    */
-  const updateCollection = (collection) => {
+  const updateCollection = async (collection) => {
     const index = collections.value.findIndex(
       (coll) => coll.id === collection.id
     );
 
     collections.value.splice(index, 1, collection);
-    const rawCollection = toRaw(collection);
 
+    const rawCollection = toRaw(collection);
     dbCollection.update(rawCollection);
+
     return rawCollection;
   };
 

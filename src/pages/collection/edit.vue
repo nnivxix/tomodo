@@ -16,12 +16,12 @@ const schema = yup.object({
 const isEdit = route.fullPath.includes("edit");
 
 /** @param {import('@/types').Collection} values */
-const onSubmit = (values) => {
+const onSubmit = async (values) => {
   form.value = {
     ...values,
     todos: toRaw(collection.value.todos),
   };
-  const updatedCollection = editCurrentCollection();
+  const updatedCollection = await editCurrentCollection();
 
   router.push(`/collection/${updatedCollection.id}`);
 };

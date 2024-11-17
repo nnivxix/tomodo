@@ -30,9 +30,10 @@ const useFormCollection = () => {
     };
   };
 
-  function editCurrentCollection() {
+  async function editCurrentCollection() {
     form.value.id = collection.value.id;
     const updatedCollection = updateCollection(form.value);
+    console.log(updatedCollection);
     return updatedCollection;
   }
   function addNewCollection() {
