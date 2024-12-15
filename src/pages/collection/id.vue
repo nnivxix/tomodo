@@ -2,22 +2,19 @@
 import { useRoute, useRouter } from "vue-router";
 import { ref, toRaw, onMounted } from "vue";
 import { useForm } from "vee-validate";
-import model from "@/repositories/adapter";
-
 import * as yup from "yup";
-
-import useCollection from "@/composables/useCollection";
 import useTodo from "@/composables/useTodo";
 import useFormTodo from "@/composables/useFormTodo";
-import dbCollections from "@/repositories/db-collection";
 import exportCollection from "@/utils/export-collection";
+import { default as model } from "@/models/collection";
 
-const store = await model();
+const store = await model;
 const route = useRoute();
 const router = useRouter();
-const { collection, collections } = useCollection();
 
-collection.value = await store.find(route.params.id);
+// const { collection, collections } = useCollection();
+
+const collection = await store.find(route.params.id);
 
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
@@ -113,15 +110,10 @@ const handleDeleteCollection = async (id) => {
   if (question) {
     store.delete(id);
 
-    const index = collections.value.findIndex((coll) => coll.id === id);
-    if (index > 0) {
-      collections.value.splice(index, 1);
-    }
-
-    router.push("/");
-    return;
+    setTimeout(async () => {
+      await router.push("/");
+    }, 1000);
   }
-  return;
 };
 
 onMounted(async () => {

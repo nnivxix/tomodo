@@ -2,13 +2,9 @@
 import { onMounted, Suspense } from "vue";
 import useCollection from "@/composables/useCollection";
 
-const { getCollections } = useCollection();
+// const { getCollections } = useCollection();
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
-console.log({ supabaseUrl, supabaseKey });
-
-onMounted(async () => await getCollections());
+// onMounted(async () => await getCollections());
 </script>
 
 <template>

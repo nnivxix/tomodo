@@ -1,9 +1,11 @@
 <script setup>
 import { useRouter } from "vue-router";
+import { customAlphabet } from "nanoid";
 import { onMounted } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
 import useFormCollection from "@/composables/useFormCollection";
+import collection from "@/models/collection";
 
 const router = useRouter();
 const { addNewCollection, form, resetForm } = useFormCollection();
@@ -13,12 +15,19 @@ const schema = yup.object({
 });
 
 /** @param {import('@/types').Collection} values */
-const onSubmit = (values) => {
-  form.value = values;
-  // form.value.todos = [];
+const onSubmit = async (values) => {
+  const nanoid = customAlphabet("1234567890abcdef", 10);
 
-  const collection = addNewCollection();
-  router.push(`/collection/${collection.id}`);
+  const data = {
+    id: nanoid(),
+    ...values,
+  };
+
+  const response = await collection;
+  response.create(data);
+
+  // const collection = addNewCollection();
+  router.push(`/collection/${data.id}`);
 };
 
 onMounted(() => {

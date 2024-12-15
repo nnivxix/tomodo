@@ -4,6 +4,7 @@ import Create from "../pages/collection/create.vue";
 import Edit from "../pages/collection/edit.vue";
 import DetailCollection from "../pages/collection/id.vue";
 import ImportCollection from "@/pages/import.vue";
+import Settings from "@/pages/settings/index.vue";
 
 const routes = [
   { path: "/", component: Index },
@@ -18,6 +19,11 @@ const routes = [
     path: "/import",
     component: ImportCollection,
     name: "import-collection",
+  },
+  {
+    path: "/settings",
+    component: Settings,
+    name: "settings",
   },
 ];
 

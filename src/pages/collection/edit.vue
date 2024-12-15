@@ -4,7 +4,7 @@ import { onMounted, toRaw } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
 import useFormCollection from "@/composables/useFormCollection";
-import model from "@/repositories/adapter";
+import { default as model } from "@/models/collection";
 
 const router = useRouter();
 const route = useRoute();
@@ -15,15 +15,10 @@ const schema = yup.object({
   description: yup.string(),
 });
 const isEdit = route.fullPath.includes("edit");
-const store = await model();
+const store = await model;
 
 /** @param {import('@/types').Collection} values */
 const onSubmit = async (values) => {
-  form.value = {
-    ...values,
-    todos: toRaw(collection.value.todos),
-  };
-
   await store.update(route.params.id, {
     name: values.name,
     description: values.description,

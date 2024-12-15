@@ -1,6 +1,7 @@
 import { ref, toRaw, computed } from "vue";
+import { customAlphabet } from "nanoid";
 import dbCollection from "@/repositories/db-collection";
-import model from "@/repositories/adapter";
+import model from "@/models/collection";
 /**
  * @typedef {import('@/types').Collection} Collection
  * @typedef {import('vue').Ref<Collection>} CollectionRef
@@ -24,7 +25,7 @@ const collection = ref({
 
 /** @type {CollectionsRef} */
 const collections = ref([]);
-const store = await model();
+const store = await model;
 
 const useCollection = () => {
   /** @param {Collection} collection */

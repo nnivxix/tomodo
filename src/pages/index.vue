@@ -1,7 +1,8 @@
 <script setup>
-import useCollection from "@/composables/useCollection";
+import collection from "@/models/collection";
 
-const { collections } = useCollection();
+const model = await collection;
+const collections = await model.all();
 </script>
 <template>
   <main class="relative grid grid-cols-2 gap-2">
