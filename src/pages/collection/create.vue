@@ -15,7 +15,7 @@ const schema = yup.object({
 /** @param {import('@/types').Collection} values */
 const onSubmit = (values) => {
   form.value = values;
-  form.value.todos = [];
+  // form.value.todos = [];
 
   const collection = addNewCollection();
   router.push(`/collection/${collection.id}`);

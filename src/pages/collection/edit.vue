@@ -4,16 +4,18 @@ import { onMounted, toRaw } from "vue";
 import { Form } from "vee-validate";
 import * as yup from "yup";
 import useFormCollection from "@/composables/useFormCollection";
-import dbCollection from "@/repositories/db-collection";
+import model from "@/repositories/adapter";
 
 const router = useRouter();
 const route = useRoute();
-const { editCurrentCollection, form, collection } = useFormCollection();
+const { form, collection } = useFormCollection();
+
 const schema = yup.object({
   name: yup.string().required(),
   description: yup.string(),
 });
 const isEdit = route.fullPath.includes("edit");
+const store = await model();
 
 /** @param {import('@/types').Collection} values */
 const onSubmit = async (values) => {
@@ -21,20 +23,23 @@ const onSubmit = async (values) => {
     ...values,
     todos: toRaw(collection.value.todos),
   };
-  const updatedCollection = await editCurrentCollection();
 
-  router.push(`/collection/${updatedCollection.id}`);
+  await store.update(route.params.id, {
+    name: values.name,
+    description: values.description,
+  });
+
+  router.push(`/collection/${route.params.id}`);
 };
 
 onMounted(async () => {
+  collection.value = await store.find(route.params.id);
   if (isEdit) {
-    const dataCollection = await dbCollection.show(route.params.id);
-    collection.value = dataCollection;
-    if (!!dataCollection) {
+    if (!!collection.value) {
       form.value = {
-        name: dataCollection.name,
-        description: dataCollection.description,
-        todos: dataCollection.todos,
+        name: collection.value.name,
+        description: collection.value.description,
+        todos: collection.value.todos,
       };
       return;
     }

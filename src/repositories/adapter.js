@@ -1,9 +1,19 @@
-import indexedDB from "@/repositories/indexedDB";
+import indexedDB from "./indexedDB";
+import supabase from "./supabase";
 
+/**
+ *
+ * @param {'indexedDB' | 'supabase'} connection
+ * @returns
+ */
 const model = async (connection = "indexedDB") => {
   let store = null;
+
   if (connection === "indexedDB") {
     store = indexedDB;
+  }
+  if (connection === "supabase") {
+    store = supabase;
   }
 
   // Check if store is set
@@ -15,17 +25,17 @@ const model = async (connection = "indexedDB") => {
     all: async () => {
       return await store.index();
     },
-    find: (id) => {
-      return store.find(id);
+    find: (key) => {
+      return store.find(key);
     },
-    create: (collection) => {
-      store.create(collection);
+    create: (values) => {
+      store.create(values);
     },
-    update: async (id, collection) => {
-      await store.update(collection);
+    update: async (key, values) => {
+      await store.update(key, values);
     },
-    delete: (id) => {
-      store.delete(id);
+    delete: (key) => {
+      store.delete(key);
     },
   };
 };

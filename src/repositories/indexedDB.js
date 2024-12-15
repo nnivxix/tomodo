@@ -26,8 +26,10 @@ const indexedDB = {
    * @param {Collection} collection
    * @returns {Promise<Collection>}
    */
-  async update(collection) {
-    return (await dbPromise).put("collections", collection);
+  async update(key, collection) {
+    const values = { id: key, ...collection };
+    const db = await dbPromise;
+    db.put("collections", values);
   },
 
   /**

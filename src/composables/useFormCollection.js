@@ -33,7 +33,7 @@ const useFormCollection = () => {
   async function editCurrentCollection() {
     form.value.id = collection.value.id;
     const updatedCollection = updateCollection(form.value);
-    console.log(updatedCollection);
+
     return updatedCollection;
   }
   function addNewCollection() {
@@ -44,8 +44,10 @@ const useFormCollection = () => {
       id: nanoid(),
       name: form.value.name,
       description: form.value.description,
-      todos: [],
+      // todos: [],
     };
+
+    // Validation if collection more than 10 just throw error
 
     addCollection(collection);
     resetForm();

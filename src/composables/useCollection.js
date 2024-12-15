@@ -31,7 +31,7 @@ const useCollection = () => {
   const addCollection = (collection) => {
     collections.value.push(collection);
 
-    dbCollection.add(collection);
+    store.create(collection);
   };
   const getCollections = async () => {
     collections.value = await store.all();
@@ -41,8 +41,11 @@ const useCollection = () => {
    * @param {string} id
    * @returns {Collection}
    */
-  const getDetailCollection = (id) => {
-    return collections.value.find((collection) => collection.id == id);
+  const getDetailCollection = async (id) => {
+    const collection = (await model()).find(id);
+
+    return collection;
+    // return collections.value.find((collection) => collection.id == id);
   };
 
   /** @param {string} id */

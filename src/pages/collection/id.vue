@@ -2,6 +2,8 @@
 import { useRoute, useRouter } from "vue-router";
 import { ref, toRaw, onMounted } from "vue";
 import { useForm } from "vee-validate";
+import model from "@/repositories/adapter";
+
 import * as yup from "yup";
 
 import useCollection from "@/composables/useCollection";
@@ -10,9 +12,13 @@ import useFormTodo from "@/composables/useFormTodo";
 import dbCollections from "@/repositories/db-collection";
 import exportCollection from "@/utils/export-collection";
 
+const store = await model();
 const route = useRoute();
 const router = useRouter();
-const { deleteColllection, collection } = useCollection();
+const { collection, collections } = useCollection();
+
+collection.value = await store.find(route.params.id);
+
 const { addTodo, markTodo, editTodo, deleteTodo, doneTodos, todos } = useTodo();
 const { formTodo, isEditing, resetForm: resetFormTodo } = useFormTodo();
 const vFormTodo = useForm({
@@ -102,10 +108,16 @@ const handleMarkTodo = (index) => {
 };
 
 /** @param {string} id */
-const handleDeleteCollection = (id) => {
+const handleDeleteCollection = async (id) => {
   const question = confirm("Are you sure delete this collection?");
   if (question) {
-    deleteColllection(id);
+    store.delete(id);
+
+    const index = collections.value.findIndex((coll) => coll.id === id);
+    if (index > 0) {
+      collections.value.splice(index, 1);
+    }
+
     router.push("/");
     return;
   }
@@ -113,7 +125,6 @@ const handleDeleteCollection = (id) => {
 };
 
 onMounted(async () => {
-  collection.value = await dbCollections.show(route.params.id);
   resetFormTodo();
   vFormTodo.setValues({
     ...formTodo.value,
@@ -135,14 +146,14 @@ onMounted(async () => {
         {{ collection.description }}
       </p>
       <p v-else class="text-gray-500 pb-3">no description</p>
-      <ProgressBar
-        :totalTodos="todos.length"
-        :totalDoneTodos="doneTodos.length"
-      />
-      <p class="font-semibold">
-        You have {{ todos?.length }} / {{ doneTodos?.length }}
-        {{ todos.length > 1 ? "todos" : "todo" }}
-      </p>
+      <!-- <ProgressBar
+          :totalTodos="todos.length"
+          :totalDoneTodos="doneTodos.length"
+        /> -->
+      <!-- <p class="font-semibold">
+          You have {{ todos?.length }} / {{ doneTodos?.length }}
+          {{ todos.length > 1 ? "todos" : "todo" }}
+        </p> -->
     </div>
     <!-- Actions -->
     <div class="flex gap-3 col-span-full md:col-span-3 flex-wrap my-5">
@@ -172,15 +183,15 @@ onMounted(async () => {
     <div
       class="md:mb-0 order-last col-span-full md:col-span-3 overflow-y-scroll md:h-[70vh] h-[42vh] scroll-bar border p-3 rounded-md"
     >
-      <TodoItem
-        v-for="(todo, index) in todos"
-        :key="index"
-        :todo="todo"
-        :isSelected="selectedTodo.id === todo.id"
-        @handleMarkTodo="handleMarkTodo(index)"
-        @selectTodo="selectTodo(index)"
-        @deleteTodo="deleteTodo(index)"
-      />
+      <!-- <TodoItem
+          v-for="(todo, index) in todos"
+          :key="index"
+          :todo="todo"
+          :isSelected="selectedTodo.id === todo.id"
+          @handleMarkTodo="handleMarkTodo(index)"
+          @selectTodo="selectTodo(index)"
+          @deleteTodo="deleteTodo(index)"
+        /> -->
     </div>
     <FormTodo
       class="col-span-full md:col-start-4 md:row-start-1 md:row-end-4"

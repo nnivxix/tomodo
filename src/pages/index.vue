@@ -12,7 +12,8 @@ const { collections } = useCollection();
       class="hover:bg-[#032836] transform transition-all ease-in col-span-1 hover:text-white p-4 h-36 relative shadow-md rounded-md"
     >
       <h1 class="absolute bottom-3 left-5 text-xl">
-        {{ collection.name }} ({{ collection.todos.length }})
+        {{ collection.name }}
+        <!-- ({{ collection.todos.length }}) -->
       </h1>
     </router-link>
     <router-link
